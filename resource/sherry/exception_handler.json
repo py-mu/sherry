@@ -1,0 +1,140 @@
+{
+  "ZeroDivisionError": {
+    "description": "除零异常"
+  },
+  "RecursionError": {
+    "description": "超出最大递归深度"
+  },
+  "SystemExit": {
+    "description": "解释器请求退出"
+  },
+  "KeyboardInterrupt": {
+    "description": "用户中断执行"
+  },
+  "StopIteration": {
+    "description": "迭代器没有更多的值"
+  },
+  "GeneratorExit": {
+    "description": "生成器(generator)发生异常通知退出"
+  },
+  "ArithmeticError": {
+    "description": "数值计算错误"
+  },
+  "FloatingPointError": {
+    "description": "浮点数值计算错误"
+  },
+  "OverflowError": {
+    "description": "数值运算超出最大限制"
+  },
+  "AssertionError": {
+    "description": "断言语句失败"
+  },
+  "AttributeError": {
+    "description": "对象没有这个属性"
+  },
+  "EOFError": {
+    "description": "没有内建输入,到达EOF 标记"
+  },
+  "EnvironmentError": {
+    "description": "操作系统错误"
+  },
+  "IOError": {
+    "description": "输入/输出操作失败"
+  },
+  "OSError": {
+    "description": "操作系统错误"
+  },
+  "WindowsError": {
+    "description": "系统调用失败"
+  },
+  "ImportError": {
+    "description": "导入模块/对象失败"
+  },
+  "LookupError": {
+    "description": "无效数据查询"
+  },
+  "IndexError": {
+    "description": "序列中没有此索引(index)"
+  },
+  "KeyError": {
+    "description": "映射中没有这个键"
+  },
+  "MemoryError": {
+    "description": " 内存溢出错误"
+  },
+  "NameError": {
+    "description": "未声明/初始化对象"
+  },
+  "UnboundLocalError": {
+    "description": "访问未初始化的本地变量"
+  },
+  "ReferenceError": {
+    "description": "弱引用(Weak reference)试图访问已经垃圾回收了的对象"
+  },
+  "RuntimeError": {
+    "description": "运行时错误"
+  },
+  "NotImplementedError": {
+    "description": "调用未实现的方法"
+  },
+  "SyntaxError": {
+    "description": "python语法错误"
+  },
+  "IndentationError": {
+    "description": "python缩进错误"
+  },
+  "TabError": {
+    "description": "python缩进空格混用错误"
+  },
+  "SystemError": {
+    "description": "解释器系统错误"
+  },
+  "TypeError": {
+    "description": "类型无效"
+  },
+  "ValueError": {
+    "description": "值无效"
+  },
+  "FileNotFoundError": {
+    "description": "找不到路径"
+  },
+  "PermissionError": {
+    "description": "无操作权限"
+  },
+  "UnicodeError": {
+    "description": "Unicode编码异常"
+  },
+  "UnicodeDecodeError": {
+    "description": "Unicode解码异常"
+  },
+  "UnicodeEncodeError": {
+    "description": "Unicode编码异常"
+  },
+  "UnicodeTranslateError": {
+    "description": "Unicode编码转换异常"
+  },
+  "Warning": {
+    "description": "警告"
+  },
+  "DeprecationWarning": {
+    "description": "调用过时方法或者类"
+  },
+  "FutureWarning": {
+    "description": "关于构造将来语义会有改变的警告"
+  },
+  "OverflowWarning": {
+    "description": "关于自动提升为长整型(long)的警告"
+  },
+  "PendingDeprecationWarning": {
+    "description": "关于特性将会被废弃的警告"
+  },
+  "RuntimeWarning": {
+    "description": "可疑的运行时行为(runtime behavior)的警告"
+  },
+  "SyntaxWarning": {
+    "description": "可疑的语法的警告"
+  },
+  "UserWarning": {
+    "description": "用户代码生成的警告"
+  }
+}
