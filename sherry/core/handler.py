@@ -42,7 +42,7 @@ class ExOperational:
         self.title = title
 
 
-class ExCoreHandler:
+class ApplicationHandler:
     """
     异常拦截类
 
