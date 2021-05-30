@@ -22,7 +22,7 @@ from sherry.core.resource import ResourceLoader
 
 
 @dataclass
-class SherryApplication:
+class Application:
     """
     启动配置类
     设置了一部分对于 QApplication 的初始化或者是流程设定，方便启动及检测，
