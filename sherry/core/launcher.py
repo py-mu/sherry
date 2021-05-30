@@ -7,12 +7,15 @@
 """
 import ctypes
 import json
+import logging
 from dataclasses import dataclass, field
 from logging import Logger
+from typing import Type
 
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
+from sherry.common.logger import SherryLogger
 from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExCoreHandler, ExOperational
 from sherry.core.resource import ResourceLoader
@@ -38,13 +41,30 @@ class SherryApplication:
     activity: QWidget = field(default=QWidget())  # Note: 默认主页 default home page
     handler: ExCoreHandler = field(default=ExCoreHandler())  # Note: 拦截器 default exception handler
     unique: bool = field(default=False)  # Note: 唯一启动， only run
-    logger: Logger = None  # Note: 日志 logger
+    log_class: Type[Logger] = field(default=SherryLogger)  # Note: 日志 logger
 
     def __post_init__(self):
-        """默认初始化"""
+        """
+        默认初始化
+
+        @dataclass function default init.
+        """
         self.localServer = QLocalServer()
         self.socket = QLocalSocket()
         self.resource = ResourceLoader()
+        self.__set_logger(self.log_class)
+        self.refresh_ex_data()
+
+    def __set_logger(self, logger_class: Type[Logger]):
+        """
+        定义一个可以装载的自定义logger属性
+
+        Define a custom logger attribute that can be loaded.
+        """
+        logger_class.root_path = self.config.log_path
+        logger_class.app_name = self.config.app_name + ".log"
+        logging.root = logger_class(logger_class.app_name)
+        logging.setLoggerClass(logger_class)
 
     def refresh_ex_data(self, file_path: str = ''):
         """
@@ -77,7 +97,6 @@ class SherryApplication:
         self.config.app.exec_()
         self.shutdown()
 
-    #
     def shutdown(self):
         """
         关闭实例
@@ -86,3 +105,4 @@ class SherryApplication:
         """
         self.localServer.close()
         self.config.app.quit()
+        logging.shutdown()
