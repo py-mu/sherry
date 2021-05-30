@@ -7,21 +7,18 @@
 """
 import ctypes
 import json
-import sys
-from collections import namedtuple
+from dataclasses import dataclass, field
+from logging import Logger
 
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QWidget
 
 from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExCoreHandler, ExOperational
 
-# 放在py文件中，需要在窗口显示之前实例化
-# Need to be instantiated before the window is displayed
-app: QApplication = QApplication.instance() or QApplication(sys.argv)
 
-
-class Launcher:
+@dataclass
+class SherryApplication:
     """
     启动配置类
     设置了一部分对于 QApplication 的初始化或者是流程设定，方便启动及检测，
@@ -36,56 +33,16 @@ class Launcher:
     The main method is to manage the life cycle of windows, and at the same time add some automation related logic,
     It may be more abstract, but the advantage is that it can be realized.
     """
+    config: ApplicationConfig = field(default=ApplicationConfig())  # Note: 配置器 configurator
+    activity: QWidget = field(default=QWidget())  # Note: 默认主页 default home page
+    handler: ExCoreHandler = field(default=ExCoreHandler())  # Note: 拦截器 default exception handler
+    unique: bool = field(default=False)  # Note: 唯一启动， only run
+    logger: Logger = None  # Note: 日志 logger
 
-    class Base(type):
-
-        def __new__(mcs, name, bases, attrs, **kwargs):
-            return super().__new__(mcs, name, bases, attrs)
-
-
-    class Setting(dict, metaclass=Base):
-        __slots__ = ('activity', 'unique', 'config', 'except_handler')
-
-        def __init__(self, **kwargs):
-            super().__init__()
-            self.config = kwargs.get('config', ApplicationConfig())
-
-        config: ApplicationConfig  # Note: 配置类  Configuration
-        except_handler: ExCoreHandler  # Note: 异常拦截类  Exception Handler
-
-    setting: Setting
-
-    def __init__(self, **kwargs):
-        """
-        :type kwargs Launcher.Setting[str, object]
-
-        :param kwargs:
-        """
-        self.Setting()
-
-        self.setting = self.Setting(**kwargs)
-        self.load()
-        self.Setting()
-        a = namedtuple('te', ['name', 'sex', 'age'])
-
-        self.refresh_ex_data()
+    def __post_init__(self):
+        """默认初始化"""
         self.localServer = QLocalServer()
         self.socket = QLocalSocket()
-
-    def load(self):
-        """
-        装载跟设置默认参数
-        初始化时会查询对应的包目录下，通过反射装载对应的配置类或者拦截类
-
-        set and load default value
-        """
-        self.setting.setdefault('activity', None)
-        self.setting.setdefault('unique', True)
-        self.setting.setdefault('config', ApplicationConfig())
-        self.setting.setdefault('except_handler', ExCoreHandler())
-
-        self.config = self.setting.get('config')
-        self.except_handler = self.setting.get('except_handler')
 
     def refresh_ex_data(self, file_path: str = ''):
         """
@@ -94,7 +51,7 @@ class Launcher:
         read default config
         """
         with open(file_path or self.config.file_path('sherry/exception_handler.json'), encoding='utf-8') as f:
-            self.except_handler.update_map({k: ExOperational(**v) for k, v in json.load(f).items()})
+            self.handler.update_map({k: ExOperational(**v) for k, v in json.load(f).items()})
 
     def run(self):
         """
@@ -103,22 +60,26 @@ class Launcher:
         show your activity
         """
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.config.app_name)
-        activity: QWidget = self.setting.get('activity')
-        if not activity:
+        if not self.activity:
             raise ValueError('Activity is not load, did you install it ?')
-        if not isinstance(activity, QWidget):
+        if not isinstance(self.activity, QWidget):
             raise TypeError('The Activity is not valid Activity.')
-        if self.setting.get('unique'):
+        if self.unique:
             self.socket.connectToServer(self.config.app_name)
             if self.socket.waitForConnected(200):
                 # todo 添加提示
                 self.shutdown()
             self.localServer.listen(self.config.app_name)
-        activity.show()
-        app.exec_()
+        self.activity.show()
+        self.config.app.exec_()
         self.shutdown()
 
+    #
     def shutdown(self):
-        """关闭实例"""
+        """
+        关闭实例
+
+        shutdown application
+        """
         self.localServer.close()
-        app.quit()
+        self.config.app.quit()

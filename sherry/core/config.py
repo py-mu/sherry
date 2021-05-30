@@ -16,13 +16,55 @@ __package_path__ = os.path.abspath(os.path.join(__package_path__, os.path.pardir
 
 __project_path__ = os.getcwd()  # Note: 项目路径(project path)
 
+import sys
+import threading
 
-class PathConfiguration:
+from dataclasses import dataclass, field
+from typing import List, TypeVar
+
+from PyQt5.QtWidgets import QApplication
+
+T = TypeVar('T')
+
+
+class BaseConfiguration:
     """
     内部路径配置类
 
     The default path configuration of the Sherry.
     """
+    _instance_lock = threading.Lock()  # Note: 单例锁(instance lock)
+
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, 'instance_dict'):
+            BaseConfiguration.instance_dict = {}
+
+        if str(cls) not in BaseConfiguration.instance_dict.keys():
+            with BaseConfiguration._instance_lock:
+                _instance = object.__new__(cls)
+                BaseConfiguration.instance_dict[str(cls)] = _instance
+
+        return BaseConfiguration.instance_dict[str(cls)]
+
+    @classmethod
+    def instance(cls):
+        """
+        获取其子类的单例返回, 需要通过此类获取实例化的对象，否则会创建一个新的实例。
+
+        To get the singleton return of its subclass,
+        you need to get the instantiated object through this class, otherwise a new instance will be created.
+        """
+        subclasses: List[type(cls)] = cls.__subclasses__()
+        subclass: cls = cls._instance()
+        if subclasses:
+            _class_ = cls.__subclasses__()[-1]
+            subclass = getattr(_class_, '_instance')()
+        return subclass
+
+    @classmethod
+    def _instance(cls: T):
+        """对类进行实例化，不会重复运行init方法"""
+        return cls.__new__(cls)
 
     @classmethod
     def path_exists(cls, path: str) -> bool:
@@ -169,22 +211,27 @@ class PathConfiguration:
         """
         return os.path.expanduser('~')
 
-
-class ApplicationConfig(PathConfiguration):
-    """
-    属性项
-
-    Project configuration class.
-    """
-    app_version = '1.0.0'  # Note: 项目版本(project version)
-    app_name = 'Sherry'  # Note: 项目名称(project name)
-
     def file_path(self, file_name) -> str:
         """
         读取json文件, 如果工程中不存在则访问包路径的文件
+
          read json file from  package or project
         """
         path = self.link(self.project_resource_path, file_name)
         if not self.path_exists(path):
             path = self.link(self.package_resource_path, file_name)
         return path
+
+
+@dataclass(eq=False, repr=False)
+class ApplicationConfig(BaseConfiguration):
+    """
+    属性项
+
+    Project configuration class.
+    """
+
+    app: QApplication = field(default=QApplication.instance() or QApplication(sys.argv), repr=False)  # Note: 全局QT实例
+    app_version: str = '1.0.0'  # Note: 项目版本(project version)
+    app_name: str = 'Sherry'  # Note: 项目名称(project name)
+    app_author: str = '黄大胆'  # Note: 作者(project author)
