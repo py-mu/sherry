@@ -4,18 +4,26 @@
     on 2021/5/30
     at 0:11
 """
-from typing import Union
+from dataclasses import field
+from typing import Union, Optional
 
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter, QColor, QGradient
 from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
 
+from sherry.core.resource import ResourceLoader
+
 
 class BaseView(QWidget):
     """
     application base view.
     """
+    resource: ResourceLoader = field(init=False)
+
+    def __init__(self, parent: Optional[QWidget] = None, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+        self.resource = ResourceLoader()
 
     def set_signal(self) -> None:
         """

@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
+from sherry.common.utils.string import format_style_file
 from sherry.core.config import ApplicationConfig
 
 
@@ -32,6 +33,7 @@ class ResourceLoader:
 
     def __post_init__(self):
         self.config: ApplicationConfig = ApplicationConfig.instance()
+
         self.font_10 = self.font(10)
         self.font_11 = self.font(11)
         self.font_14 = self.font(14)
@@ -113,3 +115,25 @@ class ResourceLoader:
         :param font_str 图标标识 如：'fa5.file-excel'
         """
         return qtawesome.icon(font_str, color=color)
+
+    def qss(self, *css_name: str) -> str:
+        """
+        获取qss文件夹下的样式加载到容器中,
+        样式优先级是由调用先后决定，
+        即 先使用表[程序声明] < 后使用
+
+        :param css_name: css 文件名, 可以是多个的
+        :return: str 样式字符串
+        """
+        style_str = ""
+        for file_name in css_name:
+            path = self.config.link(self.config.project_qss_path, file_name)
+            if not self.config.path_exists(path):
+                path = self.config.link(self.config.package_qss_path, file_name)
+            try:
+                with open(path, encoding="utf-8") as f:
+                    style_str += format_style_file(f.read(), self.config.package_resource_path)
+            except FileNotFoundError:
+                path = self.config.link(self.config.project_qss_path, file_name)
+                raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
+        return style_str

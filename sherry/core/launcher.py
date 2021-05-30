@@ -15,6 +15,7 @@ from PyQt5.QtWidgets import QWidget
 
 from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExCoreHandler, ExOperational
+from sherry.core.resource import ResourceLoader
 
 
 @dataclass
@@ -43,6 +44,7 @@ class SherryApplication:
         """默认初始化"""
         self.localServer = QLocalServer()
         self.socket = QLocalSocket()
+        self.resource = ResourceLoader()
 
     def refresh_ex_data(self, file_path: str = ''):
         """
@@ -59,6 +61,7 @@ class SherryApplication:
 
         show your activity
         """
+        self.config.app.setStyleSheet(self.resource.qss("common.css"))
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.config.app_name)
         if not self.activity:
             raise ValueError('Activity is not load, did you install it ?')
