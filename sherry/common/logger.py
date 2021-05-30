@@ -13,18 +13,18 @@ from types import TracebackType
 from typing import Any, Optional, Dict, Union
 
 
-class SherryLogger(logging.Logger):
+class ApplicationLogger(logging.Logger):
     root_path = ''
     app_name = 'sherry'
 
     def __init__(self, name: str = None):
-        name = name or SherryLogger.app_name
+        name = name or ApplicationLogger.app_name
         super().__init__(name)
         self.level = logging.DEBUG
         self.set_handler()
 
     def set_handler(self):
-        handler = RotatingFileHandler(filename=os.path.join(SherryLogger.root_path, self.name),
+        handler = RotatingFileHandler(filename=os.path.join(ApplicationLogger.root_path, self.name),
                                       maxBytes=20 * 1024 * 1024,
                                       backupCount=5, encoding='utf-8')
         handler.setLevel(logging.DEBUG)

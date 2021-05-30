@@ -15,7 +15,7 @@ from typing import Type
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
-from sherry.common.logger import SherryLogger
+from sherry.common.logger import ApplicationLogger
 from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExCoreHandler, ExOperational
 from sherry.core.resource import ResourceLoader
@@ -41,7 +41,7 @@ class Application:
     activity: QWidget = field(default=QWidget())  # Note: 默认主页 default home page
     handler: ExCoreHandler = field(default=ExCoreHandler())  # Note: 拦截器 default exception handler
     unique: bool = field(default=False)  # Note: 唯一启动， only run
-    log_class: Type[Logger] = field(default=SherryLogger)  # Note: 日志 logger
+    log_class: Type[Logger] = field(default=ApplicationLogger)  # Note: 日志 logger
 
     def __post_init__(self):
         """
