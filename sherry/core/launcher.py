@@ -9,7 +9,6 @@ import ctypes
 import json
 import logging
 from dataclasses import dataclass, field
-from logging import Logger
 from typing import Type
 
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
@@ -41,7 +40,7 @@ class Application:
     activity: QWidget = field(default=QWidget())  # Note: 默认主页 default home page
     handler: ApplicationHandler = field(default=ApplicationHandler())  # Note: 拦截器 default exception handler
     unique: bool = field(default=False)  # Note: 唯一启动， only run
-    log_class: Type[Logger] = field(default=ApplicationLogger)  # Note: 日志 logger
+    log_class: Type[ApplicationLogger] = field(default=ApplicationLogger)  # Note: 日志 logger
 
     def __post_init__(self):
         """
@@ -54,8 +53,9 @@ class Application:
         self.resource = ResourceLoader()
         self.__set_logger(self.log_class)
         self.refresh_ex_data()
+        self.logger = logging.getLogger()
 
-    def __set_logger(self, logger_class: Type[Logger]):
+    def __set_logger(self, logger_class: Type[ApplicationLogger]):
         """
         定义一个可以装载的自定义logger属性
 
@@ -81,6 +81,7 @@ class Application:
 
         show your activity
         """
+        self.logger.info('启动应用{}'.format(self.config.app_name))
         self.config.app.setStyleSheet(self.resource.qss("common.css"))
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.config.app_name)
         if not self.activity:
@@ -103,6 +104,7 @@ class Application:
 
         shutdown application
         """
+        self.logger.info('关闭应用{}'.format(self.config.app_name))
         self.localServer.close()
         self.config.app.quit()
         logging.shutdown()

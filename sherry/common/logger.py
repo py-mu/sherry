@@ -21,10 +21,11 @@ class ApplicationLogger(logging.Logger):
         name = name or ApplicationLogger.app_name
         super().__init__(name)
         self.level = logging.DEBUG
-        self.set_handler()
+        self.set_handler(name)
 
-    def set_handler(self):
-        handler = RotatingFileHandler(filename=os.path.join(ApplicationLogger.root_path, self.name),
+    def set_handler(self, name):
+        file_path = os.path.join(self.root_path, name)
+        handler = RotatingFileHandler(filename=file_path,
                                       maxBytes=20 * 1024 * 1024,
                                       backupCount=5, encoding='utf-8')
         handler.setLevel(logging.DEBUG)
