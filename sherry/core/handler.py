@@ -7,7 +7,6 @@
 import logging
 import sys
 import traceback
-from typing import Callable
 
 
 class ExOperational:
@@ -15,16 +14,16 @@ class ExOperational:
 
     title = "程序异常"  # Note: 标题， title
     description = "未知异常, "  # Note: 异常描述, Exception description
-    callback: Callable = None  # Note: 回调，callback
-    log_level: int = logging.ERROR  # Note: 日志等级, logging level
+    callback = None  # Note: 回调，callback
+    log_level = logging.ERROR  # Note: 日志等级, logging level
     log_it = True  # Note: 是否记录日志，默认记录, Whether to record the log, the default record
 
-    exc_type: type  # Note: 触发的异常类型，Type of exception triggered
-    exc_value: BaseException  # Note: 异常类， Exception class
-    tb: traceback  # Note: 栈回溯，Stack traceback
+    exc_type = None  # Note: 触发的异常类型，Type of exception triggered
+    exc_value = None  # Note: 异常类， Exception class
+    tb = None  # Note: 栈回溯，Stack traceback
 
-    def __init__(self, description: str = "未知异常", title: str = "程序异常", callback: Callable = None,
-                 log_level: int = logging.ERROR, log_it: bool = True):
+    def __init__(self, description="未知异常", title="程序异常", callback=None,
+                 log_level=logging.ERROR, log_it=True):
         """
         初始化有一个异常操作类型,在异常触发时调用
         Initialization has an exception operation type, which is called when the exception is triggered
@@ -42,7 +41,7 @@ class ExOperational:
         self.title = title
 
 
-class ApplicationHandler:
+class ExceptHookHandler:
     """
     异常拦截类
 
@@ -56,11 +55,10 @@ class ApplicationHandler:
             - logger：日志 Log
             - exception：异常回溯 Exception traceback
         """
-        self.logger = logging.Logger('system_error')
         # noinspection SpellCheckingInspection
-        sys.excepthook = self.exception
+        sys.excepthook = self.__exception
 
-    def update_map(self, d: dict):
+    def update_map(self, d):
         """
         更新异常映射
         update exception mapping
@@ -68,7 +66,7 @@ class ApplicationHandler:
         self.ex_map.update(d)
 
     @staticmethod
-    def log(exc_type: type, exc_value: BaseException, tb: traceback):
+    def log(exc_type, exc_value, tb):
         msg = ' Traceback (most recent call last):\n'
         while tb:
             filename = tb.tb_frame.f_code.co_filename
@@ -79,7 +77,7 @@ class ApplicationHandler:
         msg += ' %s: %s\n' % (exc_type.__name__, exc_value)
         return msg
 
-    def exception(self, exc_type: type, exc_value: BaseException, tb: traceback):
+    def __exception(self, exc_type, exc_value, tb):
         """
         分为两个部分：part of this：
             - 日志记录：写到日志文件中， log record
@@ -91,16 +89,15 @@ class ApplicationHandler:
         op = self.ex_map.get(exc_type.__name__, ExOperational())
         if op.log_it:
             msg = self.log(exc_type, exc_value, tb)
-            self.logger.log(op.log_level, f"{msg}")
-        if not op.callback:
-            return
+            logging.getLogger().log(op.log_level, f"{msg}")
         try:
-            op.exc_value = exc_value
-            op.exc_type = exc_type
-            op.tb = tb
-            op.callback(op)
+            if op.callback:
+                op.exc_value = exc_value
+                op.exc_type = exc_type
+                op.tb = tb
+                op.callback(op)
         except Exception as e:
             traceback_rollback = traceback.format_exc()
             traceback_rollback = f"{str(e)}" if str(
                 traceback_rollback) == "NoneType: None\n" else traceback_rollback
-            self.logger.error(traceback_rollback)
+            logging.getLogger().error(traceback_rollback)

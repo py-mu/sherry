@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import QWidget
 
 from sherry.common.logger import ApplicationLogger
 from sherry.core.config import ApplicationConfig
-from sherry.core.handler import ApplicationHandler, ExOperational
+from sherry.core.handler import ExceptHookHandler, ExOperational
 from sherry.core.resource import ResourceLoader
 
 
@@ -38,7 +38,7 @@ class Application:
     """
     config: ApplicationConfig = field(default=ApplicationConfig())  # Note: 配置器 configurator
     activity: QWidget = field(default=QWidget())  # Note: 默认主页 default home page
-    handler: ApplicationHandler = field(default=ApplicationHandler())  # Note: 拦截器 default exception handler
+    handler: ExceptHookHandler = field(default=ExceptHookHandler())  # Note: 拦截器 default exception handler
     unique: bool = field(default=False)  # Note: 唯一启动， only run
     log_class: Type[ApplicationLogger] = field(default=ApplicationLogger)  # Note: 日志 logger
 

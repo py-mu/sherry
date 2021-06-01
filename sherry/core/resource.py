@@ -11,6 +11,7 @@ from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
 from sherry.common.utils.string import format_style_file
 from sherry.core.config import ApplicationConfig
+from sherry.core.qss import Qss
 
 
 @dataclass(repr=False)
@@ -31,6 +32,8 @@ class ResourceLoader:
     project_icon: QIcon = field(init=False)
     project_png: QIcon = field(init=False)
 
+    style = None
+
     def __post_init__(self):
         self.config: ApplicationConfig = ApplicationConfig.instance()
 
@@ -39,6 +42,8 @@ class ResourceLoader:
         self.font_14 = self.font(14)
         self.font_16 = self.font(16)
         self.font_17 = self.font(17)
+
+        self.style = type('QSS', (Qss, ApplicationConfig), {})
 
         self.project_icon = self.icon('icon.ico')
         self.project_png = self.icon('icon.png')

@@ -4,12 +4,9 @@
     on 2021/5/30
     at 0:11
 """
-from dataclasses import field
-from typing import Union, Optional
 
-from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter, QColor, QGradient
+from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
 
 from sherry.core.resource import ResourceLoader
@@ -19,13 +16,12 @@ class BaseView(QWidget):
     """
     application base view.
     """
-    resource: ResourceLoader = field(init=False)
 
-    def __init__(self, parent: Optional[QWidget] = None, *args, **kwargs):
-        super().__init__(parent, *args, **kwargs)
+    def __init__(self, master=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
         self.resource = ResourceLoader()
 
-    def set_signal(self) -> None:
+    def set_signal(self):
         """
         信号设置, 信号放在此处定义，方便管理哦，如此在后期调试就不用在各处翻找事件及信号
 
@@ -35,7 +31,7 @@ class BaseView(QWidget):
         """
         ...
 
-    def configure(self) -> None:
+    def configure(self):
         """
         属性配置，同上统一配置方便管理
 
@@ -43,7 +39,7 @@ class BaseView(QWidget):
         """
         ...
 
-    def procedure(self) -> None:
+    def procedure(self):
         """
         初始化流程, 比如setUi、place、configure、set_signal等，
         注意先后顺序，place放置结束之后、进行页面配置（样式、属性等）、连接信号。
@@ -56,7 +52,7 @@ class BaseView(QWidget):
         self.configure()
         self.set_signal()
 
-    def place(self) -> None:
+    def place(self):
         """
         页面微布局,并不是所有的页面都是由Qt designer 设计而来的
         还有部分组件需要加载到页面，约定在这里编写，方便管理哦
@@ -70,7 +66,7 @@ class BaseView(QWidget):
     def get_effect_shadow(self,
                           offset=(0, 0),
                           radius=10,
-                          color: Union[QColor, Qt.GlobalColor, QGradient] = Qt.darkGray) -> QGraphicsDropShadowEffect:
+                          color=Qt.darkGray):
         """
         获取一个默认的阴影对象
 
@@ -87,7 +83,7 @@ class BaseView(QWidget):
         return effect_shadow
 
     @staticmethod
-    def set_widget_shadow(shadow: QGraphicsDropShadowEffect, widget: QWidget):
+    def set_widget_shadow(shadow, widget):
         """
         给控件设置阴影
 
@@ -107,10 +103,10 @@ class BaseView(QWidget):
         opt = QStyleOption()
         opt.initFrom(self)
         self.style().drawPrimitive(QStyle.PE_Widget, opt, QPainter(self), self)
-        super(BaseView, self).paintEvent(event)
+        super().paintEvent(event)
 
-    def showEvent(self, event: QtGui.QShowEvent) -> None:
+    def showEvent(self, event):
         """解决最小化之后页面假死问题，此处参阅：https://blog.csdn.net/qq_40194498/article/details/109511055"""
         if not self.isMinimized():
             self.setAttribute(Qt.WA_Mapped)
-        super(BaseView, self).showEvent(event)
+        super().showEvent(event)

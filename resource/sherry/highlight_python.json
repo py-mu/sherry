@@ -1,0 +1,182 @@
+{
+  "font": {
+    "size": 14,
+    "family": "Consolas"
+  },
+  "color": {
+    "normal": "#808080",
+    "keyword": "#8B0000",
+    "builtin": "#8888c6",
+    "constant": "#9876aa",
+    "decorator": "#00008B",
+    "comment": "#006400",
+    "string": "#006400",
+    "number": "#6879bb",
+    "error": "#8B0000"
+  },
+  "rules": [
+    {
+      "name": "error",
+      "regex": [],
+      "key": [],
+      "color": "#8B0000"
+    },
+    {
+      "name": "number",
+      "regex": [
+        "\\b[+-]?[0-9]+[lL]?\\b|\\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\\b|\\b[+-]?[0-9]+(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\\b"
+      ],
+      "key": [],
+      "color": "#6879bb"
+    },
+    {
+      "name": "comment",
+      "regex": [],
+      "key": [],
+      "color": "#006400"
+    },
+    {
+      "name": "decorator",
+      "regex": [
+        "\\b@\\w+\\b"
+      ],
+      "key": [],
+      "color": "#00008B"
+    },
+    {
+      "name": "constant",
+      "regex": [],
+      "key": [
+        "False",
+        "True",
+        "None",
+        "NotImplemented",
+        "Ellipsis"
+      ],
+      "color": "#9876aa"
+    },
+    {
+      "name": "builtin",
+      "regex": [],
+      "key": [
+        "abs",
+        "all",
+        "any",
+        "basestring",
+        "bool",
+        "callable",
+        "chr",
+        "classmethod",
+        "cmp",
+        "compile",
+        "complex",
+        "delattr",
+        "dict",
+        "dir",
+        "divmod",
+        "enumerate",
+        "eval",
+        "execfile",
+        "exit",
+        "file",
+        "filter",
+        "float",
+        "frozenset",
+        "getattr",
+        "globals",
+        "hasattr",
+        "hex",
+        "id",
+        "int",
+        "isinstance",
+        "issubclass",
+        "iter",
+        "len",
+        "list",
+        "locals",
+        "map",
+        "max",
+        "min",
+        "object",
+        "oct",
+        "open",
+        "ord",
+        "pow",
+        "property",
+        "range",
+        "reduce",
+        "repr",
+        "reversed",
+        "round",
+        "set",
+        "setattr",
+        "slice",
+        "sorted",
+        "staticmethod",
+        "str",
+        "sum",
+        "super",
+        "tuple",
+        "type",
+        "vars",
+        "zip",
+        "in"
+      ],
+      "color": "#8888c6"
+    },
+    {
+      "name": "keyword",
+      "regex": [],
+      "key": [
+        "and",
+        "as",
+        "assert",
+        "break",
+        "class",
+        "continue",
+        "def",
+        "del",
+        "elif",
+        "else",
+        "except",
+        "exec",
+        "finally",
+        "for",
+        "from",
+        "global",
+        "if",
+        "import",
+        "in",
+        "is",
+        "lambda",
+        "not",
+        "or",
+        "pass",
+        "print",
+        "raise",
+        "return",
+        "try",
+        "while",
+        "with",
+        "yield"
+      ],
+      "color": "#8888c6"
+    },
+    {
+      "name": "string",
+      "regex": [
+        "(?:'[^']*'|\"[^\"]*\")"
+      ],
+      "key": [],
+      "color": "#006400"
+    },
+    {
+      "name": "normal",
+      "regex": [
+        "*"
+      ],
+      "key": [],
+      "color": "#808080"
+    }
+  ]
+}

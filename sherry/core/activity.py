@@ -4,10 +4,8 @@
     on 2021/5/30
     at 0:11
 """
-from typing import Tuple, Optional
 
-from PyQt5.QtCore import Qt, QPoint
-from PyQt5.QtGui import QMouseEvent, QKeyEvent
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
 from sherry.core.config import ApplicationConfig
@@ -18,10 +16,10 @@ class BaseActivity(QDialog, BaseView):
     """
     默认的窗口级组件
     """
-    parent: QWidget = None
+    parent = None
 
-    def __init__(self, parent: Optional[QWidget] = None, *args, **kwargs):
-        super().__init__(parent, *args, **kwargs)
+    def __init__(self, master=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
         # 此配置器是经过实例化后的子类，理论上在launcher装载后就会被全局共享
         # 所以此处获取到的即是你实例化后的子类
         # This configurator is a subclass after instantiation,
@@ -29,13 +27,13 @@ class BaseActivity(QDialog, BaseView):
         # So what you get here is the subclass you instantiated
         self.config = ApplicationConfig.instance()
 
-    def configure(self) -> None:
+    def configure(self):
         self.resize(1047, 680)
         self.setMouseTracking(True)
         self.setWindowIcon(self.resource.project_png)
         self.setWindowTitle(self.config.app_name)
 
-    def keyPressEvent(self, event: QKeyEvent):
+    def keyPressEvent(self, event):
         """
         键盘监听事件, 取消按 ESC 退出
 
@@ -56,10 +54,10 @@ class FrameLessWindowHintActivity(BaseActivity):
     FrameLessWindowHintActivity.
     """
 
-    body_widget: QWidget = None  # Note: 页面上的主要容器，控件应该放在这个里面
-    body_layout: QHBoxLayout = None
-    bar: BaseView = None  # 顶部标题栏
-    border_width: int = 5  # 窗口拉伸边界
+    body_widget = None  # Note: 页面上的主要容器，控件应该放在这个里面
+    body_layout = None
+    bar = None  # 顶部标题栏
+    border_width = 5  # 窗口拉伸边界
 
     class EventFlags:
         """
@@ -94,14 +92,14 @@ class FrameLessWindowHintActivity(BaseActivity):
         event_switch_border_bottom_left = False
         event_switch_border_bottom_right = True
 
-        event_position_mouse: QPoint = None
+        event_position_mouse = None
 
-    def __init__(self, parent: Optional[QWidget] = None, *args, **kwargs):
-        super().__init__(parent, *args, **kwargs)
+    def __init__(self, master=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
         self.event_flags = self.EventFlags()
         self.procedure()
 
-    def configure(self) -> None:
+    def configure(self):
         super(FrameLessWindowHintActivity, self).configure()
         self.setObjectName("main_window")
         self.setAttribute(Qt.WA_TranslucentBackground)
@@ -110,7 +108,7 @@ class FrameLessWindowHintActivity(BaseActivity):
             self.set_default_window_shadow()
             self.body_widget.setMouseTracking(True)
 
-    def place(self) -> None:
+    def place(self):
         super(FrameLessWindowHintActivity, self).place()
         if not self.body_widget:
             main_layout = QHBoxLayout(self)
@@ -122,7 +120,7 @@ class FrameLessWindowHintActivity(BaseActivity):
         """设置默认阴影"""
         self.set_widget_shadow(self.get_effect_shadow(), self.body_widget)
 
-    def event_flag(self, event: QMouseEvent) -> Tuple[bool, bool, bool, bool]:
+    def event_flag(self, event):
         """判断鼠标是否移动到边界"""
         top = self.border_width < event.pos().y() < self.border_width + 10
         bottom = self.border_width + self.body_widget.height() < event.pos().y() < self.height()
@@ -130,7 +128,7 @@ class FrameLessWindowHintActivity(BaseActivity):
         right = self.border_width + self.body_widget.width() < event.pos().x() < self.width()
         return top, bottom, left, right
 
-    def mousePressEvent(self, event: QMouseEvent) -> None:
+    def mousePressEvent(self, event):
         """重构鼠标点击事件"""
         if not self.body_widget:
             return super(FrameLessWindowHintActivity, self).mousePressEvent(event)
@@ -161,7 +159,7 @@ class FrameLessWindowHintActivity(BaseActivity):
                 self.event_flags.event_position_mouse = event.globalPos() - self.pos()
         return super(FrameLessWindowHintActivity, self).mousePressEvent(event)
 
-    def mouseMoveEvent(self, event: QMouseEvent) -> None:
+    def mouseMoveEvent(self, event):
         """鼠标移动事件"""
         super(FrameLessWindowHintActivity, self).mouseMoveEvent(event)
         if self.body_widget:
@@ -211,7 +209,7 @@ class FrameLessWindowHintActivity(BaseActivity):
                 self.setGeometry(self.geometry().x(), self.geometry().y() + event.pos().y(),
                                  self.width(), self.height() - event.pos().y())
 
-    def mouseReleaseEvent(self, event: QMouseEvent) -> None:
+    def mouseReleaseEvent(self, event):
         """鼠标释放事件"""
         super(FrameLessWindowHintActivity, self).mouseReleaseEvent(event)
         self.event_flags.event_flag_bar_move = False
