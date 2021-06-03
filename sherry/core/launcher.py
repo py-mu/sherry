@@ -8,7 +8,7 @@
 import ctypes
 import json
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Type
 
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
@@ -36,18 +36,19 @@ class Application:
     The main method is to manage the life cycle of windows, and at the same time add some automation related logic,
     It may be more abstract, but the advantage is that it can be realized.
     """
-    config: ApplicationConfig = field(default=ApplicationConfig())  # Note: 配置器 configurator
-    activity: QWidget = field(default=QWidget())  # Note: 默认主页 default home page
-    handler: ExceptHookHandler = field(default=ExceptHookHandler())  # Note: 拦截器 default exception handler
-    unique: bool = field(default=False)  # Note: 唯一启动， only run
-    log_class: Type[ApplicationLogger] = field(default=ApplicationLogger)  # Note: 日志 logger
 
-    def __post_init__(self):
-        """
-        默认初始化
-
-        @dataclass function default init.
-        """
+    def __init__(self,
+                 config=None,
+                 activity=None,
+                 handler=None,
+                 log_class=None,
+                 unique=False
+                 ):
+        self.config = config or ApplicationConfig()
+        self.activity = activity or QWidget()
+        self.handler = handler or ExceptHookHandler()
+        self.log_class = log_class or ApplicationLogger
+        self.unique = unique
         self.localServer = QLocalServer()
         self.socket = QLocalSocket()
         self.resource = ResourceLoader()

@@ -8,6 +8,8 @@ import logging
 import sys
 import traceback
 
+from sherry.view.activity.activity_dialog_normal import NormalDialogActivity
+
 
 class ExOperational:
     """异常操作类型"""
@@ -26,7 +28,8 @@ class ExOperational:
                  log_level=logging.ERROR, log_it=True):
         """
         初始化有一个异常操作类型,在异常触发时调用
-        Initialization has an exception operation type, which is called when the exception is triggered
+        Initialization has an exception operation type,
+        which is called when the exception is triggered
 
         :param description: 异常描述 Exception description
         :param title: 标题 dialog title
@@ -101,3 +104,7 @@ class ExceptHookHandler:
             traceback_rollback = f"{str(e)}" if str(
                 traceback_rollback) == "NoneType: None\n" else traceback_rollback
             logging.getLogger().error(traceback_rollback)
+
+        dialog = NormalDialogActivity(title=op.title, info=op.description)
+        dialog.setWindowTitle(op.title)
+        dialog.exec()

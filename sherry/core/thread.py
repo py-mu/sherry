@@ -4,18 +4,21 @@
     on 2021/5/30
     at 16:27
 """
+import logging
 import uuid
-from dataclasses import dataclass
-from typing import Callable
 
 from PyQt5.QtCore import QThread, pyqtSignal
 
 
-@dataclass
 class Response:
     code = 0
     task_id = None
     data = None
+
+    def __init__(self, code=0, task_id='', data=None):
+        self.code = code
+        self.task_id = task_id or uuid.uuid4().hex
+        self.data = data
 
 
 class Worker(QThread):
@@ -38,7 +41,7 @@ class Worker(QThread):
     # 终止信号
     __end = pyqtSignal(Response)
     # 是否在运行
-    __is_working: bool = False
+    __is_working = False
 
     @property
     def success(self):
@@ -56,7 +59,7 @@ class Worker(QThread):
     def running(self):
         return self.__is_working
 
-    def strike(self, response: Response = None):
+    def strike(self, response=None):
         """
         手动激发
         :param response:
@@ -76,18 +79,18 @@ class Worker(QThread):
         # noinspection PyUnresolvedReferences
         self.error.connect(lambda: None)
 
-    def set_func(self, func: Callable, task_id=None, *args, **kwargs):
+    def set_func(self, func, task_id=None, *args, **kwargs):
         self.func_args = list(args)
         self.func_kwargs = kwargs
         self.func = func
         self._id = task_id
-        # self.logger.info("设置线程 func={}  arg={}  kwargs={}".format(func.__name__, args, kwargs))
+        logging.getLogger().info("设置线程 func={}  arg={}  kwargs={}".format(func.__name__, args, kwargs))
 
-    def kill(self) -> None:
+    def kill(self):
         self.__is_working = False
         self.terminate()
 
-    def run(self) -> None:
+    def run(self):
         self.__is_working = True
         response = Response()
         response.task_id = self._id
@@ -102,10 +105,10 @@ class Worker(QThread):
             response.data = e
             # noinspection PyUnresolvedReferences
             self.error.emit(response)
-            # self.logger.error("执行失败 func={}  arg={}  kwargs={}, error={}".format(self.func.__name__,
-            #                                                                      self.func_args,
-            #                                                                      self.func_kwargs,
-            #                                                                      e))
+            logging.getLogger().error("执行失败 func={}  arg={}  kwargs={}, error={}".format(self.func.__name__,
+                                                                                         self.func_args,
+                                                                                         self.func_kwargs,
+                                                                                         e))
         finally:
             # noinspection PyUnresolvedReferences
             self.end.emit(response)

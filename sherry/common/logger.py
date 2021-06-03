@@ -9,8 +9,6 @@ import logging
 import os
 import traceback
 from logging.handlers import RotatingFileHandler
-from types import TracebackType
-from typing import Any, Optional, Dict, Union
 
 
 class ApplicationLogger(logging.Logger):
@@ -35,11 +33,10 @@ class ApplicationLogger(logging.Logger):
         )
         self.addHandler(handler)
 
-    def error(self, msg: Any, *args: Any, exc_info: Union[None, bool, TracebackType, BaseException] = ...,
-              stack_info: bool = ..., level: int = ..., extra: Optional[Dict[str, Any]] = ...,
-              **kwargs: Any) -> None:
+    def error(self, msg, *args, exc_info=None, stack_info=None, level=None, extra=None, **kwargs):
         if self.isEnabledFor(logging.ERROR):
             traceback_rollback = traceback.format_exc()
-            traceback_rollback = (" 无可视异常栈：" + str(exc_info)) if str(traceback_rollback) == f"NoneType: None\n" else traceback_rollback
+            traceback_rollback = (" 无可视异常栈：" + str(exc_info)) if str(
+                traceback_rollback) == f"NoneType: None\n" else traceback_rollback
             msg = str(msg) + traceback_rollback
             self._log(logging.ERROR, msg, args, **kwargs)

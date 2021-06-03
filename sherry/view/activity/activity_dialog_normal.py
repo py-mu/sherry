@@ -8,16 +8,17 @@
 from PyQt5.QtWidgets import QHBoxLayout, QWidget
 
 from sherry.core.activity import FrameLessWindowHintActivity
-from sherry.view.ui.dialog_info_waring_error import Ui_Form
+from sherry.core.qss import qss_style
+from sherry.view.ui.example_dialog import Ui_Form
 
 
 class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
 
     def __init__(self, info="消息提示", title="提示"):
         """一般弹窗, 继承自无边框窗体"""
-        super().__init__()
         self.info = info
         self.title = title
+        super().__init__()
 
     def place(self):
         """需要在父类界面渲染之前重构窗体"""
@@ -35,7 +36,7 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         self.btn_bar_title.setText(self.title)
         self.dialog_show_info.setText(self.info)
         self.btn_dialog_yes.setText("确认")
-        self.btn_dialog_yes.setProperty(*self.resource.style.btn_class_normal)
+        self.btn_dialog_yes.setProperty(*qss_style().btn_class_normal)
         self.btn_dialog_no.setText("取消")
         self.btn_bar_close.setIcon(self.resource.font_icon("fa.close", color="black"))
         self.btn_dialog_no.setHidden(True)

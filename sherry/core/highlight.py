@@ -16,6 +16,9 @@ from PyQt5.QtWidgets import QApplication
 
 
 class Prism(QSyntaxHighlighter):
+    """
+    TODO 从文件中读取资产
+    """
     rules_scheme = {}  # Note: 映射规则
     __block_format = {}
     __font = None
@@ -76,7 +79,6 @@ class Prism(QSyntaxHighlighter):
                 QRegExp("|".join([r"\b%s\b" % keyword for keyword in scheme['key']]))]
             for scheme in self.rules_scheme['scheme']
         })
-        print(self.__block_format)
 
     def highlightBlock(self, text):
         text_len = len(text)

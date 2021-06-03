@@ -13,7 +13,7 @@ REGEX_DEFINED = re.compile("DEFINED_VALUE{(.*?)}", re.S)
 REGEX_URL = re.compile("url\((.*?)\)", re.S)
 
 
-def json_str_to_dict(json_data) -> dict:
+def json_str_to_dict(json_data):
     """
     json转dict
     json to dict
@@ -21,9 +21,9 @@ def json_str_to_dict(json_data) -> dict:
     return json.loads(json_data)
 
 
-def format_style_file(text: str, root: str) -> str:
+def format_style_file(text, root):
     """对样式表进行变量替换"""
-    values: List[str] = re.findall(REGEX_DEFINED, text)
+    values = re.findall(REGEX_DEFINED, text)  # type: List[str]
     text = re.sub(REGEX_DEFINED, "", text)
     if values:
         for i in values[0].split("\n"):
@@ -36,9 +36,9 @@ def format_style_file(text: str, root: str) -> str:
     return text
 
 
-def get_abs_image_path(path: str, root: str) -> str:
+def get_abs_image_path(path, root):
     """当用户项目目录下不存在资源文件时使用eq的内部资源"""
-    values: List[str] = re.findall(REGEX_URL, path)
+    values = re.findall(REGEX_URL, path)  # type: List[str]
     root = root.replace("\\", "/")
     if values:
         _path = values[0]

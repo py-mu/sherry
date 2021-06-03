@@ -4,7 +4,6 @@
     on 2021/5/8
     at 14:35
 """
-from dataclasses import dataclass, field
 
 import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
@@ -12,30 +11,18 @@ from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 from sherry.common.utils.string import format_style_file
 from sherry.core.config import ApplicationConfig
 from sherry.core.qss import Qss
+from sherry.inherit.bean import Bean
 
 
-@dataclass(repr=False)
 class ResourceLoader:
     """
     资源管理
 
     Simple resource loader.
     """
-    # default font
-    font_10: QFont = field(init=False)
-    font_11: QFont = field(init=False)
-    font_14: QFont = field(init=False)
-    font_16: QFont = field(init=False)
-    font_17: QFont = field(init=False)
 
-    # default icon
-    project_icon: QIcon = field(init=False)
-    project_png: QIcon = field(init=False)
-
-    style = None
-
-    def __post_init__(self):
-        self.config: ApplicationConfig = ApplicationConfig.instance()
+    def __init__(self):
+        self.config = ApplicationConfig.instance()
 
         self.font_10 = self.font(10)
         self.font_11 = self.font(11)
@@ -43,13 +30,11 @@ class ResourceLoader:
         self.font_16 = self.font(16)
         self.font_17 = self.font(17)
 
-        self.style = type('QSS', (Qss, ApplicationConfig), {})
-
         self.project_icon = self.icon('icon.ico')
         self.project_png = self.icon('icon.png')
 
     @staticmethod
-    def __render_icon_by_path(path: str) -> QIcon:
+    def __render_icon_by_path(path):
         """
         通过路径渲染出一个icon图像
 
@@ -63,7 +48,7 @@ class ResourceLoader:
         return icon
 
     @staticmethod
-    def __render_icon_by_path_convert(path: str) -> QIcon:
+    def __render_icon_by_path_convert(path):
         """
         返回灰度icon
 
@@ -81,7 +66,7 @@ class ResourceLoader:
         icon.addPixmap(QPixmap.fromImage(image), QIcon.Normal, QIcon.On)
         return icon
 
-    def icon(self, name: str, convert=False) -> QIcon:
+    def icon(self, name, convert=False):
         """
         通过文件渲染 icon 对象(如果项目文件中不存则会查找pip包内部，不会报错)
         :param convert: 是否需要灰度转换
@@ -95,7 +80,7 @@ class ResourceLoader:
         return self.__render_icon_by_path(path)
 
     @staticmethod
-    def font(size: int, weight: int = 2, family: str = "微软雅黑") -> QFont:
+    def font(size, weight=2, family="微软雅黑"):
         """
         创建一个字体，如此不必重复的
         实例化-设置-调用
@@ -111,7 +96,7 @@ class ResourceLoader:
         return font
 
     @staticmethod
-    def font_icon(font_str: str, color="white") -> QIcon:
+    def font_icon(font_str, color="white"):
         """
         字体图标,临时使用，
         重复调用建议使用方法生成
@@ -121,7 +106,7 @@ class ResourceLoader:
         """
         return qtawesome.icon(font_str, color=color)
 
-    def qss(self, *css_name: str) -> str:
+    def qss(self, *css_name):
         """
         获取qss文件夹下的样式加载到容器中,
         样式优先级是由调用先后决定，
@@ -142,3 +127,8 @@ class ResourceLoader:
                 path = self.config.link(self.config.project_qss_path, file_name)
                 raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
         return style_str
+
+
+if __name__ == '__main__':
+
+    a = ResourceLoader().qss_style(Bean, Qss)
