@@ -10,8 +10,6 @@ from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
 from sherry.common.utils.string import format_style_file
 from sherry.core.config import ApplicationConfig
-from sherry.core.qss import Qss
-from sherry.inherit.bean import Bean
 
 
 class ResourceLoader:
@@ -127,8 +125,3 @@ class ResourceLoader:
                 path = self.config.link(self.config.project_qss_path, file_name)
                 raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
         return style_str
-
-
-if __name__ == '__main__':
-
-    a = ResourceLoader().qss_style(Bean, Qss)

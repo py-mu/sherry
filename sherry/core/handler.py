@@ -24,7 +24,7 @@ class ExOperational:
     exc_value = None  # Note: 异常类， Exception class
     tb = None  # Note: 栈回溯，Stack traceback
 
-    def __init__(self, description="未知异常", title="运行异常", callback=None,
+    def __init__(self, description="未知异常", title="错误", callback=None,
                  log_level=logging.ERROR, log_it=True):
         """
         初始化有一个异常操作类型,在异常触发时调用

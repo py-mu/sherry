@@ -5,6 +5,7 @@
     at 11:19
      一般弹窗
 """
+from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QHBoxLayout, QWidget
 
 from sherry.core.activity import FrameLessWindowHintActivity
@@ -33,6 +34,7 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         super(NormalDialogActivity, self).configure()
         self.resize(300, 200)
         self.btn_bar_app_logo.setIcon(self.resource.project_png)
+        self.btn_bar_app_logo.setIconSize(QSize(30, 30))
         self.btn_bar_title.setText(self.title)
         self.dialog_show_info.setText(self.info)
         self.btn_dialog_yes.setText("确认")
