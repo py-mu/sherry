@@ -18,6 +18,7 @@ from sherry.common.logger import ApplicationLogger
 from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExceptHookHandler, ExOperational
 from sherry.core.resource import ResourceLoader
+from sherry.view.activity.activity_dialog_normal import NormalDialogActivity
 
 
 @dataclass
@@ -92,7 +93,8 @@ class Application:
         if self.unique:
             self.socket.connectToServer(self.config.app_name)
             if self.socket.waitForConnected(200):
-                # todo 添加提示
+                dialog = NormalDialogActivity(title="重复运行", info="已有实例 {} 在运行.".format(self.config.app_name))
+                dialog.exec()
                 self.shutdown()
             self.localServer.listen(self.config.app_name)
         self.activity.show()

@@ -14,7 +14,7 @@ from sherry.view.activity.activity_dialog_normal import NormalDialogActivity
 class ExOperational:
     """异常操作类型"""
 
-    title = "程序异常"  # Note: 标题， title
+    title = "运行异常"  # Note: 标题， title
     description = "未知异常, "  # Note: 异常描述, Exception description
     callback = None  # Note: 回调，callback
     log_level = logging.ERROR  # Note: 日志等级, logging level
@@ -24,7 +24,7 @@ class ExOperational:
     exc_value = None  # Note: 异常类， Exception class
     tb = None  # Note: 栈回溯，Stack traceback
 
-    def __init__(self, description="未知异常", title="程序异常", callback=None,
+    def __init__(self, description="未知异常", title="运行异常", callback=None,
                  log_level=logging.ERROR, log_it=True):
         """
         初始化有一个异常操作类型,在异常触发时调用
