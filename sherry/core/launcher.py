@@ -19,6 +19,7 @@ from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExceptHookHandler, ExOperational
 from sherry.core.resource import ResourceLoader
 from sherry.view.activity.activity_dialog_normal import NormalDialogActivity
+from sherry.view.activity.activity_welcome import WelcomeActivity
 
 
 @dataclass
@@ -46,7 +47,7 @@ class Application:
                  unique=False
                  ):
         self.config = config or ApplicationConfig()
-        self.activity = activity or QWidget()
+        self.activity = activity or WelcomeActivity()
         self.handler = handler or ExceptHookHandler()
         self.log_class = log_class or ApplicationLogger
         self.unique = unique

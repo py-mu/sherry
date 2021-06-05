@@ -120,7 +120,7 @@ class BaseConfiguration(Bean):
         The resource path of the project,
         The path will be created if it does not exist.
         """
-        return self.link(self.project_path, "resource", True)
+        return self.link(self.project_path, "resource")
 
     @property
     def project_img_path(self):
@@ -194,6 +194,9 @@ class ApplicationConfig(BaseConfiguration):
 
     Project configuration class.
     """
+    app = QApplication.instance() or QApplication(sys.argv)
+    app_name = sherry.__name__
+    app_version = sherry.__version__
 
     def __init__(
             self,
