@@ -72,7 +72,7 @@ DEFINED_VALUE{
     --calendar_class_primary_qt_calendar_year_edit_down: url(./resource/img/down-1.png);  /*日历下一年*/
     --combo_box_class_primary_off: url(./resource/img/down-2.png); /*下拉框右侧图标 关闭状态*/
     --combo_box_class_primary_on: url(./resource/img/up-2.png); /*下拉框右侧图标 打开状态*/
-    --index_image: url(./resource/img/index-show-1.jpg); /*主页封面*/
+    --index_image: url(./resource/img/index-show-5.png); /*主页封面*/
 }
 /* todo 把可变的 参数抽离出来， 比如文本边距、图片路径*/
 

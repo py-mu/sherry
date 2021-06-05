@@ -69,16 +69,7 @@ class Ui_index_body(object):
     def retranslateUi(self, index_body):
         _translate = QtCore.QCoreApplication.translate
         index_body.setWindowTitle(_translate("index_body", "Form"))
-        self.index_text_show.setHtml(_translate("index_body", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt;\">您已经成功安装EQ，请您直接起飞，谢谢。</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">You have successfully installed the EQ, please take off directly with your work , thank you.</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">访问 Document: <span style=\" text-decoration: underline; color:#0055ff;\">https://py-mu.github.io/easy-pyqt/</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">访问 Github:   <span style=\" text-decoration: underline; color:#0055ff;\">https://github.com/py-mu/easy-pyqt</span></p></body></html>"))
+        self.index_text_show.setHtml(_translate("index_body", ""))
         self.index_close_btn.setToolTip(_translate("index_body", "<html><head/><body><p><span style=\" font-size:10pt;\">关闭欢迎页</span></p><p>Close Welcome Activity</p></body></html>"))
         self.index_close_btn.setText(_translate("index_body", "关闭"))
 
