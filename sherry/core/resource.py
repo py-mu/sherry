@@ -113,6 +113,7 @@ class ResourceLoader:
         :param css_name: css 文件名, 可以是多个的
         :return: str 样式字符串
         """
+        css_name = css_name or ('common.css',)
         style_str = ""
         for file_name in css_name:
             path = self.config.link(self.config.project_qss_path, file_name)

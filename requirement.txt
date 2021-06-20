@@ -1,2 +1,0 @@
-PyQt5>=5.12
-QtAwesome>=0.7.0

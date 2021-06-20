@@ -1,0 +1,308 @@
+/*--------------------------------------------------------
+                    哀的样式集
+              this is sherry style.
+--------------------------------------------------------*/
+* {
+  font-family: "Microsoft YaHei UI", serif;
+  font-size: 14px;
+  color: #606266;
+}
+/*------------------------------抽象元素筛选器--------------------------------------*/
+QAbstractItemView {
+  padding: 1px;
+  border: 1px solid #dcdfe6;
+  outline: none;
+  selection-background-color: #409eff;
+}
+/*QAbstractItemView item项 一般（设置pComboBox.setView(QListView());后，该项才起作用） */
+QAbstractItemView::item {
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  border-radius: 4px;
+  color: #303133;
+}
+QAbstractItemView::item:selected {
+  background: #3a8ee6;
+  color: #ffffff;
+}
+QAbstractButton {
+  height: 30px;
+}
+QAbstractSpinBox {
+  border: 1px solid #dcdfe6;
+  height: 30px;
+}
+QAbstractSpinBox::up-button {
+  border: none;
+  image: url(./resource/img/up-1.png);
+  border-radius: 4px;
+}
+QAbstractSpinBox::down-button {
+  border: none;
+  image: url(./resource/img/down-1.png);
+  border-radius: 4px;
+}
+QAbstractSpinBox::up-button:hover,
+QAbstractSpinBox::down-button:hover {
+  background: #F5F7FA;
+}
+QAbstractSpinBox::up-button:pressed,
+QAbstractSpinBox::down-button:pressed {
+  background: #F5F7FA;
+}
+QAbstractSpinBox:hover {
+  border-color: #dcdfe6;
+}
+QWidget,
+QFrame {
+  border-radius: 4px;
+  background-color: #F5F7FA;
+}
+/* 默认按钮 */
+QPushButton {
+  background: #ffffff;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  text-align: center;
+  outline: 0;
+  margin: 0;
+  font-weight: 500;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+QPushButton:hover {
+  color: #409eff;
+  border-color: #c6e2ff;
+  background-color: #d9ecff;
+}
+QPushButton:pressed {
+  color: #3a8ee6;
+  border-color: #3a8ee6;
+}
+QPushButton:disabled,
+QPushButton:disabled:hover,
+QPushButton:disabled:pressed {
+  color: #C0C4CC;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: #ffffff;
+  border-color: #ebeef5;
+}
+QPushButton[btn_style_simplicity="True"]:hover,
+[btn_style_simplicity="True"]:hover {
+  background: #ffffff;
+  border-color: #409eff;
+  color: #409eff;
+}
+QPushButton[btn_style_simplicity="True"]:pressed,
+[btn_style_simplicity="True"]:pressed {
+  border-color: #3a8ee6;
+  color: #3a8ee6;
+}
+QPushButton[btn_primary="True"],
+[btn_primary="True"] {
+  background: #409eff;
+  color: #ffffff;
+  border-color: #409eff;
+}
+QPushButton[btn_primary="True"][btn_style_simplicity="True"],
+[btn_primary="True"][btn_style_simplicity="True"] {
+  color: #409eff;
+  background: #d9ecff;
+  border-color: #8cc5ff;
+}
+QPushButton[btn_primary="True"]:hover,
+[btn_primary="True"]:hover {
+  background: #66b1ff;
+  border-color: #66b1ff;
+}
+QPushButton[btn_primary="True"][btn_style_simplicity="True"]:hover,
+[btn_primary="True"][btn_style_simplicity="True"]:hover {
+  background: #409eff;
+  border-color: #409eff;
+  color: #ffffff;
+}
+QPushButton[btn_primary="True"]:pressed,
+[btn_primary="True"]:pressed {
+  background: #3a8ee6;
+  border-color: #3a8ee6;
+}
+QPushButton[btn_primary="True"][btn_style_simplicity="True"]:pressed,
+[btn_primary="True"][btn_style_simplicity="True"]:pressed {
+  background: #3a8ee6;
+  border-color: #3a8ee6;
+  color: #ffffff;
+}
+QPushButton[btn_warning="True"],
+[btn_warning="True"] {
+  border-color: #E6A23C;
+  color: #ffffff;
+  background: #E6A23C;
+}
+QPushButton[btn_warning="True"][btn_style_simplicity="True"],
+[btn_warning="True"][btn_style_simplicity="True"] {
+  color: #E6A23C;
+  background: #fdf6ec;
+  border-color: #f3d19e;
+}
+QPushButton[btn_warning="True"]:hover,
+[btn_warning="True"]:hover {
+  background: #ebb563;
+  border-color: #ebb563;
+}
+QPushButton[btn_warning="True"][btn_style_simplicity="True"]:hover,
+[btn_warning="True"][btn_style_simplicity="True"]:hover {
+  color: #ffffff;
+  background: #E6A23C;
+  border-color: #E6A23C;
+}
+QPushButton[btn_warning="True"]:pressed,
+[btn_warning="True"]:pressed {
+  background: #cf9236;
+  border-color: #cf9236;
+}
+QPushButton[btn_warning="True"][btn_style_simplicity="True"]:pressed,
+[btn_warning="True"][btn_style_simplicity="True"]:pressed {
+  color: #ffffff;
+  background: #cf9236;
+  border-color: #cf9236;
+}
+QPushButton[btn_danger="True"],
+[btn_danger="True"] {
+  border-color: #F56C6C;
+  color: #ffffff;
+  background: #F56C6C;
+}
+QPushButton[btn_danger="True"][btn_style_simplicity="True"],
+[btn_danger="True"][btn_style_simplicity="True"] {
+  color: #F56C6C;
+  background: #fde2e2;
+  border-color: #f9a7a7;
+}
+QPushButton[btn_danger="True"]:hover,
+[btn_danger="True"]:hover {
+  border-color: #f78989;
+  background: #f78989;
+}
+QPushButton[btn_danger="True"][btn_style_simplicity="True"]:hover,
+[btn_danger="True"][btn_style_simplicity="True"]:hover {
+  color: #ffffff;
+  background: #F56C6C;
+  border-color: #F56C6C;
+}
+QPushButton[btn_danger="True"]:pressed,
+[btn_danger="True"]:pressed {
+  border-color: #dd6161;
+  background: #dd6161;
+}
+QPushButton[btn_danger="True"][btn_style_simplicity="True"]:pressed,
+[btn_danger="True"][btn_style_simplicity="True"]:pressed {
+  color: #ffffff;
+  background: #dd6161;
+  border-color: #dd6161;
+}
+QPushButton[btn_info="True"],
+[btn_info="True"] {
+  border-color: #909399;
+  color: #ffffff;
+  background: #909399;
+}
+QPushButton[btn_info="True"][btn_style_simplicity="True"],
+[btn_info="True"][btn_style_simplicity="True"] {
+  color: #909399;
+  background: #f4f4f5;
+  border-color: #82848a;
+}
+QPushButton[btn_info="True"]:hover,
+[btn_info="True"]:hover {
+  background: #a6a9ad;
+  border-color: #a6a9ad;
+}
+QPushButton[btn_info="True"][btn_style_simplicity="True"]:hover,
+[btn_info="True"][btn_style_simplicity="True"]:hover {
+  color: #ffffff;
+  background: #909399;
+  border-color: #909399;
+}
+QPushButton[btn_info="True"]:pressed,
+[btn_info="True"]:pressed {
+  background: #82848a;
+  border-color: #82848a;
+}
+QPushButton[btn_info="True"][btn_style_simplicity="True"]:pressed,
+[btn_info="True"][btn_style_simplicity="True"]:pressed {
+  color: #ffffff;
+  background: #82848a;
+  border-color: #82848a;
+}
+/*QPushButton 成功按钮 btn_success */
+QPushButton[btn_success="True"],
+QPushButton[btn_success="True"] {
+  border-color: #67C23A;
+  color: #ffffff;
+  background: #67C23A;
+}
+QPushButton[btn_success="True"][btn_style_simplicity="True"],
+[btn_success="True"][btn_style_simplicity="True"] {
+  color: #67C23A;
+  background: #f0f9eb;
+  border-color: #c2e7b0;
+}
+QPushButton[btn_success="True"]:hover,
+[btn_success="True"]:hover {
+  background: #85ce61;
+  border-color: #85ce61;
+}
+QPushButton[btn_success="True"][btn_style_simplicity="True"]:hover,
+[btn_success="True"][btn_style_simplicity="True"]:hover {
+  color: #ffffff;
+  background: #67C23A;
+  border-color: #67C23A;
+}
+QPushButton[btn_success="True"]:pressed,
+[btn_success="True"]:pressed {
+  background: #5daf34;
+  border-color: #5daf34;
+}
+QPushButton[btn_success="True"][btn_style_simplicity="True"]:pressed,
+[btn_success="True"][btn_style_simplicity="True"]:pressed {
+  color: #ffffff;
+  background: #5daf34;
+  border-color: #5daf34;
+}
+[btn_size_medium="True"] {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+#main_window {
+  background: transparent;
+}
+#index_btn_body,
+#example_index_activity,
+#index_body,
+#index_text_body,
+#index_text_show {
+  background: #f1ffff;
+}
+QWidget,
+QFrame {
+  background-color: #ffffff;
+}
+#bar {
+  height: 50px;
+}
+/*#btn_bar_app_name, #app_name, #btn_bar_title{background: transparent;border: none}*/
+/*#btn_bar_normal, #btn_bar_close, #btn_bar_min, #btn_bar_app_logo{border: none;margin: 3px;width: 25px;height: 25px;background: transparent;}*/
+/*#btn_bar_normal:hover, #btn_bar_min:hover{background: var(--basic-color-a);}*/
+/*#btn_bar_normal:pressed, #btn_bar_min:pressed{background: var(--basic-color-a3);}*/
+/*#btn_bar_close:hover{background: var(--accent-color-danger);}*/
+/*#btn_bar_close:pressed{background: var(--accent-color-danger-a);}*/
+/*#app_logo{width: 25px;height: 25px;border: none;background: transparent;}*/
+/*#btn_dialog_yes, #btn_dialog_no{width: 50px;height: 27px;}*/
+#btn_bar_normal:before {
+  content: '\f06b';
+}
+/*# sourceMappingURL=element.css.map */

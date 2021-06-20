@@ -9,8 +9,10 @@ import os
 import re
 from typing import List
 
-REGEX_DEFINED = re.compile("DEFINED_VALUE{(.*?)}", re.S)
-REGEX_URL = re.compile("url\((.*?)\)", re.S)
+REGEX_DEFINED = re.compile("DEFINED_VALUE *{(.*?)}", re.S)
+REGEX_URL = re.compile("url\\((.*?)\\)", re.S)
+REGEX_VAL = re.compile("var *\\((.*?)\\)")
+val_dict = {}  # Note: qss 变量集合
 
 
 def json_str_to_dict(json_data):
@@ -23,17 +25,32 @@ def json_str_to_dict(json_data):
 
 def format_style_file(text, root):
     """对样式表进行变量替换"""
-    values = re.findall(REGEX_DEFINED, text)  # type: List[str]
+    css_values = re.findall(REGEX_DEFINED, text)  # type: List[str]
     text = re.sub(REGEX_DEFINED, "", text)
-    if values:
-        for i in values[0].split("\n"):
-            if i:
-                i = i.strip().replace("\t", "").replace(";", "").split(":")
-                if len(i) > 1:
-                    if 'url' in i[1]:
-                        i[1] = get_abs_image_path(i[1], root)
-                    text = text.replace(f"var({i[0]})", i[1])
+    if not css_values:
+        return text
+    for css_defined_val in css_values[0].split("\n"):  # Note: css css defined val item.
+        if not css_defined_val:
+            continue
+        css_defined_val = css_defined_val.strip().replace("\t", "")
+        css_defined_val = css_defined_val.replace(";", "").split(":")
+        if len(css_defined_val) <= 1:
+            continue
+        name, value = css_defined_val
+        if 'url' in value:
+            value = get_abs_image_path(value, root)
+        val_dict.update({name: value})
+        get_mapping_css_value(name, value)
+        text = text.replace(f"var({name})", val_dict.get(name))
     return text
+
+
+def get_mapping_css_value(name, value):
+    """获取映射的变量"""
+    map_value = REGEX_VAL.findall(value)
+    if map_value:
+        val_dict.update({name: val_dict.get(map_value[0], "")})
+        get_mapping_css_value(name, map_value[0])
 
 
 def get_abs_image_path(path, root):

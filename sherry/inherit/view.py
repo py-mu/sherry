@@ -19,6 +19,7 @@ class BaseView(QWidget):
 
     def __init__(self, master=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
+        self.master = master
         self.resource = ResourceLoader()
 
     def set_signal(self):
@@ -109,4 +110,14 @@ class BaseView(QWidget):
         """解决最小化之后页面假死问题，此处参阅：https://blog.csdn.net/qq_40194498/article/details/109511055"""
         if not self.isMinimized():
             self.setAttribute(Qt.WA_Mapped)
-        super().showEvent(event)
+        return super().showEvent(event)
+
+    # def event(self, event: QEvent) -> bool:
+    #     if event.type() == QEvent.ToolTip:
+    #         event: QHelpEvent
+    #         w, h = tooltip.width(), tooltip.height()
+    #         x, y = event.globalX(), event.globalY() + h
+    #         tooltip.setGeometry(x, y, w, h)
+    #         tooltip.show()
+    #         return True
+    #     return super().event(event)

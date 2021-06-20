@@ -8,9 +8,9 @@
 import ctypes
 import json
 import logging
-from dataclasses import dataclass
 from typing import Type
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
@@ -18,11 +18,11 @@ from sherry.common.logger import ApplicationLogger
 from sherry.core.config import ApplicationConfig
 from sherry.core.handler import ExceptHookHandler, ExOperational
 from sherry.core.resource import ResourceLoader
-from sherry.view.activity.activity_dialog_normal import NormalDialogActivity
+from sherry.extends.override import Overrider
+from sherry.view.activity.activity_dialog import NormalDialogActivity
 from sherry.view.activity.activity_welcome import WelcomeActivity
 
 
-@dataclass
 class Application:
     """
     启动配置类
@@ -39,24 +39,47 @@ class Application:
     It may be more abstract, but the advantage is that it can be realized.
     """
 
-    def __init__(self,
-                 config=None,
-                 activity=None,
-                 handler=None,
-                 log_class=None,
-                 unique=False
-                 ):
-        self.config = config or ApplicationConfig()
-        self.activity = activity or WelcomeActivity()
-        self.handler = handler or ExceptHookHandler()
-        self.log_class = log_class or ApplicationLogger
-        self.unique = unique
-        self.localServer = QLocalServer()
+    __slots__ = (
+    'activity', 'config', 'handler', 'log_class', 'unique', 'override_class', 'err_desc_file_path', 'localServer',
+    'socket')
+
+    def __before__(self):
+        """运行之前"""
+        self.unique = False
+        self.override_class = Overrider
         self.socket = QLocalSocket()
-        self.resource = ResourceLoader()
+        self.localServer = QLocalServer()
+        self.config = ApplicationConfig().instance()
+        self.log_class = ApplicationLogger
+        self.activity = WelcomeActivity
+        self.handler = ExceptHookHandler()
+        self.err_desc_file_path = self.config.file_path('sherry/exception-handler.json')
+
+    def set_properties(self, *args, **kwargs):
+        """设置类属性"""
+        for index, value in enumerate(args):
+            if value:
+                setattr(self, self.__slots__[index], value)
+        for key, value in kwargs.items():
+            if key not in self.__slots__:
+                raise ValueError(
+                    'can not install key {}  to init.'
+                    'because of you are not append the key into value "self.init_keys".'.format(key)
+                )
+            if value:
+                setattr(self, key, value)
+
+    def __init__(self, *args, **kwargs):
+        self.__before__()
+        self.set_properties(*args, **kwargs)
+        self.procedure()
+
+    def procedure(self):
+        """实施"""
+        self.override_class().install()
         self.__set_logger(self.log_class)
-        self.refresh_ex_data()
-        self.logger = logging.getLogger()
+        self.refresh_ex_data(self.err_desc_file_path)
+        self.__init_app()
 
     def __set_logger(self, logger_class: Type[ApplicationLogger]):
         """
@@ -69,14 +92,21 @@ class Application:
         logging.root = logger_class(logger_class.app_name)
         logging.setLoggerClass(logger_class)
 
-    def refresh_ex_data(self, file_path: str = ''):
+    def refresh_ex_data(self, file_path):
         """
         从文件中读取异常拦截数据
 
         read default config
         """
-        with open(file_path or self.config.file_path('sherry/exception_handler.json'), encoding='utf-8') as f:
+        with open(file_path, encoding='utf-8') as f:
             self.handler.update_map({k: ExOperational(**v) for k, v in json.load(f).items()})
+
+    def __init_app(self):
+        """初始化Qt Application"""
+        self.config.set_theme(ResourceLoader().qss("element.css"))
+        app = self.config.app
+        app.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.config.app_name)
 
     def run(self):
         """
@@ -84,12 +114,10 @@ class Application:
 
         show your activity
         """
-        self.logger.info('启动应用{}'.format(self.config.app_name))
-        self.config.app.setStyleSheet(self.resource.qss("common.css"))
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.config.app_name)
+        logging.info('start {}'.format(self.config.app_name))
         if not self.activity:
             raise ValueError('Activity is not load, did you install it ?')
-        if not isinstance(self.activity, QWidget):
+        if not isinstance(self.activity, type(QWidget)):
             raise TypeError('The Activity is not valid Activity.')
         if self.unique:
             self.socket.connectToServer(self.config.app_name)
@@ -98,7 +126,7 @@ class Application:
                 dialog.exec()
                 self.shutdown()
             self.localServer.listen(self.config.app_name)
-        self.activity.show()
+        self.activity().show()
         self.config.app.exec_()
         self.shutdown()
 
@@ -108,7 +136,7 @@ class Application:
 
         shutdown application
         """
-        self.logger.info('关闭应用{}'.format(self.config.app_name))
+        logging.info('shutdown {}'.format(self.config.app_name))
         self.localServer.close()
         self.config.app.quit()
         logging.shutdown()

@@ -1,6 +1,7 @@
 import sys
+from typing import Optional
 
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QStyle
 
 import sherry
 from sherry.inherit.bean import Bean
@@ -66,3 +67,7 @@ class ApplicationConfig(BaseConfiguration):
             app_name: str = sherry.__name__,
             *args,
             **kwargs): ...
+
+    def set_style(self, style: Optional[QStyle] = None): ...
+
+    def set_theme(self, theme: str): ...

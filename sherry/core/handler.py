@@ -8,7 +8,7 @@ import logging
 import sys
 import traceback
 
-from sherry.view.activity.activity_dialog_normal import NormalDialogActivity
+from sherry.view.activity.activity_dialog import NormalDialogActivity
 
 
 class ExOperational:
@@ -42,6 +42,12 @@ class ExOperational:
         self.log_level = log_level
         self.log_it = log_it
         self.title = title
+
+    def __repr__(self):
+        return """ExOperational( title: {}, description: {}, log_level: {}, log_it: {} )""".format(self.title,
+                                                                                                   self.description,
+                                                                                                   self.log_level,
+                                                                                                   self.log_it)
 
 
 class ExceptHookHandler:
@@ -89,10 +95,10 @@ class ExceptHookHandler:
         :param exc_value: 异常信息
         :param tb: 栈回溯
         """
-        op = self.ex_map.get(exc_type.__name__, ExOperational())
+        op = self.ex_map.get(exc_type.__name__, ExOperational(description="%s: \n%s" % (exc_type.__name__, exc_value)))
         if op.log_it:
             msg = self.log(exc_type, exc_value, tb)
-            logging.getLogger().log(op.log_level, f"{msg}")
+            logging.getLogger().log(op.log_level, "{msg}".format(msg=msg))
         try:
             if op.callback:
                 op.exc_value = exc_value
@@ -104,7 +110,6 @@ class ExceptHookHandler:
             traceback_rollback = f"{str(e)}" if str(
                 traceback_rollback) == "NoneType: None\n" else traceback_rollback
             logging.getLogger().error(traceback_rollback)
-
         dialog = NormalDialogActivity(title=op.title, info=op.description)
         dialog.setWindowTitle(op.title)
         dialog.exec()

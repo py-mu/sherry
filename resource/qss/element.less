@@ -1,0 +1,433 @@
+/*--------------------------------------------------------
+                    哀的样式集
+              this is sherry style.
+--------------------------------------------------------*/
+
+// -------------------Color 主要配色--------------------------------------
+// ------Background Color 背景颜色------------
+// 白色背景色
+@color-background-white: #ffffff;
+// 黑色背景色
+@color-background-black: #000000;
+//基础背景色
+@color-background-base: #F5F7FA;
+
+// ----brand color 主题色--------------------
+// 主题颜色 primary color.
+@color-primary-darker: #3a8ee6;
+@color-primary: #409eff;
+@color-primary-light-super: #66b1ff;
+@color-primary-light: #8cc5ff;
+@color-primary-lighter: #c6e2ff;
+@color-primary-lighter1: #d9ecff;
+
+// -----functional color 功能色--------------
+// 成功颜色 success color.
+@color-success-darker: #5daf34;
+@color-success: #67C23A;
+@color-success-light-super: #85ce61;
+@color-success-light: #b3e19d;
+@color-success-lighter: #c2e7b0;
+@color-success-lighter1: #f0f9eb;
+// 警告颜色 warning color.
+@color-warning-darker: #cf9236;
+@color-warning: #E6A23C;
+@color-warning-light-super: #ebb563;
+@color-warning-light: #f3d19e;
+@color-warning-lighter: #f5dab1;
+@color-warning-lighter1: #fdf6ec;
+// 危险颜色 danger color.
+@color-danger-darker: #dd6161;
+@color-danger: #F56C6C;
+@color-danger-light-super: #f78989;
+@color-danger-light: #f9a7a7;
+@color-danger-lighter: #fab6b6;
+@color-danger-lighter1: #fde2e2;
+// 信息颜色 info color.
+@color-info-darker: #82848a;
+@color-info: #909399;
+@color-info-light-super: #a6a9ad;
+@color-info-light: #c8c9cc;
+@color-info-lighter: #d3d4d6;
+@color-info-lighter1: #f4f4f5;
+
+// -----font color 字体色---------------------
+// 默认字体颜色
+@color-text-white: #ffffff;
+// 主要字体颜色
+@color-text-primary: #303133;
+// 常规字体颜色
+@color-text-regular: #606266;
+// 次要字体颜色
+@color-text-secondary: #909399;
+// 占位符字体颜色
+@color-text-placeholder: #C0C4CC;
+// 禁用文本颜色
+@color-text-disable: @color-text-placeholder;
+
+// -------Border Color 边框颜色----------------
+// 一级边框颜色
+@color-border-base: #dcdfe6;
+// 二级边框颜色
+@color-border-light: #e4e7ed;
+// 三级边框颜色
+@color-border-lighter: #ebeef5;
+// 四级边框颜色
+@color-border-extra-light: #F2F6FC;
+
+// --------------------Font 字体------------------------------------------
+@font-family: "Microsoft YaHei UI", serif;
+@font-weight: 500;
+// 默认字体大小
+@font-size-default: 14px;
+// 标题字体大小
+@font-size-title: @font-size-default + 4px;
+// 描述字体大小
+@font-size-description: @font-size-default - 2px;
+
+// --------------------border-------------------------------------------
+@border-base: 1px solid @color-border-base;
+@border-width-primary: 1px;
+@border-style-primary: solid;
+@border-radius-primary: 4px;
+@border-radius-round: 20px;
+@border-radius-circle: 50%;
+
+// --------------------image--------------------------------------------
+@radio_btn_primary_indicator_unchecked: url(./resource/img/radio-off.png); //原生单选按钮未选中
+@radio_btn_primary_indicator_checked: url(./resource/img/radio-on.png); //原生单选按钮选中*/
+@radio_btn_normal_indicator_unchecked: url(./resource/img/checkbox-uncheck-2.png); //一般单选按钮未选中
+@radio_btn_normal_indicator_checked: url(./resource/img/checkbox-check-2.png); //一般单选按钮选中
+@checkbox_btn_primary_indicator_checked: url(./resource/img/checkbox-check-2.png); //原生复选按钮选中
+@checkbox_btn_primary_indeterminate_checked: url(./resource/img/checkbox-some-check-2.png); //原生复选按钮部分选中
+@checkbox_btn_normal_indicator_checked: url(./resource/img/checkbox-check-1.png); //一般复选按钮选中
+@checkbox_btn_normal_indicator_unchecked_hover: url(./resource/img/checkbox-uncheck-1.png); //一般复选按钮未选中 悬浮
+@calendar_primary_qt_calendar_prev_month: url(./resource/img/previous-1.png); //日历上一个月份
+@calendar_primary_qt_calendar_next_month: url(./resource/img/next-1.png); //日历下一个月份
+@calendar_primary_qt_calendar_year_edit_up: url(./resource/img/up-1.png); //日历上一年
+@calendar_primary_qt_calendar_year_edit_down: url(./resource/img/down-1.png); //日历下一年
+@combo_box_primary_off: url(./resource/img/down-2.png); //下拉框右侧图标 关闭状态
+@combo_box_primary_on: url(./resource/img/up-2.png); //下拉框右侧图标 打开状态
+@index_image: url(./resource/img/index-show-5.png); //主页封面
+
+* {
+  font-family: @font-family;
+  font-size: @font-size-default;
+  color: @color-text-regular;
+}
+
+/*------------------------------抽象元素筛选器--------------------------------------*/
+QAbstractItemView {
+  padding: 1px;
+  border: @border-base;
+  outline: none;
+  selection-background-color: @color-primary;
+}
+
+/*QAbstractItemView item项 一般（设置pComboBox.setView(QListView());后，该项才起作用） */
+QAbstractItemView::item {
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  border-radius: @border-radius-primary;
+  color: @color-text-primary;
+}
+
+QAbstractItemView::item:hover {
+}
+
+QAbstractItemView::item:selected {
+  background: @color-primary-darker;
+  color: @color-text-white;
+}
+
+QAbstractButton {
+  height: 30px;
+}
+
+QAbstractSpinBox {
+  border: @border-base;
+  height: 30px;
+}
+
+QAbstractSpinBox::up-button {
+  border: none;
+  image: @calendar_primary_qt_calendar_year_edit_up;
+  border-radius: @border-radius-primary;
+}
+
+QAbstractSpinBox::down-button {
+  border: none;
+  image: @calendar_primary_qt_calendar_year_edit_down;
+  border-radius: @border-radius-primary;
+}
+
+QAbstractSpinBox::up-button:hover, QAbstractSpinBox::down-button:hover {
+  background: @color-background-base;
+}
+
+QAbstractSpinBox::up-button:pressed, QAbstractSpinBox::down-button:pressed {
+  background: @color-background-base;
+}
+
+QAbstractSpinBox:hover {
+  border-color: @color-border-base;
+}
+
+QWidget, QFrame {
+  border-radius: @border-radius-primary;
+  background-color: @color-background-base;
+}
+
+[widget_primary="True"], [frame_primary="True"] {
+
+}
+
+/* 默认按钮 */
+QPushButton {
+  background: @color-background-white;
+  border: @border-base;
+  color: @color-text-regular;
+  text-align: center;
+  outline: 0;
+  margin: 0;
+  font-weight: @font-weight;
+  padding: 12px 20px;
+  font-size: @font-size-default;
+  border-radius: @border-radius-primary;
+}
+
+QPushButton:hover {
+  color: @color-primary;
+  border-color: @color-primary-lighter;
+  background-color: @color-primary-lighter1;
+}
+
+QPushButton:pressed {
+  color: @color-primary-darker;
+  border-color: @color-primary-darker;
+}
+
+QPushButton:disabled, QPushButton:disabled:hover, QPushButton:disabled:pressed {
+  color: @color-text-disable;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: @color-background-white;
+  border-color: @color-border-lighter;
+}
+
+QPushButton[btn_style_simplicity="True"]:hover, [btn_style_simplicity="True"]:hover {
+  background: @color-background-white;
+  border-color: @color-primary;
+  color: @color-primary;
+}
+
+QPushButton[btn_style_simplicity="True"]:pressed, [btn_style_simplicity="True"]:pressed {
+  border-color: @color-primary-darker;
+  color: @color-primary-darker;
+}
+
+QPushButton[btn_primary="True"], [btn_primary="True"] {
+  background: @color-primary;
+  color: @color-text-white;
+  border-color: @color-primary;
+}
+
+QPushButton[btn_primary="True"][btn_style_simplicity="True"], [btn_primary="True"][btn_style_simplicity="True"] {
+  color: @color-primary;
+  background: @color-primary-lighter1;
+  border-color: @color-primary-light;
+}
+
+QPushButton[btn_primary="True"]:hover, [btn_primary="True"]:hover {
+  background: @color-primary-light-super;
+  border-color: @color-primary-light-super;
+}
+
+QPushButton[btn_primary="True"][btn_style_simplicity="True"]:hover, [btn_primary="True"][btn_style_simplicity="True"]:hover {
+  background: @color-primary;
+  border-color: @color-primary;
+  color: @color-text-white;
+}
+
+QPushButton[btn_primary="True"]:pressed, [btn_primary="True"]:pressed {
+  background: @color-primary-darker;
+  border-color: @color-primary-darker;
+}
+
+QPushButton[btn_primary="True"][btn_style_simplicity="True"]:pressed, [btn_primary="True"][btn_style_simplicity="True"]:pressed {
+  background: @color-primary-darker;
+  border-color: @color-primary-darker;
+  color: @color-text-white;
+}
+
+QPushButton[btn_warning="True"], [btn_warning="True"] {
+  border-color: @color-warning;
+  color: @color-text-white;
+  background: @color-warning;
+}
+
+QPushButton[btn_warning="True"][btn_style_simplicity="True"], [btn_warning="True"][btn_style_simplicity="True"] {
+  color: @color-warning;
+  background: @color-warning-lighter1;
+  border-color: @color-warning-light;
+}
+
+QPushButton[btn_warning="True"]:hover, [btn_warning="True"]:hover {
+  background: @color-warning-light-super;
+  border-color: @color-warning-light-super;
+}
+
+QPushButton[btn_warning="True"][btn_style_simplicity="True"]:hover, [btn_warning="True"][btn_style_simplicity="True"]:hover {
+  color: @color-text-white;
+  background: @color-warning;
+  border-color: @color-warning;
+}
+
+QPushButton[btn_warning="True"]:pressed, [btn_warning="True"]:pressed {
+  background: @color-warning-darker;
+  border-color: @color-warning-darker;
+}
+
+QPushButton[btn_warning="True"][btn_style_simplicity="True"]:pressed, [btn_warning="True"][btn_style_simplicity="True"]:pressed {
+  color: @color-text-white;
+  background: @color-warning-darker;
+  border-color: @color-warning-darker;
+}
+
+QPushButton[btn_danger="True"], [btn_danger="True"] {
+  border-color: @color-danger;
+  color: @color-text-white;
+  background: @color-danger;
+}
+
+QPushButton[btn_danger="True"][btn_style_simplicity="True"], [btn_danger="True"][btn_style_simplicity="True"] {
+  color: @color-danger;
+  background: @color-danger-lighter1;
+  border-color: @color-danger-light;
+}
+
+QPushButton[btn_danger="True"]:hover, [btn_danger="True"]:hover {
+  border-color: @color-danger-light-super;
+  background: @color-danger-light-super;
+}
+
+QPushButton[btn_danger="True"][btn_style_simplicity="True"]:hover, [btn_danger="True"][btn_style_simplicity="True"]:hover {
+  color: @color-text-white;
+  background: @color-danger;
+  border-color: @color-danger;
+}
+
+QPushButton[btn_danger="True"]:pressed, [btn_danger="True"]:pressed {
+  border-color: @color-danger-darker;
+  background: @color-danger-darker;
+}
+
+QPushButton[btn_danger="True"][btn_style_simplicity="True"]:pressed, [btn_danger="True"][btn_style_simplicity="True"]:pressed {
+  color: @color-text-white;
+  background: @color-danger-darker;
+  border-color: @color-danger-darker;
+}
+
+QPushButton[btn_info="True"], [btn_info="True"] {
+  border-color: @color-info;
+  color: @color-text-white;
+  background: @color-info;
+}
+
+QPushButton[btn_info="True"][btn_style_simplicity="True"], [btn_info="True"][btn_style_simplicity="True"] {
+  color: @color-info;
+  background: @color-info-lighter1;
+  border-color: @color-info-darker;
+}
+
+QPushButton[btn_info="True"]:hover, [btn_info="True"]:hover {
+  background: @color-info-light-super;
+  border-color: @color-info-light-super;
+}
+
+QPushButton[btn_info="True"][btn_style_simplicity="True"]:hover, [btn_info="True"][btn_style_simplicity="True"]:hover {
+  color: @color-text-white;
+  background: @color-info;
+  border-color: @color-info;
+}
+
+QPushButton[btn_info="True"]:pressed, [btn_info="True"]:pressed {
+  background: @color-info-darker;
+  border-color: @color-info-darker;
+}
+
+QPushButton[btn_info="True"][btn_style_simplicity="True"]:pressed, [btn_info="True"][btn_style_simplicity="True"]:pressed {
+  color: @color-text-white;
+  background: @color-info-darker;
+  border-color: @color-info-darker;
+}
+
+/*QPushButton 成功按钮 btn_success */
+QPushButton[btn_success="True"], QPushButton[btn_success="True"] {
+  border-color: @color-success;
+  color: @color-text-white;
+  background: @color-success;
+}
+
+QPushButton[btn_success="True"][btn_style_simplicity="True"], [btn_success="True"][btn_style_simplicity="True"] {
+  color: @color-success;
+  background: @color-success-lighter1;
+  border-color: @color-success-lighter;
+}
+
+QPushButton[btn_success="True"]:hover, [btn_success="True"]:hover {
+  background: @color-success-light-super;
+  border-color: @color-success-light-super;
+}
+
+QPushButton[btn_success="True"][btn_style_simplicity="True"]:hover, [btn_success="True"][btn_style_simplicity="True"]:hover {
+  color: @color-text-white;
+  background: @color-success;
+  border-color: @color-success;
+}
+
+QPushButton[btn_success="True"]:pressed, [btn_success="True"]:pressed {
+  background: @color-success-darker;
+  border-color: @color-success-darker;
+}
+
+QPushButton[btn_success="True"][btn_style_simplicity="True"]:pressed, [btn_success="True"][btn_style_simplicity="True"]:pressed {
+  color: @color-text-white;
+  background: @color-success-darker;
+  border-color: @color-success-darker;
+}
+
+[btn_size_medium="True"] {
+  padding: 10px 20px;
+  font-size: @font-size-default;
+  border-radius: @border-radius-primary;
+}
+
+#main_window {
+  background: transparent;
+}
+
+#index_btn_body, #example_index_activity, #index_body, #index_text_body, #index_text_show {
+  background: #f1ffff;
+}
+
+QWidget, QFrame {
+  background-color: #ffffff;
+}
+
+#bar {
+  height: 50px;
+}
+
+/*#btn_bar_app_name, #app_name, #btn_bar_title{background: transparent;border: none}*/
+/*#btn_bar_normal, #btn_bar_close, #btn_bar_min, #btn_bar_app_logo{border: none;margin: 3px;width: 25px;height: 25px;background: transparent;}*/
+/*#btn_bar_normal:hover, #btn_bar_min:hover{background: var(--basic-color-a);}*/
+/*#btn_bar_normal:pressed, #btn_bar_min:pressed{background: var(--basic-color-a3);}*/
+/*#btn_bar_close:hover{background: var(--accent-color-danger);}*/
+/*#btn_bar_close:pressed{background: var(--accent-color-danger-a);}*/
+/*#app_logo{width: 25px;height: 25px;border: none;background: transparent;}*/
+/*#btn_dialog_yes, #btn_dialog_no{width: 50px;height: 27px;}*/
+#btn_bar_normal:before {
+  content: '\f06b'
+}

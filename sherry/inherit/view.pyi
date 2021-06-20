@@ -1,15 +1,21 @@
-from typing import Optional, Union, Tuple
+from typing import Optional, Union, Tuple, Any
 
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QEvent
 from PyQt5.QtGui import QColor, QGradient, QMouseEvent
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect
 
 from sherry.core.resource import ResourceLoader
+from sherry.view.component.tooltip import Tooltip
+
+tooltip: Tooltip
+# inherit old QWidget event function
+old_func: Any
 
 
 class BaseView(QWidget):
     resource: ResourceLoader
+    master: Optional[QWidget]
 
     def __init__(self, master: Optional[QWidget] = None, *args, **kwargs) -> None:
         super().__init__(master, *args, **kwargs)
@@ -42,3 +48,5 @@ class BaseView(QWidget):
     def mouseMoveEvent(self, event: QMouseEvent) -> None: ...
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None: ...
+
+    def event(self, event: QEvent) -> bool: ...

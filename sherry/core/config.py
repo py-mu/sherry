@@ -21,6 +21,7 @@ import sys
 import sherry
 from PyQt5.QtWidgets import QApplication
 
+from sherry.core.style import ElementStyle
 from sherry.inherit.bean import Bean
 
 
@@ -205,8 +206,15 @@ class ApplicationConfig(BaseConfiguration):
             app_name=sherry.__name__,
             *args,
             **kwargs):
-        app = app or QApplication.instance() or QApplication(sys.argv)
+        app = app or self.app
         super().__init__(*args, **kwargs)
         self.app = app
         self.app_name = app_name
         self.app_version = app_version
+        self.set_style()
+
+    def set_style(self, style=None or ElementStyle()):
+        self.app.setStyle(style)
+
+    def set_theme(self, theme):
+        self.app.setStyleSheet(theme)

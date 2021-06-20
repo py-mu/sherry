@@ -11,8 +11,8 @@ from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 import sherry
-from sherry.core.activity import FrameLessWindowHintActivity
-from sherry.view.ui.example_welcome_activity import Ui_index_body
+from sherry.inherit.activity import FrameLessWindowHintActivity
+from sherry.view.ui.activity_welcome import Ui_index_body
 
 
 class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
@@ -49,8 +49,10 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
         self.event_flags.event_switch_border_bottom_right = False
         self.event_flags.event_switch_border_bottom = False
         self.event_flags.event_switch_border_right = False
+        # self.installEventFilter(self)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
+        """单机图像切换"""
         super(WelcomeActivity, self).mousePressEvent(event)
         widget = self.index_show_image
         x, w, y, h = widget.pos().x(), widget.width(), widget.pos().y(), widget.height()

@@ -9,7 +9,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
 from sherry.core.config import ApplicationConfig
-from sherry.core.view import BaseView
+from sherry.inherit.view import BaseView
 
 
 class BaseActivity(QDialog, BaseView):
