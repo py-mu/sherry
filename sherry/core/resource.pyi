@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QFont, QIcon
 
-from sherry.core.config import ApplicationConfig
+from sherry.common.paths import SherryPath
 
 
 class ResourceLoader:
@@ -14,7 +14,7 @@ class ResourceLoader:
     project_icon: QIcon
     project_png: QIcon
 
-    config: ApplicationConfig
+    path: SherryPath
 
     @staticmethod
     def __render_icon_by_path(path: str) -> QIcon: ...

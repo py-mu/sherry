@@ -95,7 +95,7 @@ class FrameLessWindowHintActivity(BaseActivity):
         event_position_mouse = None
 
     def __init__(self, master=None, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
+        super(FrameLessWindowHintActivity, self).__init__(master, *args, **kwargs)
         self.event_flags = self.EventFlags()
         self.procedure()
 

@@ -19,7 +19,7 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         """一般弹窗, 继承自无边框窗体"""
         self.info = info
         self.title = title
-        super().__init__()
+        super(FrameLessWindowHintActivity, self).__init__()
 
     def place(self):
         """需要在父类界面渲染之前重构窗体"""

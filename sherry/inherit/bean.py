@@ -14,29 +14,6 @@ T = TypeVar('T')
 warnings.simplefilter("default")
 
 
-class Badge(object):
-    """
-    徽章是所有成员联络的基础
-
-    Badges are the basis for all members to contact.
-    """
-    id_entity = None
-    _instance_dict = {}
-    _instance_lock = threading.Lock()  # Note: 单例锁(instance lock)
-
-    def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, '_instance_dict'):
-            Badge._instance_dict = {}
-        cls_name = cls.__name__
-        if cls_name not in Badge._instance_dict.keys():
-            with Badge._instance_lock:
-                _instance = object.__new__(cls)
-                Badge._instance_dict.update({
-                    cls_name: {'instance': _instance}
-                })
-        return Badge._instance_dict[cls_name].get('instance')
-
-
 class Bean:
     """
     如果需要获取单例则需要使用方法 instance()，如果重复的实例化，将会影响单例对象

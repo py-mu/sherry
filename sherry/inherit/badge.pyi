@@ -14,6 +14,3 @@ class Badge(object):
         pass
 
     def __subclasses__(self) -> List[Badge]: ...
-
-    def subclasses(self: T) -> List[Type[T]]:
-        pass

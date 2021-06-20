@@ -8,8 +8,9 @@
 import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
-from sherry.common.utils.string import format_style_file
-from sherry.core.config import ApplicationConfig
+from sherry.common.paths import SherryPath
+from sherry.common.string import format_style_file
+from sherry.inherit.badge import Badge
 
 
 class ResourceLoader:
@@ -20,7 +21,7 @@ class ResourceLoader:
     """
 
     def __init__(self):
-        self.config = ApplicationConfig.instance()
+        self.path = Badge(badge=SherryPath)
 
         self.font_10 = self.font(10)
         self.font_11 = self.font(11)
@@ -70,9 +71,9 @@ class ResourceLoader:
         :param convert: 是否需要灰度转换
         :param name: 文件名
         """
-        path = self.config.link(self.config.project_img_path, name)
-        if not self.config.path_exists(path):
-            path = self.config.link(self.config.package_img_path, name)
+        path = self.path.link(self.path.project_img_path, name)
+        if not self.path.path_exists(path):
+            path = self.path.link(self.path.package_img_path, name)
         if convert:
             return self.__render_icon_by_path_convert(path)
         return self.__render_icon_by_path(path)
@@ -116,13 +117,13 @@ class ResourceLoader:
         css_name = css_name or ('common.css',)
         style_str = ""
         for file_name in css_name:
-            path = self.config.link(self.config.project_qss_path, file_name)
-            if not self.config.path_exists(path):
-                path = self.config.link(self.config.package_qss_path, file_name)
+            path = self.path.link(self.path.project_qss_path, file_name)
+            if not self.path.path_exists(path):
+                path = self.path.link(self.path.package_qss_path, file_name)
             try:
                 with open(path, encoding="utf-8") as f:
-                    style_str += format_style_file(f.read(), self.config.package_resource_path)
+                    style_str += format_style_file(f.read(), self.path.package_resource_path)
             except FileNotFoundError:
-                path = self.config.link(self.config.project_qss_path, file_name)
+                path = self.path.link(self.path.project_qss_path, file_name)
                 raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
         return style_str
