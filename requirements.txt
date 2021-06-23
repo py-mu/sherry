@@ -3,4 +3,5 @@ QtAwesome>=1.0.2
 setuptools~=56.2.0
 sherry~=1.0.0
 cssutils~=2.3.0
-lesscpy
+lesscpy~=0.14.0
+colorlog

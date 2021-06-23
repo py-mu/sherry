@@ -21,7 +21,7 @@ class ResourceLoader:
     """
 
     def __init__(self):
-        self.path = Badge(badge=SherryPath)
+        self.path = Badge(source=SherryPath)
 
         self.font_10 = self.font(10)
         self.font_11 = self.font(11)

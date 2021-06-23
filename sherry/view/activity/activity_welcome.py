@@ -11,7 +11,9 @@ from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 import sherry
+from sherry.common.paths import SherryPath
 from sherry.inherit.activity import FrameLessWindowHintActivity
+from sherry.inherit.badge import Badge
 from sherry.view.ui.activity_welcome import Ui_index_body
 
 
@@ -22,6 +24,7 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
     __u = ""
 
     def __init__(self, *args, **kwargs):
+        self.app_path = Badge(source=SherryPath)
         super().__init__(*args, **kwargs)
 
     def set_signal(self):
@@ -66,14 +69,13 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
             if self.__u != img_name:
                 self.__u = img_name
                 break
-        config = self.resource.config
-        with open(config.file_path('sherry/index-show.html'), 'r', encoding='utf-8') as f:
+        with open(self.app_path.file_path('sherry/index-show.html'), 'r', encoding='utf-8') as f:
             html = f.read()
             info = sherry.__sherry_info__
             html = html.replace("__document_url__", info["project_urls"]["Documentation"])
             html = html.replace("__project_url__", info["project_urls"]["Source"])
             self.index_text_show.setHtml(html)
-        img_path = config.file_path('img/{}'.format(img_name))
+        img_path = self.app_path.file_path('img/{}'.format(img_name))
         url = "url({})".format(img_path).replace("\\", "/")
         qss = self._base_show_img_style_.replace("var(--index_image)", url)
         self.index_show_image.setStyleSheet(qss)

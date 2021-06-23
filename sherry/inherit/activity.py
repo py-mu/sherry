@@ -8,7 +8,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
-from sherry.core.config import ApplicationConfig
 from sherry.inherit.view import BaseView
 
 
@@ -25,7 +24,6 @@ class BaseActivity(QDialog, BaseView):
         # This configurator is a subclass after instantiation,
         # theoretically it will be shared globally after the launcher is loaded
         # So what you get here is the subclass you instantiated
-        self.config = ApplicationConfig.instance()
 
     def configure(self):
         self.resize(1047, 680)

@@ -1,5 +1,5 @@
 import threading
-from typing import List, TypeVar, Optional, Type
+from typing import List, TypeVar, Optional, Type, Union, Any
 
 T = TypeVar('T')
 
@@ -10,7 +10,12 @@ class Badge(object):
     __instance__ = {}
     _instance_lock = threading.Lock()  # Note: 单例锁(instance lock)
 
-    def __new__(cls, *args, badge: Optional[Type[T]] = None, singleton=True, relative=True, **kwargs) -> T:
-        pass
+    def __new__(cls, *args, source: Optional[Type[T]] = None, singleton=True, relative=True, return_class=False,
+                **kwargs) -> Union[Type[T], T]:
+        ...
 
     def __subclasses__(self) -> List[Badge]: ...
+
+    @staticmethod
+    def decoration(badge: Any, relative=True):
+        pass

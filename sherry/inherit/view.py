@@ -9,7 +9,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
 
+from sherry.core.config import ApplicationConfig
 from sherry.core.resource import ResourceLoader
+from sherry.inherit.badge import Badge
 
 
 class BaseView(QWidget):
@@ -20,7 +22,8 @@ class BaseView(QWidget):
     def __init__(self, master=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.resource = ResourceLoader()
+        self.resource = Badge(source=ResourceLoader)
+        self.config = Badge(source=ApplicationConfig)
 
     def set_signal(self):
         """
@@ -111,13 +114,3 @@ class BaseView(QWidget):
         if not self.isMinimized():
             self.setAttribute(Qt.WA_Mapped)
         return super().showEvent(event)
-
-    # def event(self, event: QEvent) -> bool:
-    #     if event.type() == QEvent.ToolTip:
-    #         event: QHelpEvent
-    #         w, h = tooltip.width(), tooltip.height()
-    #         x, y = event.globalX(), event.globalY() + h
-    #         tooltip.setGeometry(x, y, w, h)
-    #         tooltip.show()
-    #         return True
-    #     return super().event(event)

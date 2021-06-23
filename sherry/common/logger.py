@@ -4,11 +4,12 @@
     package: .logger.py
     project:
 """
-
 import logging
 import os
 import traceback
 from logging.handlers import RotatingFileHandler
+
+import colorlog
 
 
 class ApplicationLogger(logging.Logger):
@@ -26,11 +27,19 @@ class ApplicationLogger(logging.Logger):
         handler = RotatingFileHandler(filename=file_path,
                                       maxBytes=20 * 1024 * 1024,
                                       backupCount=5, encoding='utf-8')
-        handler.setLevel(logging.DEBUG)
-        handler.setFormatter(logging.Formatter(
+        _format = logging.Formatter(
             fmt="%(asctime)s - %(module)s - %(funcName)s：%(lineno)d  -  %(levelname)s: %(message)s",
             datefmt='%Y-%m-%d %H:%M:%S %a')
+        handler.setLevel(logging.DEBUG)
+        handler.setFormatter(_format)
+        ch = logging.StreamHandler()
+        console_formatter = colorlog.ColoredFormatter(
+            fmt='%(log_color)s[%(asctime)s.%(msecs)03d] %(filename)s -> %(funcName)s line:%(lineno)d [%(levelname)s] : %(message)s',
+            datefmt='%Y-%m-%d  %H:%M:%S',
         )
+        ch.setFormatter(console_formatter)
+        ch.setLevel(logging.DEBUG)
+        self.addHandler(ch)
         self.addHandler(handler)
 
     def error(self, msg, *args, exc_info=None, stack_info=None, level=None, extra=None, **kwargs):
