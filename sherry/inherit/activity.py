@@ -8,6 +8,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
+from sherry.go import app_name
 from sherry.inherit.view import BaseView
 
 
@@ -15,7 +16,6 @@ class BaseActivity(QDialog, BaseView):
     """
     默认的窗口级组件
     """
-    parent = None
 
     def __init__(self, master=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -29,7 +29,7 @@ class BaseActivity(QDialog, BaseView):
         self.resize(1047, 680)
         self.setMouseTracking(True)
         self.setWindowIcon(self.resource.project_png)
-        self.setWindowTitle(self.config.app_name)
+        self.setWindowTitle(app_name)
 
     def keyPressEvent(self, event):
         """

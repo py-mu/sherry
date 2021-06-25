@@ -8,8 +8,10 @@
 import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
-from sherry.common.paths import SherryPath
-from sherry.common.string import format_style_file
+from sherry.utls.paths import SherryPath
+from sherry.common import app
+from sherry.utls.string import format_style_file
+from sherry.core.style import ElementStyle
 from sherry.inherit.badge import Badge
 
 
@@ -22,7 +24,6 @@ class ResourceLoader:
 
     def __init__(self):
         self.path = Badge(source=SherryPath)
-
         self.font_10 = self.font(10)
         self.font_11 = self.font(11)
         self.font_14 = self.font(14)
@@ -31,6 +32,14 @@ class ResourceLoader:
 
         self.project_icon = self.icon('icon.ico')
         self.project_png = self.icon('icon.png')
+
+    @staticmethod
+    def set_style(style=None or ElementStyle()):
+        app.setStyle(style)
+
+    @staticmethod
+    def set_theme(theme):
+        app.setStyleSheet(theme)
 
     @staticmethod
     def __render_icon_by_path(path):

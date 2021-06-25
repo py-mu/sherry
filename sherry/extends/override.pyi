@@ -1,7 +1,7 @@
 import functools
 from typing import List, Type
 
-from sherry.inherit.bean import EventCell
+from sherry.extends.events import EventCell
 
 __instance_func__: List[Overrider.install]
 

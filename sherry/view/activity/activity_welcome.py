@@ -11,7 +11,7 @@ from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 import sherry
-from sherry.common.paths import SherryPath
+from sherry.utls.paths import SherryPath
 from sherry.inherit.activity import FrameLessWindowHintActivity
 from sherry.inherit.badge import Badge
 from sherry.view.ui.activity_welcome import Ui_index_body

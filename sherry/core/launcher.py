@@ -13,15 +13,16 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
-from sherry.common.logger import ApplicationLogger
-from sherry.common.paths import SherryPath
-from sherry.core.config import ApplicationConfig
+from sherry.common import app_name, app
+from sherry.utls.paths import SherryPath
 from sherry.core.handler import ExceptHookHandler, ExOperational
 from sherry.core.resource import ResourceLoader
 from sherry.extends.override import Overrider
 from sherry.inherit.badge import Badge
-from sherry.view.activity.activity_dialog import NormalDialogActivity
 from sherry.view.activity.activity_welcome import WelcomeActivity
+
+# 需要在启动前执行
+Badge(source=Overrider).install()
 
 
 class Application:
@@ -39,27 +40,13 @@ class Application:
         The main method is to manage the life cycle of windows, and at the same time add some automation related logic,
         It may be more abstract, but the advantage is that it can be realized.
     """
-    __slots__ = (
-        'activity', 'config', 'handler', 'log_class', 'unique', 'override_class', 'err_desc_file_path', 'localServer',
-        'socket')
 
     def __init_before__(self):
         self.socket = QLocalSocket()
         self.localServer = QLocalServer()
-        self.override_class = Badge(source=Overrider)
-        self.config = Badge(source=ApplicationConfig)
         self.activity = Badge(source=WelcomeActivity)
         self.handler = Badge(source=ExceptHookHandler)
-        sherry_path = Badge(source=SherryPath)
-        self.err_desc_file_path = sherry_path.file_path('sherry/exception-handler.json')
-
-        # 设置日志
-        log_class = Badge(source=ApplicationLogger, return_class=True)
-        log_class.root_path = sherry_path.log_path
-        log_class.app_name = self.config.app_name + ".log"
-        a = Badge(log_class.app_name, source=ApplicationLogger)
-        logging.root = a
-        logging.setLoggerClass(log_class)
+        self.err_desc_file_path = Badge(source=SherryPath).file_path('sherry/exception-handler.json')
 
     def __init__(self, activity=None, unique=False, ):
         self.__init_before__()
@@ -76,12 +63,13 @@ class Application:
         with open(file_path, encoding='utf-8') as f:
             self.handler.update_map({k: ExOperational(**v) for k, v in json.load(f).items()})
 
-    def __init_app(self):
+    @staticmethod
+    def __init_app():
         """初始化Qt Application"""
-        self.config.set_theme(ResourceLoader().qss("element.css"))
-        app = self.config.app
+        resource = ResourceLoader()
+        resource.set_theme(resource.qss("element.css"))
         app.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
-        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(self.config.app_name)
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
 
     def run(self):
         """
@@ -89,20 +77,18 @@ class Application:
 
         show your activity
         """
-        logging.info('start {}'.format(self.config.app_name))
+        logging.info('start {}'.format(app_name))
         if not self.activity:
             raise ValueError('Activity is not load, did you install it ?')
         if not isinstance(self.activity, QWidget):
             raise TypeError('The Activity is not valid Activity.')
         if self.unique:
-            self.socket.connectToServer(self.config.app_name)
+            self.socket.connectToServer(app_name)
             if self.socket.waitForConnected(200):
-                dialog = NormalDialogActivity(title="重复运行", info="已有实例 {} 在运行.".format(self.config.app_name))
-                dialog.exec()
-                self.shutdown()
-            self.localServer.listen(self.config.app_name)
+                raise RuntimeError('重复运行')
+            self.localServer.listen(app_name)
         self.activity.show()
-        self.config.app.exec_()
+        app.exec_()
         self.shutdown()
 
     def shutdown(self):
@@ -111,7 +97,7 @@ class Application:
 
         shutdown application
         """
-        logging.info('shutdown {}'.format(self.config.app_name))
+        logging.info('shutdown {}'.format(app_name))
         self.localServer.close()
-        self.config.app.quit()
+        app.quit()
         logging.shutdown()

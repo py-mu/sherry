@@ -9,7 +9,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
 
-from sherry.core.config import ApplicationConfig
 from sherry.core.resource import ResourceLoader
 from sherry.inherit.badge import Badge
 
@@ -23,7 +22,6 @@ class BaseView(QWidget):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.resource = Badge(source=ResourceLoader)
-        self.config = Badge(source=ApplicationConfig)
 
     def set_signal(self):
         """

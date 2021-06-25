@@ -7,7 +7,19 @@
 from PyQt5.QtCore import QEvent, QRect
 from PyQt5.QtWidgets import QToolTip
 
-from sherry.inherit.bean import EventCell
+
+class EventCell:
+    """装载单元"""
+
+    def __init__(self, widget, event):
+        self.widget = widget
+        self.event = event
+
+    def __hash__(self):
+        return id(self.__class__.__name__)
+
+    def __call__(self):
+        return None
 
 
 class TooltipEvent(EventCell):
@@ -15,8 +27,8 @@ class TooltipEvent(EventCell):
 
     def __call__(self, *args, **kwargs):
         if self.event.type() == QEvent.ToolTip and self.widget.toolTip():
-            QToolTip.showText(self.event.globalPos(), "这是重载后的 tooltip", self.widget, QRect(), self.widget.toolTipDuration())
+            QToolTip.showText(self.event.globalPos(), "这是重载后的 tooltip", self.widget, QRect(),
+                              self.widget.toolTipDuration())
             return True
         else:
             self.event.ignore()
-

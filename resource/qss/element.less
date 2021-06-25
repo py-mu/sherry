@@ -7,10 +7,18 @@
 // ------Background Color 背景颜色------------
 // 白色背景色
 @color-background-white: #ffffff;
+//基础背景色
+@color-background-base: #fdfdfd;
+@color-background-darker: #f5f5f5;
+@color-background-darker1: #f0f0f0;
+@color-background-darker2: #dedede;
+@color-background-darker3: #e3e3e3;
+@color-background-darker4: #d2d2d2;
+@color-background-darker4: #c2c2c2;
+@color-background-darker4: #a1a2a1;
 // 黑色背景色
 @color-background-black: #000000;
-//基础背景色
-@color-background-base: #F5F7FA;
+
 
 // ----brand color 主题色--------------------
 // 主题颜色 primary color.
@@ -206,14 +214,6 @@ QPushButton:hover {
 QPushButton:pressed {
   color: @color-primary-darker;
   border-color: @color-primary-darker;
-}
-
-QPushButton:disabled, QPushButton:disabled:hover, QPushButton:disabled:pressed {
-  color: @color-text-disable;
-  cursor: not-allowed;
-  background-image: none;
-  background-color: @color-background-white;
-  border-color: @color-border-lighter;
 }
 
 QPushButton[btn_style_simplicity="True"]:hover, [btn_style_simplicity="True"]:hover {
@@ -419,13 +419,19 @@ QWidget, QFrame {
 #bar {
   height: 50px;
 }
-
-/*#btn_bar_app_name, #app_name, #btn_bar_title{background: transparent;border: none}*/
-/*#btn_bar_normal, #btn_bar_close, #btn_bar_min, #btn_bar_app_logo{border: none;margin: 3px;width: 25px;height: 25px;background: transparent;}*/
-/*#btn_bar_normal:hover, #btn_bar_min:hover{background: var(--basic-color-a);}*/
-/*#btn_bar_normal:pressed, #btn_bar_min:pressed{background: var(--basic-color-a3);}*/
-/*#btn_bar_close:hover{background: var(--accent-color-danger);}*/
-/*#btn_bar_close:pressed{background: var(--accent-color-danger-a);}*/
+QPushButton:disabled, QPushButton:disabled:hover, QPushButton:disabled:pressed {
+  color: @color-text-disable;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: @color-background-white;
+  border-color: @color-border-lighter;
+}
+#btn_bar_app_name, #app_name, #btn_bar_title{background: transparent;border: none}
+#btn_bar_normal, #btn_bar_close, #btn_bar_min, #btn_bar_app_logo{border: none;margin: 3px;width: 25px;height: 25px;padding: 5px; background: transparent;}
+#btn_bar_normal:hover, #btn_bar_min:hover{background: @color-background-darker1;}
+#btn_bar_normal:pressed, #btn_bar_min:pressed{background: @color-background-darker2;}
+#btn_bar_close:hover{background: @color-danger-lighter;}
+#btn_bar_close:pressed{background: @color-danger;}
 /*#app_logo{width: 25px;height: 25px;border: none;background: transparent;}*/
 /*#btn_dialog_yes, #btn_dialog_no{width: 50px;height: 27px;}*/
 #btn_bar_normal:before {

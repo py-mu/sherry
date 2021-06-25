@@ -13,11 +13,9 @@ import colorlog
 
 
 class ApplicationLogger(logging.Logger):
-    root_path = ''
-    app_name = 'sherry'
+    root_path = 'log'
 
-    def __init__(self, name: str = None):
-        name = name or ApplicationLogger.app_name
+    def __init__(self, name: str):
         super().__init__(name)
         self.level = logging.DEBUG
         self.set_handler(name)
