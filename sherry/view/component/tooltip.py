@@ -4,7 +4,6 @@
     on 2021/6/7
     at 10:50
 """
-from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont, QPainter, QColor, QPainterPath
 from PyQt5.QtWidgets import QLabel, QDialog
@@ -42,7 +41,7 @@ class Tooltip(QDialog):
         m_TextLabel.setMinimumHeight(20)
         m_TextLabel.setText('测试')
 
-    def paintEvent(self, event: QtGui.QPaintEvent) -> None:
+    def paintEvent(self, event):
         Painter = QPainter(self)
         Painter.setRenderHint(QPainter.Antialiasing, True)
         Painter.setPen(Qt.SolidLine)

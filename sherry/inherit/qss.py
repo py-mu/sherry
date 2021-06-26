@@ -6,20 +6,6 @@
 """
 
 
-def qss_style(*qss, **kwargs):
-    qss = qss or Qss,
-
-    class CQss(type('QSS', qss, kwargs)):
-        def __getattribute__(self, item):
-            """读取样式，如果是其他类的属性那应该直接返回"""
-            _property_ = super(CQss, self).__getattribute__(item)
-            if isinstance(_property_, str) and item in Qss.__dict__ and "_" in item:
-                return item, "True"
-            return _property_
-
-    return CQss()
-
-
 class Qss:
     """"""
 
@@ -82,3 +68,10 @@ class Qss:
 
     # 其他
     border_red = "红色边框一般用于警示，输入错误"
+
+    def __getattribute__(self, item):
+        """读取样式，如果是其他类的属性那应该直接返回"""
+        _property_ = super().__getattribute__(item)
+        if isinstance(_property_, str) and item in Qss.__dict__ and "_" in item:
+            return item, "True"
+        return _property_

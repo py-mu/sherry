@@ -6,7 +6,6 @@
 """
 import logging
 import sys
-import traceback
 
 from sherry.view.activity.activity_dialog import NormalDialogActivity
 
@@ -38,10 +37,17 @@ class ExOperational:
         :param log_it: 是否做日志记录， 默认是 Whether to log，default：True
         """
         self.description = description
-        self.callback = callback
+        self.callback = callback or self.callback_fun
         self.log_level = log_level
         self.log_it = log_it
         self.title = title
+
+    @staticmethod
+    def callback_fun(op):
+        """异常回调"""
+        dialog = NormalDialogActivity(title=op.title, info=op.description)
+        dialog.setWindowTitle(op.title)
+        dialog.exec()
 
     def __repr__(self):
         return """ExOperational( title: {}, description: {}, log_level: {}, log_it: {} )""".format(self.title,
@@ -65,7 +71,7 @@ class ExceptHookHandler:
             - exception：异常回溯 Exception traceback
         """
         # noinspection SpellCheckingInspection
-        sys.excepthook = self.__exception
+        setattr(sys, 'excepthook', self.__exception)
 
     def update_map(self, d):
         """
@@ -74,42 +80,20 @@ class ExceptHookHandler:
         """
         self.ex_map.update(d)
 
-    @staticmethod
-    def log(exc_type, exc_value, tb):
-        msg = ' Traceback (most recent call last):\n'
-        while tb:
-            filename = tb.tb_frame.f_code.co_filename
-            name = tb.tb_frame.f_code.co_name
-            lineno = tb.tb_lineno
-            msg += '   File "%.500s", line %d, in %.500s\n' % (filename, lineno, name)
-            tb = tb.tb_next
-        msg += ' %s: %s\n' % (exc_type.__name__, exc_value)
-        return msg
-
-    def __exception(self, exc_type, exc_value, tb):
+    def __exception(self, exc_info, exc_value, tb):
         """
         分为两个部分：part of this：
             - 日志记录：写到日志文件中， log record
             - 弹窗提示，除了日志无感记录之外，出现未记录的异常应该提示给用户
-        :param exc_type: 异常对象
+        :param exc_info: 异常对象
         :param exc_value: 异常信息
         :param tb: 栈回溯
         """
-        op = self.ex_map.get(exc_type.__name__, ExOperational(description="%s: \n%s" % (exc_type.__name__, exc_value)))
+        op = self.ex_map.get(exc_info.__name__, ExOperational(description="%s: \n%s" % (exc_info.__name__, exc_value)))
         if op.log_it:
-            msg = self.log(exc_type, exc_value, tb)
-            logging.log(op.log_level, "{msg}".format(msg=msg))
-        try:
-            if op.callback:
-                op.exc_value = exc_value
-                op.exc_type = exc_type
-                op.tb = tb
-                op.callback(op)
-        except Exception as e:
-            traceback_rollback = traceback.format_exc()
-            traceback_rollback = f"{str(e)}" if str(
-                traceback_rollback) == "NoneType: None\n" else traceback_rollback
-            logging.error(traceback_rollback)
-        dialog = NormalDialogActivity(title=op.title, info=op.description)
-        dialog.setWindowTitle(op.title)
-        dialog.exec()
+            logging.exception('未拦截异常', exc_info=(exc_info, exc_value, tb))
+        if op.callback:
+            op.exc_value = exc_value
+            op.exc_type = exc_info
+            op.tb = tb
+            op.callback(op)

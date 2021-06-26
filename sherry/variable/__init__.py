@@ -9,7 +9,7 @@ import logging
 try:
     from precondition import *
 except ImportError as e:
-    from sherry.common.precondition import *
+    from sherry.variable.precondition import *
 
 from sherry.extends.override import Overrider
 from sherry.core.badge import Badge

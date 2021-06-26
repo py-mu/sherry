@@ -18,8 +18,8 @@ class EventCell:
     def __hash__(self):
         return id(self.__class__.__name__)
 
-    def __call__(self):
-        return None
+    def __call__(self, *args, **kwargs):
+        raise NotImplementedError('未实现回调')
 
 
 class TooltipEvent(EventCell):

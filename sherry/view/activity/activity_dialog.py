@@ -9,7 +9,6 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QHBoxLayout, QWidget
 
 from sherry.inherit.activity import FrameLessWindowHintActivity
-from sherry.inherit.qss import qss_style
 from sherry.view.ui.activity_dialog import Ui_Form
 
 
@@ -39,7 +38,7 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         self.btn_bar_title.setText(self.title)
         self.dialog_show_info.setText(self.info)
         self.btn_dialog_yes.setText("确认")
-        self.btn_dialog_yes.setProperty(*qss_style().btn_primary)
+        self.btn_dialog_yes.setProperty(*self.resource.qss_value().btn_primary)
         self.btn_dialog_no.setText("取消")
         self.btn_bar_close.setIcon(self.resource.font_icon("fa.close", color="black"))
         self.btn_dialog_no.setHidden(True)
@@ -47,7 +46,7 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         self.event_flags.event_switch_border_right = False
         self.event_flags.event_switch_border_bottom_right = False
 
-    def set_signal(self) -> None:
+    def set_signal(self):
         super(NormalDialogActivity, self).set_signal()
         self.btn_dialog_yes.clicked.connect(self.on_click_sure)
         self.btn_bar_close.clicked.connect(self.accept)

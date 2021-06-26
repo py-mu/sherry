@@ -13,7 +13,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
-from sherry.common import app_name, app
+from sherry.variable import app_name, app
 from sherry.core.handler import ExceptHookHandler, ExOperational
 from sherry.core.resource import ResourceLoader
 from sherry.core.badge import Badge
@@ -43,6 +43,7 @@ class Application:
         self.activity = Badge(source=WelcomeActivity)
         self.handler = Badge(source=ExceptHookHandler)
         self.err_desc_file_path = Badge(source=SherryPath).file_path('sherry/exception-handler.json')
+        self.refresh_ex_data(self.err_desc_file_path)
 
     def __init__(self, activity=None, unique=False):
         self.__init_before__()

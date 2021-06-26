@@ -8,8 +8,8 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
-from sherry.common import app_name
 from sherry.inherit.view import BaseView
+from sherry.variable import app_name
 
 
 class BaseActivity(QDialog, BaseView):
@@ -18,7 +18,7 @@ class BaseActivity(QDialog, BaseView):
     """
 
     def __init__(self, master=None, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
+        super(BaseActivity, self).__init__(master, *args, **kwargs)
         # 此配置器是经过实例化后的子类，理论上在launcher装载后就会被全局共享
         # 所以此处获取到的即是你实例化后的子类
         # This configurator is a subclass after instantiation,

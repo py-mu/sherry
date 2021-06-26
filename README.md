@@ -20,3 +20,5 @@
 交互层
 
 装饰层
+
+python setup.py bdist_wheel

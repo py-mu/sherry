@@ -37,7 +37,7 @@ class Overrider:
         # inherit old QWidget event function
         primeval_events = getattr(QWidget, "event")
 
-        def custom_event(widget: QWidget, event) -> bool:
+        def custom_event(widget, event):
             for classic in Overrider.custom_events:
                 result = classic(widget=widget, event=event)()
                 if not result:
@@ -53,7 +53,7 @@ class Overrider:
     def install_enter_event():
         primeval_func = getattr(QWidget, "enterEvent")
 
-        def enterEvent(widget: QWidget, event) -> None:
+        def enterEvent(widget, event):
             if not hasattr(widget, 'raw_cursor'):
                 setattr(widget, 'raw_cursor', Qt.ArrowCursor)
             if widget.parent():

@@ -16,7 +16,7 @@ class BarComponent(BaseBar, Ui_bar):
         super().__init__(*args, **kwargs)
         self.procedure()
 
-    def place(self) -> None:
+    def place(self):
         """
         如果标题的按钮名称与基类预留名称一致则不用赋值引用，否则需要把按钮迁移到当前类上
         即：self.bar_close = self.btn_bar_close
@@ -27,7 +27,7 @@ class BarComponent(BaseBar, Ui_bar):
         self.bar_mini = self.btn_bar_min
         self.bar_normal = self.btn_bar_normal
 
-    def configure(self) -> None:
+    def configure(self):
         super(BarComponent, self).configure()
         self.btn_bar_app_name.setText("默认标题栏一")
         self.btn_bar_app_logo.setIcon(self.resource.project_png)

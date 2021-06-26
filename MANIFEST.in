@@ -1,0 +1,4 @@
+include sherry/resource/*
+recursive-include docs *
+include setup.py
+recursive-include sherry/resource *

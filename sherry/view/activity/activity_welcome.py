@@ -7,13 +7,12 @@
 """
 import random
 
-from PyQt5.QtGui import QMouseEvent
 from PyQt5.QtWidgets import QWidget
 
 import sherry
-from sherry.utls.paths import SherryPath
-from sherry.inherit.activity import FrameLessWindowHintActivity
 from sherry.core.badge import Badge
+from sherry.inherit.activity import FrameLessWindowHintActivity
+from sherry.utls.paths import SherryPath
 from sherry.view.ui.activity_welcome import Ui_index_body
 
 
@@ -52,7 +51,7 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
         self.event_flags.event_switch_border_bottom = False
         self.event_flags.event_switch_border_right = False
 
-    def mousePressEvent(self, event: QMouseEvent) -> None:
+    def mousePressEvent(self, event):
         """单机图像切换"""
         super(WelcomeActivity, self).mousePressEvent(event)
         widget = self.index_show_image

@@ -9,8 +9,6 @@ import os
 __class_path__ = os.path.abspath(os.path.dirname(__file__))  # Note: config 模块文件路径 (the config file path)
 
 __package_path__ = os.path.abspath(os.path.join(__class_path__, os.path.pardir))
-# 往上返回两层目录()
-__package_path__ = os.path.abspath(os.path.join(__package_path__, os.path.pardir))
 
 __project_path__ = os.getcwd()  # Note: 项目路径(project path)
 

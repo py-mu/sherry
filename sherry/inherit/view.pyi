@@ -1,4 +1,4 @@
-from typing import Optional, Union, Tuple, Any
+from typing import Optional, Union, Tuple
 
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QEvent
@@ -6,11 +6,6 @@ from PyQt5.QtGui import QColor, QGradient, QMouseEvent
 from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect
 
 from sherry.core.resource import ResourceLoader
-from sherry.view.component.tooltip import Tooltip
-
-tooltip: Tooltip
-# inherit old QWidget event function
-old_func: Any
 
 
 class BaseView(QWidget):

@@ -8,11 +8,12 @@
 import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
-from sherry.utls.paths import SherryPath
-from sherry.common import app
-from sherry.utls.string import format_style_file
-from sherry.extends.style import ElementStyle
 from sherry.core.badge import Badge
+from sherry.inherit.qss import Qss
+from sherry.inherit.style import ElementStyle
+from sherry.utls.paths import SherryPath
+from sherry.utls.string import format_style_file
+from sherry.variable import app
 
 
 class ResourceLoader:
@@ -104,15 +105,16 @@ class ResourceLoader:
         return font
 
     @staticmethod
-    def font_icon(font_str, color="white"):
+    def font_icon(font_str, color="white", *args, **kwargs):
         """
         字体图标,临时使用，
         重复调用建议使用方法生成
+        see: https://github.com/spyder-ide/qtawesome
 
         :param color: 显示的颜色，是一个颜色描述单词，或者十六进制色，如 '#666' default ’white‘
         :param font_str 图标标识 如：'fa5.file-excel'
         """
-        return qtawesome.icon(font_str, color=color)
+        return qtawesome.icon(font_str, *args, color=color, **kwargs)
 
     def qss(self, *css_name):
         """
@@ -136,3 +138,18 @@ class ResourceLoader:
                 path = self.path.link(self.path.project_qss_path, file_name)
                 raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
         return style_str
+
+    @staticmethod
+    def qss_value(*qss, **kwargs):
+        if not qss:
+            qss = Qss,
+
+        class CQss(type('_QSS', qss, kwargs)):
+            def __getattribute__(self, item):
+                """读取样式，如果是其他类的属性那应该直接返回"""
+                _property_ = super(CQss, self).__getattribute__(item)
+                if isinstance(_property_, str) and item in Qss.__dict__ and "_" in item:
+                    return item, "True"
+                return _property_
+
+        return CQss()

@@ -21,7 +21,7 @@ app_version = __version__
 app = QApplication.instance() or QApplication(sys.argv)
 
 # if debug
-DEBUG = True
+DEBUG = False
 
 # logger
 logger_setter = LoggerSetter
