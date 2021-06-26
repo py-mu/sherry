@@ -84,7 +84,7 @@ class Worker(QThread):
         self.func_kwargs = kwargs
         self.func = func
         self._id = task_id
-        logging.getLogger().info("设置线程 func={}  arg={}  kwargs={}".format(func.__name__, args, kwargs))
+        logging.info("设置线程 func={}  arg={}  kwargs={}".format(func.__name__, args, kwargs))
 
     def kill(self):
         self.__is_working = False
@@ -105,10 +105,10 @@ class Worker(QThread):
             response.data = e
             # noinspection PyUnresolvedReferences
             self.error.emit(response)
-            logging.getLogger().error("执行失败 func={}  arg={}  kwargs={}, error={}".format(self.func.__name__,
-                                                                                         self.func_args,
-                                                                                         self.func_kwargs,
-                                                                                         e))
+            logging.exception("执行失败 func={}  arg={}  kwargs={}, error={}".format(self.func.__name__,
+                                                                                 self.func_args,
+                                                                                 self.func_kwargs,
+                                                                                 e))
         finally:
             # noinspection PyUnresolvedReferences
             self.end.emit(response)

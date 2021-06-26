@@ -4,10 +4,9 @@
     on 2021/6/20
     at 0:36
 """
+import logging
 import threading
 import traceback
-
-from sherry.go import logger
 
 
 class Badge(object):
@@ -45,9 +44,9 @@ class Badge(object):
         else:
             for index, ci in enumerate(group_class):
                 if ci.__subclasses__() != group_class[index + 1:]:
-                    logger.warning('The loading class has malformed branches, so there is loading ambiguity, '
-                                   'please use single chain inheritance as much as possible. detail: source: {}'
-                                   ' target: {}， branch: {}'.format(
+                    logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
+                                    'please use single chain inheritance as much as possible. detail: source: {}'
+                                    ' target: {}， branch: {}'.format(
                         source, group_class[-1], ci
                     ))
             # Only get the most distant relatives
@@ -56,13 +55,14 @@ class Badge(object):
             return target
         cls_name = target.__name__
         caller = traceback.extract_stack()[-2]  # type: traceback.FrameSummary
-        logger.debug(
-            '{} in {} -> {} install the most distant relatives {} from {} .'.format(
+        logging.debug(
+            '{} in {} -> {} install the most distant subclass {} from {} .'.format(
                 caller.filename,
                 caller.lineno,
                 caller.name,
-                target,
-                source))
+                target.__module__ + target.__name__,
+                source.__module__ + source.__name__
+            ))
         if cls_name not in Badge.__instance__:
             obj = target(*args, **kwargs)
             with Badge._instance_lock:
@@ -116,7 +116,7 @@ class Badge(object):
                 else:
                     new_bases.append(i)
             if tt:
-                logger.debug('injection class "{}" from "{}", happened at "{}"'.format(tt, ts, mcs.__name__))
+                logging.debug('injection class "{}" from "{}", happened at "{}"'.format(tt, ts, mcs.__name__))
             return type(mcs.__name__, tuple(new_bases), dict(mcs.__dict__))
 
         return _build_

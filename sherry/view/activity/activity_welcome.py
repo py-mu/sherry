@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import QWidget
 import sherry
 from sherry.utls.paths import SherryPath
 from sherry.inherit.activity import FrameLessWindowHintActivity
-from sherry.inherit.badge import Badge
+from sherry.core.badge import Badge
 from sherry.view.ui.activity_welcome import Ui_index_body
 
 
@@ -30,7 +30,6 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
     def set_signal(self):
         super(WelcomeActivity, self).set_signal()
         self.index_close_btn.clicked.connect(self.accept)
-        # self.index_show_image.clicked.connect(self.set_random_image)
 
     def place(self):
         """放置组件"""
@@ -52,7 +51,6 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
         self.event_flags.event_switch_border_bottom_right = False
         self.event_flags.event_switch_border_bottom = False
         self.event_flags.event_switch_border_right = False
-        # self.installEventFilter(self)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         """单机图像切换"""

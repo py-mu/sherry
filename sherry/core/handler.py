@@ -4,10 +4,10 @@
     on 2021/5/12
     at 15:29
 """
+import logging
 import sys
 import traceback
 
-from sherry.common import logger
 from sherry.view.activity.activity_dialog import NormalDialogActivity
 
 
@@ -17,7 +17,7 @@ class ExOperational:
     title = "运行异常"  # Note: 标题， title
     description = "未知异常, "  # Note: 异常描述, Exception description
     callback = None  # Note: 回调，callback
-    log_level = logger.ERROR  # Note: 日志等级, logging level
+    log_level = logging.ERROR  # Note: 日志等级, logging level
     log_it = True  # Note: 是否记录日志，默认记录, Whether to record the log, the default record
 
     exc_type = None  # Note: 触发的异常类型，Type of exception triggered
@@ -98,7 +98,7 @@ class ExceptHookHandler:
         op = self.ex_map.get(exc_type.__name__, ExOperational(description="%s: \n%s" % (exc_type.__name__, exc_value)))
         if op.log_it:
             msg = self.log(exc_type, exc_value, tb)
-            logger.log(op.log_level, "{msg}".format(msg=msg))
+            logging.log(op.log_level, "{msg}".format(msg=msg))
         try:
             if op.callback:
                 op.exc_value = exc_value
@@ -109,7 +109,7 @@ class ExceptHookHandler:
             traceback_rollback = traceback.format_exc()
             traceback_rollback = f"{str(e)}" if str(
                 traceback_rollback) == "NoneType: None\n" else traceback_rollback
-            logger.error(traceback_rollback)
+            logging.error(traceback_rollback)
         dialog = NormalDialogActivity(title=op.title, info=op.description)
         dialog.setWindowTitle(op.title)
         dialog.exec()

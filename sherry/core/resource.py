@@ -11,8 +11,8 @@ from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 from sherry.utls.paths import SherryPath
 from sherry.common import app
 from sherry.utls.string import format_style_file
-from sherry.core.style import ElementStyle
-from sherry.inherit.badge import Badge
+from sherry.extends.style import ElementStyle
+from sherry.core.badge import Badge
 
 
 class ResourceLoader:

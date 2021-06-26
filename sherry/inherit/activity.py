@@ -8,7 +8,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
-from sherry.go import app_name
+from sherry.common import app_name
 from sherry.inherit.view import BaseView
 
 

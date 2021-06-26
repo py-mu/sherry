@@ -10,7 +10,7 @@ from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
 
 from sherry.core.resource import ResourceLoader
-from sherry.inherit.badge import Badge
+from sherry.core.badge import Badge
 
 
 class BaseView(QWidget):
