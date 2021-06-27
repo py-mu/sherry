@@ -22,13 +22,11 @@ classifiers = [
     'Topic :: Software Development :: Libraries :: Python Modules',
 ]
 
-package_data = {'sherry': ['*.pyi', '*.ui']}
 setup(
     platforms=['OS-independent'],
     classifiers=classifiers,
     packages=find_packages(),
     include_package_data=True,
-    package_data=package_data,
     install_requires=['QtAwesome>=0.7.0', 'PyQt5>=5.12'],
     python_requires='>=3.6',
     **__sherry_info__
