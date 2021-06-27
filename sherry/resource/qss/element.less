@@ -22,6 +22,8 @@
 
 // ----brand color 主题色--------------------
 // 主题颜色 primary color.
+@color-primary-darker2: #0084dc;
+@color-primary-darker1: #018fee;
 @color-primary-darker: #3a8ee6;
 @color-primary: #409eff;
 @color-primary-light-super: #66b1ff;
@@ -31,6 +33,8 @@
 
 // -----functional color 功能色--------------
 // 成功颜色 success color.
+@color-success-darker2: #18a749;
+@color-success-darker1: #50a56a;
 @color-success-darker: #5daf34;
 @color-success: #67C23A;
 @color-success-light-super: #85ce61;
@@ -38,6 +42,8 @@
 @color-success-lighter: #c2e7b0;
 @color-success-lighter1: #f0f9eb;
 // 警告颜色 warning color.
+@color-warning-darker2: #e37e02;
+@color-warning-darker1: #de8313;
 @color-warning-darker: #cf9236;
 @color-warning: #E6A23C;
 @color-warning-light-super: #ebb563;
@@ -45,6 +51,8 @@
 @color-warning-lighter: #f5dab1;
 @color-warning-lighter1: #fdf6ec;
 // 危险颜色 danger color.
+@color-danger-darker2: #dc3c49;
+@color-danger-darker1: #FF4351;
 @color-danger-darker: #dd6161;
 @color-danger: #F56C6C;
 @color-danger-light-super: #f78989;
@@ -52,6 +60,8 @@
 @color-danger-lighter: #fab6b6;
 @color-danger-lighter1: #fde2e2;
 // 信息颜色 info color.
+@color-info-darker2: #515458;
+@color-info-darker1: #656a6a;
 @color-info-darker: #82848a;
 @color-info: #909399;
 @color-info-light-super: #a6a9ad;
@@ -69,7 +79,7 @@
 // 次要字体颜色
 @color-text-secondary: #909399;
 // 占位符字体颜色
-@color-text-placeholder: #C0C4CC;
+@color-text-placeholder: #c0c4cc;
 // 禁用文本颜色
 @color-text-disable: @color-text-placeholder;
 
@@ -85,7 +95,7 @@
 
 // --------------------Font 字体------------------------------------------
 @font-family: "Microsoft YaHei UI", serif;
-@font-weight: 500;
+@font-weight: 450;
 // 默认字体大小
 @font-size-default: 14px;
 // 标题字体大小
@@ -100,6 +110,9 @@
 @border-radius-primary: 4px;
 @border-radius-round: 20px;
 @border-radius-circle: 50%;
+
+// 单行输入框高度
+@input_line_height: 30px;
 
 // --------------------image--------------------------------------------
 @radio_btn_primary_indicator_unchecked: url(./resource/img/radio-off.png); //原生单选按钮未选中
@@ -121,7 +134,21 @@
 * {
   font-family: @font-family;
   font-size: @font-size-default;
+  font-weight: @font-weight;
   color: @color-text-regular;
+}
+
+// 消除虚线框
+*:focus {
+  outline: none;
+}
+
+*:disabled, *:disabled:hover, *:disabled:pressed {
+  color: @color-text-disable;
+  cursor: not-allowed;
+  background-image: none;
+  background-color: @color-background-white;
+  border-color: @color-border-lighter;
 }
 
 /*------------------------------抽象元素筛选器--------------------------------------*/
@@ -129,6 +156,7 @@ QAbstractItemView {
   padding: 1px;
   border: @border-base;
   outline: none;
+  border-radius: 0;
   selection-background-color: @color-primary;
 }
 
@@ -137,8 +165,8 @@ QAbstractItemView::item {
   width: 100%;
   height: 30px;
   padding: 5px;
-  border-radius: @border-radius-primary;
-  color: @color-text-primary;
+  border: none;
+  color: @color-text-regular;
 }
 
 QAbstractItemView::item:hover {
@@ -185,6 +213,24 @@ QAbstractSpinBox:hover {
 QWidget, QFrame {
   border-radius: @border-radius-primary;
   background-color: @color-background-base;
+}
+
+QGroupBox {
+  border: @border-base;
+  border-radius: @border-radius-primary;
+  margin-top: 40px;
+  padding: 10px;
+  font-size: @font-size-description;
+  font-family: @font-family;
+}
+
+QGroupBox::title {
+  subcontrol-origin: margin;
+  subcontrol-position: top left;
+  margin-top: 30px;
+  margin-left: 20px;
+  padding: 0 3px;
+  color: @color-text-primary;
 }
 
 [widget_primary="True"], [frame_primary="True"] {
@@ -398,10 +444,514 @@ QPushButton[btn_success="True"][btn_style_simplicity="True"]:pressed, [btn_succe
   border-color: @color-success-darker;
 }
 
+QToolButton {
+  width: 70px;
+  height: 50px;
+  border: @border-base;
+  padding: 10px;
+  border-radius: @border-radius-primary;
+}
+
+QToolButton:hover {
+  background: @color-background-darker;
+}
+
+QToolButton:pressed {
+  background: @color-background-darker2;
+}
+
+QToolButton::menu-indicator {
+  image: none;
+}
+
+QToolButton QMenu {
+  border: @border-base;
+  width: 95%;
+}
+
+QToolButton QMenu::item {
+  width: 100%;
+  background-color: transparent;
+  padding: 8px 32px;
+  border-bottom: @border-base;
+}
+
+QToolButton QMenu::item:selected {
+  background-color: @color-background-darker3;
+}
+
+QToolButton QMenu::item:pressed {
+  background-color: @color-background-darker4;
+}
+
+
 [btn_size_medium="True"] {
   padding: 10px 20px;
   font-size: @font-size-default;
   border-radius: @border-radius-primary;
+}
+
+[btn_size_small="True"] {
+  padding: 9px 15px;
+  font-size: @font-size-description;
+  border-radius: 3px
+}
+
+[btn_size_mini="True"] {
+  padding: 7px 15px;
+  font-size: @font-size-description;
+  border-radius: 3px
+}
+
+
+QRadioButton {
+  spacing: 5px;
+  font-size: @font-size-default;
+}
+
+QRadioButton::indicator {
+  width: 15px;
+  height: 15px;
+}
+
+QRadioButton:hover {
+  color: @color-text-primary;
+}
+
+QRadioButton::indicator::unchecked {
+  image: @radio_btn_primary_indicator_unchecked;
+}
+
+QRadioButton::indicator::checked {
+  image: @radio_btn_primary_indicator_checked;
+}
+
+QCheckBox {
+  color: @color-text-regular;
+  font-size: @font-size-default;
+  spacing: 5px;
+}
+
+QCheckBox:hover {
+  color: @color-text-primary;
+}
+
+QCheckBox::unchecked {
+}
+
+QCheckBox::unchecked:hover {
+  color: @color-text-primary;
+}
+
+QCheckBox::checked {
+}
+
+QCheckBox::indicator {
+  width: 15px;
+  height: 15px;
+  border: @border-base;
+  border-radius: 2px;
+  color: @color-text-primary;
+}
+
+QCheckBox::indicator:hover {
+  border-color: @color-success-darker;
+}
+
+QCheckBox::indicator::checked {
+  width: 15px;
+  height: 15px;
+  image: @checkbox_btn_primary_indicator_checked;
+  border: none;
+}
+
+QCheckBox::indicator:indeterminate {
+  width: 15px;
+  height: 15px;
+  image: @checkbox_btn_primary_indeterminate_checked;
+  border: none;
+}
+
+
+// todo 进度条
+QProgressBar {
+  border-radius: @border-radius-primary;
+  text-align: center;
+  border: @border-base;
+}
+
+QProgressBar::chunk {
+  border-radius: @border-radius-primary;
+  background: @color-success-darker;
+}
+
+
+/*日期选择 todo 添加几个日历风格*/
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+  background: @color-background-darker;
+  max-height: 40px;
+  border: 1px solid @color-border-base;
+  border-bottom: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+QToolButton#qt_calendar_prevmonth, QToolButton#qt_calendar_nextmonth {
+  width: 20px;
+  height: 20px;
+  icon-size: 10px 10px;
+  border: @border-base;
+  background: @color-background-darker;
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth {
+  qproperty-icon: @calendar_primary_qt_calendar_prev_month;
+  border-bottom: none;
+  border-right: none;
+}
+
+QCalendarWidget QToolButton#qt_calendar_nextmonth {
+  qproperty-icon: @calendar_primary_qt_calendar_next_month;
+  border-bottom: none;
+  border-left: none;
+}
+
+QToolButton#qt_calendar_monthbutton, QToolButton#qt_calendar_yearbutton {
+  border: none;
+  border-top: 1px solid @color-border-base;
+  background: @color-background-darker;
+}
+
+QCommandLinkButton {
+
+  padding: 10px 20px;
+}
+
+QCalendarWidget QAbstractItemView {
+  font-size: 12px;
+  font-weight: 500;
+  outline: 0;
+  border-radius: 2%;
+}
+
+QCalendarWidget QAbstractItemView:disabled {
+  color: @color-text-disable;
+}
+
+QCalendarWidget QAbstractItemView:enabled {
+  color: @color-text-regular;
+}
+
+QCalendarWidget QTableView {
+  alternate-background-color: @color-background-darker;
+  background: @color-background-darker;
+}
+
+QCalendarWidget QCalendarView#qt_calendar_calendarview {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  selection-background-color: @color-primary-darker2;
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar QSpinBox {
+  background: @color-background-darker;
+  width: 55px;
+  text-align: center;
+  margin: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+QCalendarWidget QSpinBox#qt_calendar_yearedit::up-button {
+  width: 20px;
+  subcontrol-position: right;
+  border: none;
+  image: @calendar_primary_qt_calendar_year_edit_up;
+}
+
+QCalendarWidget QSpinBox#qt_calendar_yearedit::down-button {
+  width: 20px;
+  subcontrol-position: left;
+  border: none;
+  image: @calendar_primary_qt_calendar_year_edit_down;
+}
+
+
+QToolTip {
+  padding: 2px 3px;
+  border: @border-base;
+  background-color: @color-background-darker;
+  color: @color-text-regular;
+  font-size: 12px;
+  border-radius: @border-radius-primary;
+}
+
+QLineEdit, QComboBox, QSpinBox {
+  border: @border-base;
+  height: @input_line_height;
+  padding: 2px 5px;
+}
+
+QLineEdit:hover {
+  border-color: @color-primary;
+}
+
+QLineEdit[edit_error="True"] {
+  border-color: @color-danger-darker;
+}
+
+QTextEdit, QPlainTextEdit, QTimeEdit, QSpinBox, QDateEdit, QDateTimeEdit, QDoubleSpinBox {
+  border: @border-base;
+  padding: 2px 5px;
+}
+
+QTextEdit:hover, QPlainTextEdit:hover, QComboBox:hover, QSpinBox:hover,
+QTimeEdit:hover, QDateEdit:hover, QDateTimeEdit:hover, QDoubleSpinBox:hover {
+  border-color: @color-primary;
+}
+
+QTextBrowser:hover {
+  border-color: @color-border-base;
+}
+
+QComboBox {
+  selection-background-color: @color-primary-darker;
+}
+
+QComboBox::drop-down {
+  width: 30px;
+  border: none;
+}
+
+QComboBox::down-arrow {
+  border-image: @combo_box_primary_off;
+}
+
+QComboBox::down-arrow:on {
+  border-image: @combo_box_primary_on;
+}
+
+
+QFontComboBox {
+  height: @input_line_height;
+  font-family: unset;
+}
+
+QTabWidget {
+}
+
+QTabWidget::tab-bar {
+  subcontrol-position: left;
+  //alignment: center;
+}
+
+QTabWidget::pane {
+  border-top: @border-base;
+}
+
+QTabBar::tab {
+  padding: 0 20px;
+  background: transparent;
+  color: @color-text-regular;
+  height: 30px;
+}
+
+QTabWidget QTabBar {
+  background: transparent;
+  border: none;
+}
+
+QTabWidget QTabBar::tab:hover {
+  background: @color-background-darker;
+  color: @color-primary;
+  border-bottom: 3px solid @color-primary;
+}
+
+QTabWidget QTabBar::tab:selected {
+  border-bottom: 3px solid @color-primary-darker;
+  color: @color-primary-darker;
+}
+
+
+QScrollBar {
+  background: @color-background-base;
+  margin: 0;
+}
+
+QScrollBar::handle {
+  background: @color-background-darker1;
+  border-radius: @border-radius-primary;
+  border: none;
+}
+
+QScrollBar::handle:hover {
+  background: @color-background-darker2;
+}
+
+QScrollBar::add-line:vertical {
+  height: 0;
+  subcontrol-position: bottom;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+  height: 0;
+  subcontrol-position: top;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+  background: none;
+}
+
+QScrollBar::add-line:horizontal {
+  width: 0;
+  subcontrol-position: right;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+  width: 0;
+  subcontrol-position: left;
+  subcontrol-origin: margin;
+}
+
+QScrollBar::sub-page:horizontal {
+  background: none;
+}
+
+QSlider::groove {
+  border-radius: @border-radius-primary;
+}
+
+QSlider::add-page {
+  background: @color-background-darker2;
+  border-radius: @border-radius-primary;
+}
+
+QSlider::sub-page {
+  background: @color-primary;
+  border-radius: @border-radius-primary;
+}
+
+QSlider::handle {
+  background: @color-background-white;
+  border-radius: 6px;
+  border: 2px solid @color-primary-darker1;
+}
+
+QSlider::handle:pressed {
+  border-color: @color-background-white;
+  background: @color-primary-darker2;
+}
+
+QSlider::groove:horizontal {
+  height: 8px;
+}
+
+QSlider::handle:horizontal {
+  width: 10px;
+  margin-top: -3px;
+  margin-bottom: -3px;
+}
+
+QSlider::groove:vertical {
+  width: 8px;
+}
+
+QSlider::handle:vertical {
+  height: 10px;
+  margin-left: -3px;
+  margin-right: -3px;
+}
+
+QListView {
+}
+
+QTreeView {
+}
+
+QTreeView QHeaderView {
+  border: none;
+}
+
+QTreeView QHeaderView::section {
+  border: none;
+  background-color: @color-primary-lighter1;
+}
+
+
+// 表格
+QTableView {
+  border-radius: 0;
+  padding: 0;
+  background-color: @color-background-base;
+  // 格子线
+  gridline-color: transparent;
+  // 启用隔行换色
+  qproperty-alternatingRowColors: true;
+  selection-background-color: @color-primary-lighter1;
+  alternate-background-color: @color-warning-lighter1;
+
+}
+
+QTableView QHeaderView {
+  border: none;
+}
+
+QTableView QHeaderView::section {
+  background-color: transparent;
+  border: none;
+  min-height: 30px;
+}
+
+QTableView QHeaderView::section:hover,
+QHeaderView::section:pressed {
+  background: @color-primary-lighter;
+}
+
+QTableView QHeaderView::section:horizontal {
+  border-bottom: 1px solid @color-border-light;
+}
+
+
+QTableView QHeaderView::section:vertical {
+  border-right: 1px solid @color-border-light;
+}
+
+// 左上角 按钮
+QTableView QTableCornerButton::section {
+  border: none;
+  background-color: transparent;
+}
+
+QTableView QTableCornerButton::section:pressed {
+  border: none;
+}
+
+QTableView::item {
+  height: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border: none;
+  border-bottom: 1px solid @color-border-light;
+}
+
+QTableView::item:hover {
+  background: @color-primary-lighter1;
+}
+
+QTableView::item:selected {
+  background: @color-primary-light-super;
+  color: @color-text-regular;
+}
+
+QTableView QHeaderView::down-arrow {
+  border-image: @combo_box_primary_off;
+}
+
+QTableView QHeaderView::up-arrow {
+  border-image: @combo_box_primary_on;
 }
 
 #main_window {
@@ -409,31 +959,71 @@ QPushButton[btn_success="True"][btn_style_simplicity="True"]:pressed, [btn_succe
 }
 
 #index_btn_body, #example_index_activity, #index_body, #index_text_body, #index_text_show {
-  background: #f1ffff;
+  background: @color-background-base;
 }
 
-QWidget, QFrame {
-  background-color: #ffffff;
+#index_text_show {
+  border: none;
+}
+
+#index_close_btn {
+  padding: 0;
+  width: 70px;
+  height: 40px;
+  background: transparent;
+  border-color: @color-success-darker;
+}
+
+#index_close_btn:hover {
+  border-color: @color-primary-darker;
+}
+
+#index_close_btn:pressed {
+  background: #e0ffff;
 }
 
 #bar {
   height: 50px;
 }
-QPushButton:disabled, QPushButton:disabled:hover, QPushButton:disabled:pressed {
-  color: @color-text-disable;
-  cursor: not-allowed;
-  background-image: none;
-  background-color: @color-background-white;
-  border-color: @color-border-lighter;
+
+#btn_bar_app_name, #app_name, #btn_bar_title {
+  background: transparent;
+  border: none
 }
-#btn_bar_app_name, #app_name, #btn_bar_title{background: transparent;border: none}
-#btn_bar_normal, #btn_bar_close, #btn_bar_min, #btn_bar_app_logo{border: none;margin: 3px;width: 25px;height: 25px;padding: 5px; background: transparent;}
-#btn_bar_normal:hover, #btn_bar_min:hover{background: @color-background-darker1;}
-#btn_bar_normal:pressed, #btn_bar_min:pressed{background: @color-background-darker2;}
-#btn_bar_close:hover{background: @color-danger-lighter;}
-#btn_bar_close:pressed{background: @color-danger;}
-/*#app_logo{width: 25px;height: 25px;border: none;background: transparent;}*/
-/*#btn_dialog_yes, #btn_dialog_no{width: 50px;height: 27px;}*/
-#btn_bar_normal:before {
-  content: '\f06b'
+
+#btn_bar_normal, #btn_bar_close, #btn_bar_min, #btn_bar_app_logo {
+  border: none;
+  margin: 3px;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  background: transparent;
+}
+
+#btn_bar_normal:hover, #btn_bar_min:hover {
+  background: @color-background-darker1;
+}
+
+#btn_bar_normal:pressed, #btn_bar_min:pressed {
+  background: @color-background-darker2;
+}
+
+#btn_bar_close:hover {
+  background: @color-danger-lighter;
+}
+
+#btn_bar_close:pressed {
+  background: @color-danger;
+}
+
+#app_logo {
+  width: 25px;
+  height: 25px;
+  border: none;
+  background: transparent;
+}
+
+#btn_dialog_yes, #btn_dialog_no {
+  width: 50px;
+  height: 27px;
 }

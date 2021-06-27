@@ -21,50 +21,53 @@ class Qss:
     btn_info = "禁用按钮，通常用于表示，当前动作不可用"
     btn_success = "成功按钮，通常用于表示，正确、可用"
 
+    btn_size_medium = "默认按钮大小"
+    btn_size_small = "小型按钮"
+    btn_size_mini = "mini大小"
+
     # 工具按钮
-    tool_btn_primary = "默认的tool button"
+    # tool_btn_primary = "默认的tool button"
 
     # 复选框
-    checkbox_normal = "常用的复选框"
-    checkbox_primary = "原生的复选框"
+    # checkbox_normal = "常用的复选框"
+    # checkbox_primary = "原生的复选框"
 
     # 日历
-    calendar_primary = "默认日期选择"
+    # calendar_primary = "默认日期选择"
 
     # 输入框
-    line_edit_primary = "默认输入框"
-    line_edit_error = "输入错误显示红色边框"
-    text_edit_primary = "默认的文本输入框"
-    plain_edit_primary = "默认的文本输入框"
+    # line_edit_primary = "默认输入框"
+    edit_error = "输入错误显示红色边框"
+    # text_edit_primary = "默认的文本输入框"
+    # plain_edit_primary = "默认的文本输入框"
 
     # 单选框
-    radio_btn_primary = "原生的单选框"
-    radio_btn_normal = "常用的单选框，开关切换样式"
+    # radio_primary = "原生的单选框"
 
     # tab 选项卡
-    tab_widget_primary = "原生的选项卡"
+    # tab_widget_primary = "原生的选项卡"
 
     # 字体下拉框
-    font_box_primary = "原生的字体选择框"
+    # font_box_primary = "原生的字体选择框"
 
     # 下拉框
-    combo_box_primary = "原生的下拉选择框"
+    # combo_box_primary = "原生的下拉选择框"
 
     # 可变选择框
-    spin_box_primary = "原生的啥啥框，就是右边有两个按钮可以改变数字的"
-    time_edit_primary = "原生的时间选择框"
-    date_edit_primary = "原生的日期选择框"
+    # spin_box_primary = "原生的啥啥框，就是右边有两个按钮可以改变数字的"
+    # time_edit_primary = "原生的时间选择框"
+    # date_edit_primary = "原生的日期选择框"
 
     # 进度条
-    progress_bar_primary = "原生进度条"
+    # progress_bar_primary = "原生进度条"
     # 滑动块
-    slider_primary = "原生滑动块"
+    # slider_primary = "原生滑动块"
 
     # 滚动条
-    scroll_bar_primary = "原生滚动条"
+    # scroll_bar_primary = "原生滚动条"
 
     # tips
-    tool_tip_primary = "默认的提示框"
+    # tool_tip_primary = "默认的提示框"
 
     # 其他
     border_red = "红色边框一般用于警示，输入错误"
