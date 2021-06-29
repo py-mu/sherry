@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>sherry</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="Description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+    <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+    window.$docsify = {
+        name: 'easy qt for python',
+        // loadSidebar: true,
+        // autoHeader: true, // 自动为每个页面增加标题
+        externalLinkTarget: '_self', // 外部链接的打开方式。默认为 _blank
+        cornerExternalLinkTarget: '_self', // default: '_blank'
+        mergeNavbar: true, // 小屏设备下合并导航栏到侧边栏。
+        repo: 'https://github.com/py-mu/sherry', // 配置仓库地址
+        logo: 'img/icon.svg',  // logo
+        loadSidebar: true,
+        subMaxLevel: 2,
+    }
+    const gitlab = new Gitalk({
+        clientID: '7f484b564313fc2f50b4',
+        clientSecret: '7ed817b868ba9ce5fe26f0543d134c592a0fe145',
+        repo: 'easy-pyqt',
+        owner: 'py-mu',
+        admin: ['py-mu'],
+        distractionFreeMode: false
+    })
+</script>
+
+<!-- Docsify v4 -->
+<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-python.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+</body>
+</html>
