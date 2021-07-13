@@ -9,23 +9,36 @@ import sys
 from PyQt5.QtWidgets import QApplication
 
 from sherry import __name__, __version__, __author__
-from sherry.utls.log import LoggerSetter
+from sherry.core.badge import Badge
+from sherry.core.handler import AbnormalHookHandler
+from sherry.core.paths import SherryPath
+from sherry.extends.injector import WidgetInjector
+from sherry.utils.log import LoggerSetter
 
-# 应用名称 app name.
-app_name = __name__
-# 作者 app author.
-author = __author__
-# 版本 app version.
-app_version = __version__
-# QT app
-app = QApplication.instance() or QApplication(sys.argv)
+app_name = __name__  # Note: 应用名称 app name.
+author = __author__  # Note: 作者 app author.
+app_version = __version__  # Note: 版本 app version.
+app = QApplication.instance() or QApplication(sys.argv)  # QT app
 
 # if debug
 DEBUG = False
 
-# logger
-logger_setter = LoggerSetter
-logger_setter.log_name = app_name
-
 # run before
+# 在部分使用badge注入的类，在程序没有扫描到的子类，是不会生效的
+# 此时需要在程序运行伊始手动导入，这样装载子类时才会生效
 import_lib = []
+
+
+def set_exception_mapping():
+    json_path = Badge(source=SherryPath).file_path('sherry/exception-handler.json')
+    Badge(source=AbnormalHookHandler).update_json(json_path)
+
+
+# 执行任务列表
+TaskDispatcher = {
+    "project_path": (Badge(source=SherryPath, return_class=True), (), {}),
+    "logger": (Badge(source=LoggerSetter, return_class=True), (app_name, DEBUG), {}),
+    "qt_injector": (Badge(source=WidgetInjector, return_class=True), (), {}),
+    "abnormal_interceptor": (Badge(source=AbnormalHookHandler, return_class=True), (), {}),
+    "set_exception_mapping": (set_exception_mapping, (), {}),
+}

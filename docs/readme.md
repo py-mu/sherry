@@ -32,17 +32,15 @@ Easy Qt For Python（Sherry） 致力于样式跟界面布局之上，力达能�
 
 - 👉国内玩家请访问[码云](https://gitee.com/pymu/easy-pyqt)🚩
 
-- 👉点击[开发文档](help/readme.md)查看我是如何制作eq框架的。
+- 👉点击[使用教程](helper/readme.md) 使用教程，快速上手。
 
-- 👉点击[使用教程](start/readme.md)，快速上手。
+- 👉点击[开发文档](development/readme.md)查看我是如何制作eq框架的。
 
-- 👉点击[UI设计指南](ui/readme.md)查看eq的风格设计思路，提供应用样式模板可选解决方案。
+- 👉点击[组件列表](componet/readme.md)查看已实现的组件，从中选择你喜欢的组件进行开发吧。
 
-- 👉点击[组件列表](frame/readme.md)查看已实现的组件，从中选择你喜欢的组件进行开发吧。
+- 👉点击[Qss样式指南](theme/readme.md) qss 样式设计指南及控件常见的样式。
 
-- 👉点击[Qss样式指南](style/readme.md) qss 样式设计指南及控件常见的样式。
-
-- 👉点击[qt测试](https://github.com/PyQt5/PyQt) 大佬的测试样例，能解决大部分功能问题。
+- 👉点击[Qt示例](https://github.com/PyQt5/PyQt) 大佬的测试样例，可以解决大部分功能问题。
 
 - 👉点击[打包教程](package/readme.md) python应用打包详解。
 
@@ -51,30 +49,20 @@ Easy Qt For Python（Sherry） 致力于样式跟界面布局之上，力达能�
 
 # 项目结构
 ---
-    -project                # 项目目录
+    -sherry                 # 项目目录
         | -docs             # 项目文档
-        | -EasyQt           # 框架主包
-            | -common           # 公共
-                | -decorator    # 装饰器
-                | -util         # 工具集
-            | -config           # 配置文件
-                | const.py      # 保存常用的目录路径及配置选项
-            | -core             # 框架核心组件
-            | -log              # 日志文件夹
-            | -resource         # 静态资源，需要打包的资源文件也需要放置在此处
-                | -img          # 图片资源
-                | -qss          # 界面样式
-            | -view             # 视图
-                | -activity     # 顶级窗口
-                | -frame        # 组合控件
-                | -ui           # Qt designer 设计的ui文件 & ui生成的模板
-        | -example          # 测试样例
-        | -resource         # 静态资源，需要打包的资源文件也需要放置在此处
-                | -img          # 图片资源
-                | -qss          # 界面样式
-        | -service          # 数据处理
-        | -README           # 辅助说明
-        | -requirement.txt  # 依赖列表
-        | -main.py          # 启动入口（尽可能在项目目录下启动）
+        | -sherry           # 框架主包
+            | -core         # 框架核心类
+            | -extends      # 基于Qt的扩展即框架反射Qt内部方法
+            | -inherit      # Qt一系列衍生类
+            | -resource     # 框架自带的资源文件夹
+            | -utils        # 工具类
+            | -variable     # 框架全局变量
+            | -view         # 框架内部自带的页面原型即视图
+        | -build.bat/sh     # 框架打包脚本
+        | -LICENSE          # LICENSE说明
+        | -MANIFEST.in      # 框架打包辅助说明
+        | -README.md        # 辅助说明
+        | -requirements.txt # 依赖列表
         | -setup.py         # 打包入口
 

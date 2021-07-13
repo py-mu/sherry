@@ -15,7 +15,6 @@
 *:disabled:hover,
 *:disabled:pressed {
   color: #c0c4cc;
-  cursor: not-allowed;
   background-image: none;
   background-color: #ffffff;
   border-color: #ebeef5;

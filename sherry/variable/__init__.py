@@ -5,30 +5,31 @@
     at 17:11
 """
 import logging
+from inspect import isfunction, isclass
+
+from sherry.core.badge import Badge
 
 try:
     from precondition import *
 except ImportError as e:
     from sherry.variable.precondition import *
 
-from sherry.extends.override import Overrider
-from sherry.core.badge import Badge
+if DEBUG:
+    logging.root.setLevel(logging.DEBUG)
 
-# import custom class
 for lib in import_lib:
     try:
         __import__(lib)
     except ImportError as e:
         logging.exception("can't import module '{}'. ".format(lib))
 
-# set logger
-logger_setter()
-
-# debug log
-
-if DEBUG:
-    logging.root.setLevel(logging.DEBUG)
-
-# qt override
-override_class = Badge(source=Overrider)
-override_class.install()
+# 回调
+for call_object, args, kwargs in TaskDispatcher.values():
+    if not call_object:
+        continue
+    if isclass(call_object):
+        Badge(*args, source=call_object, **kwargs)
+    elif isfunction(call_object):
+        call_object(*args, **kwargs)
+    else:
+        logging.warning("未知数据类型 {} ".format(call_object))

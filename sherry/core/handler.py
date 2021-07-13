@@ -4,13 +4,12 @@
     on 2021/5/12
     at 15:29
 """
+import json
 import logging
 import sys
 
-from sherry.view.activity.activity_dialog import NormalDialogActivity
 
-
-class ExOperational:
+class AbnormalMap:
     """异常操作类型"""
 
     title = "运行异常"  # Note: 标题， title
@@ -37,17 +36,10 @@ class ExOperational:
         :param log_it: 是否做日志记录， 默认是 Whether to log，default：True
         """
         self.description = description
-        self.callback = callback or self.callback_fun
         self.log_level = log_level
         self.log_it = log_it
         self.title = title
-
-    @staticmethod
-    def callback_fun(op):
-        """异常回调"""
-        dialog = NormalDialogActivity(title=op.title, info=op.description)
-        dialog.setWindowTitle(op.title)
-        dialog.exec()
+        self.callback = callback
 
     def __repr__(self):
         return """ExOperational( title: {}, description: {}, log_level: {}, log_it: {} )""".format(self.title,
@@ -56,13 +48,14 @@ class ExOperational:
                                                                                                    self.log_it)
 
 
-class ExceptHookHandler:
+class AbnormalHookHandler:
     """
     异常拦截类
 
     Exception Interception Handler
     """
     ex_map = {}
+    __default_call_func = None
 
     def __init__(self):
         """
@@ -80,6 +73,13 @@ class ExceptHookHandler:
         """
         self.ex_map.update(d)
 
+    def update_json(self, json_path, encoding='utf-8'):
+        with open(json_path, encoding=encoding) as f:
+            self.update_map({k: AbnormalMap(**v) for k, v in json.load(f).items()})
+
+    def set_default_callback(self, func):
+        self.__default_call_func = func
+
     def __exception(self, exc_info, exc_value, tb):
         """
         分为两个部分：part of this：
@@ -89,11 +89,12 @@ class ExceptHookHandler:
         :param exc_value: 异常信息
         :param tb: 栈回溯
         """
-        op = self.ex_map.get(exc_info.__name__, ExOperational(description="%s: \n%s" % (exc_info.__name__, exc_value)))
+        op = self.ex_map.get(exc_info.__name__, AbnormalMap(description="%s: \n%s" % (exc_info.__name__, exc_value)))
         if op.log_it:
             logging.exception('未拦截异常', exc_info=(exc_info, exc_value, tb))
-        if op.callback:
+        call_func = op.callback or self.__default_call_func
+        if call_func:
             op.exc_value = exc_value
             op.exc_type = exc_info
             op.tb = tb
-            op.callback(op)
+            call_func(op)

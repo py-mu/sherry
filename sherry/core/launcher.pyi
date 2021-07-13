@@ -10,24 +10,23 @@ from typing import Optional
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
-from sherry.core.handler import ExceptHookHandler
+from sherry.core.handler import AbnormalMap
 
 
 class Application:
     socket: QLocalSocket
     localServer = QLocalServer
     activity: QWidget
-    handler: ExceptHookHandler
     unique: bool
 
     def __init_before__(self): ...
 
     def __init__(self, activity: Optional[QWidget] = None, unique: bool = False): ...
 
-    def refresh_ex_data(self, file_path: str): ...
+    def __init_app(self): ...
 
     @staticmethod
-    def __init_app(): ...
+    def abnormal_dialog(op: AbnormalMap): ...
 
     def run(self): ...
 

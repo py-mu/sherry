@@ -17,7 +17,12 @@ class ApplicationLogger(logging.Logger):
 
 
 class LoggerSetter:
-    """日志设置"""
+    """
+    日志设置，设定应用使用的日志类
+
+    set default logger, more uses see:
+    """
+    debug = True
     log_path = 'log'
     log_name = 'sherry'
     log_class = ApplicationLogger
@@ -26,7 +31,9 @@ class LoggerSetter:
     formatter = '%(asctime)s - %(module)s - %(funcName)s：%(lineno)d  -  %(levelname)s: %(message)s'
     datefmt = '%Y-%m-%d %H:%M:%S %a'
 
-    def __init__(self):
+    def __init__(self, name=None, debug=True):
+        self.debug = debug
+        self.log_name = name or self.log_name
         self.set_root_log()
         self.__init_handler()
         self.__add_handler()
@@ -35,17 +42,18 @@ class LoggerSetter:
         """设置默认的日志来源"""
         logging.setLoggerClass(self.log_class)
         logging.root = self.log_class("{}.log".format(self.log_name))
+        if self.debug:
+            logging.root.setLevel(logging.DEBUG)
 
     def __init_handler(self):
         """"""
-        file_path = ''
         if self.record2file:
             if not os.path.exists(self.log_path):
                 os.mkdir(self.log_path)
             file_path = os.path.join(self.log_path, "{}.log".format(self.log_name))
 
             # output log into file. use python default logging module.
-            # self.handlers.append(self.LogFileHandler(file_path))
+            self.handlers.append(self.LogFileHandler(file_path))
 
         # output to terminal by python default logging module.
         self.handlers.append(self.TerminalHandler())

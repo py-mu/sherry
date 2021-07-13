@@ -24,18 +24,18 @@
 
 python setup.py bdist_wheel
 
-![welcome](./docs/welcome.png)
+![welcome](docs/img/welcome.png)
 
 一个设计原型， 没有任何修饰
 
-![设计原型图](./docs/normal.png)
+![设计原型图](docs/img/normal.png)
 
 框架效果图
 
-![1](./docs/button.png)
+![1](docs/img/button.png)
 
-![1](./docs/input.png)
+![1](docs/img/input.png)
 
-![1](./docs/display.png)
+![1](docs/img/display.png)
 
-![1](./docs/table.png)
+![1](docs/img/table.png)

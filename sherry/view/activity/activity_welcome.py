@@ -11,8 +11,8 @@ from PyQt5.QtWidgets import QWidget
 
 import sherry
 from sherry.core.badge import Badge
+from sherry.core.paths import SherryPath
 from sherry.inherit.activity import FrameLessWindowHintActivity
-from sherry.utls.paths import SherryPath
 from sherry.view.ui.activity_welcome import Ui_index_body
 
 
@@ -24,7 +24,7 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
 
     def __init__(self, *args, **kwargs):
         self.app_path = Badge(source=SherryPath)
-        super().__init__(*args, **kwargs)
+        super(WelcomeActivity, self).__init__(*args, **kwargs)
 
     def set_signal(self):
         super(WelcomeActivity, self).set_signal()
@@ -50,6 +50,7 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
         self.event_flags.event_switch_border_bottom_right = False
         self.event_flags.event_switch_border_bottom = False
         self.event_flags.event_switch_border_right = False
+        self.index_text_show.setToolTip("测试")
 
     def mousePressEvent(self, event):
         """单机图像切换"""

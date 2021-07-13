@@ -9,10 +9,10 @@ import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
 
 from sherry.core.badge import Badge
-from sherry.inherit.qss import Qss
+from sherry.core.qss import Qss
 from sherry.inherit.style import ElementStyle
-from sherry.utls.paths import SherryPath
-from sherry.utls.string import format_style_file
+from sherry.core.paths import SherryPath
+from sherry.utils.string import format_style_file
 from sherry.variable import app
 
 

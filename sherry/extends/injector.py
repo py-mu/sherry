@@ -4,14 +4,14 @@
     on 2021/6/14
     at 2:43
 """
+from __future__ import print_function
+
 import functools
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import Qt, QEvent, QRect
+from PyQt5.QtWidgets import QToolTip, QWidget, QAbstractScrollArea
 
-from sherry.extends.events import TooltipEvent
-
-__all__ = ('Overrider', 'register')
+__all__ = ('WidgetInjector', 'register')
 __instance_func__ = []
 
 
@@ -27,26 +27,30 @@ def register(func):
     return warps
 
 
-class Overrider:
-    custom_events = [TooltipEvent]
+class WidgetInjector:
+
+    def __init__(self):
+        self.__install()
+
+    @staticmethod
+    def _register_tooltip(primeval_event_function):
+        """替换内置的tooltip样式"""
+
+        def graft(widget, event):
+            if event.type() == QEvent.ToolTip and widget.toolTip():
+                QToolTip.showText(event.globalPos(), "这是重载后的 tooltip", widget, QRect(),
+                                  widget.toolTipDuration())
+                return True
+            return primeval_event_function(widget, event)
+
+        return graft
 
     @staticmethod
     @register
     def install_events():
         """装载 event 颗粒"""
-        # inherit old QWidget event function
-        primeval_events = getattr(QWidget, "event")
-
-        def custom_event(widget, event):
-            for classic in Overrider.custom_events:
-                result = classic(widget=widget, event=event)()
-                if not result:
-                    continue
-                return result
-
-            return primeval_events(widget, event)
-
-        setattr(QWidget, 'event', custom_event)
+        setattr(QWidget, 'event', WidgetInjector._register_tooltip(getattr(QWidget, 'event')))
+        setattr(QAbstractScrollArea, 'event', WidgetInjector._register_tooltip(getattr(QAbstractScrollArea, 'event')))
 
     @staticmethod
     @register
@@ -93,6 +97,6 @@ class Overrider:
         setattr(QWidget, 'setProperty', setProperty)
 
     @staticmethod
-    def install():
+    def __install():
         for func in __instance_func__:
             func()

@@ -6,17 +6,20 @@
 """
 from typing import List, Callable
 
-from sherry.extends.events import EventCell
-
-__all__ = ('Overrider', 'register')
+__all__ = ('WidgetInjector', 'register')
 __instance_func__: List[Callable] = []
+
+from PyQt5.QtCore import QEvent
+from PyQt5.QtWidgets import QWidget
 
 
 def register(func: Callable): ...
 
 
-class Overrider:
-    custom_events: List[EventCell]
+class WidgetInjector:
+
+    @staticmethod
+    def _register_tooltip(primeval_event_function: Callable[[QWidget, QEvent], bool]) -> bool: ...
 
     @staticmethod
     @register
@@ -36,4 +39,4 @@ class Overrider:
     def install_set_property(): ...
 
     @staticmethod
-    def install(): ...
+    def __install(): ...

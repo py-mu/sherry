@@ -6,18 +6,17 @@
     默认的启动类，其实就是常用的全局设定
 """
 import ctypes
-import json
 import logging
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
-from sherry.variable import app_name, app
-from sherry.core.handler import ExceptHookHandler, ExOperational
-from sherry.core.resource import ResourceLoader
 from sherry.core.badge import Badge
-from sherry.utls.paths import SherryPath
+from sherry.core.handler import AbnormalHookHandler
+from sherry.core.resource import ResourceLoader
+from sherry.variable import app_name, app
+from sherry.view.activity.activity_dialog import NormalDialogActivity
 from sherry.view.activity.activity_welcome import WelcomeActivity
 
 
@@ -41,9 +40,6 @@ class Application:
         self.socket = QLocalSocket()
         self.localServer = QLocalServer()
         self.activity = Badge(source=WelcomeActivity)
-        self.handler = Badge(source=ExceptHookHandler)
-        self.err_desc_file_path = Badge(source=SherryPath).file_path('sherry/exception-handler.json')
-        self.refresh_ex_data(self.err_desc_file_path)
 
     def __init__(self, activity=None, unique=False):
         self.__init_before__()
@@ -57,16 +53,23 @@ class Application:
 
         read default config
         """
-        with open(file_path, encoding='utf-8') as f:
-            self.handler.update_map({k: ExOperational(**v) for k, v in json.load(f).items()})
 
     @staticmethod
-    def __init_app():
+    def abnormal_dialog(op):
+        """异常弹窗"""
+        dialog = NormalDialogActivity(title=op.title, info=op.description)
+        dialog.setWindowTitle(op.title)
+        dialog.exec()
+
+    def __init_app(self):
         """初始化Qt Application"""
         resource = ResourceLoader()
         resource.set_theme(resource.qss("element.css"))
         app.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
+        handler = Badge(source=AbnormalHookHandler)
+
+        handler.set_default_callback(self.abnormal_dialog)
 
     def run(self):
         """
@@ -75,8 +78,6 @@ class Application:
         show your activity
         """
         logging.info('start {}'.format(app_name))
-        if not self.activity:
-            raise ValueError('Activity is not load, did you install it ?')
         if not isinstance(self.activity, QWidget):
             raise TypeError('The Activity is not valid Activity.')
         if self.unique:
