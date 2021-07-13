@@ -128,12 +128,14 @@ class ResourceLoader:
         css_name = css_name or ('common.css',)
         style_str = ""
         for file_name in css_name:
+            root = self.path.project_path
             path = self.path.link(self.path.project_qss_path, file_name)
             if not self.path.path_exists(path):
                 path = self.path.link(self.path.package_qss_path, file_name)
+                root = self.path.package_path
             try:
                 with open(path, encoding="utf-8") as f:
-                    style_str += format_style_file(f.read(), self.path.package_resource_path)
+                    style_str += format_style_file(f.read(), root)
             except FileNotFoundError:
                 path = self.path.link(self.path.project_qss_path, file_name)
                 raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )

@@ -114,28 +114,20 @@ class SherryPath:
     @property
     def project_img_path(self):
         """
-        默认的图片资源文件夹(不存在时使用包内自带的样式)
+        默认的图片资源文件夹
 
-        The image path of the project,
-        The path will be used package's path if it does not exist.
+        The image path of the project
         """
-        img_path = self.link(self.project_resource_path, "img")
-        if not self.path_exists(img_path):
-            return self.package_img_path
-        return img_path
+        return self.link(self.project_resource_path, "img")
 
     @property
     def project_qss_path(self):
         """
-        样式文件夹(不存在时使用包内自带的样式)
+        样式文件夹
 
-        The qss path of the project,
-        The path will be used package's path if it does not exist.
+        The qss path of the project
         """
-        qss_path = self.link(self.project_resource_path, "qss")
-        if not os.path.exists(qss_path):
-            return self.package_qss_path
-        return qss_path
+        return self.link(self.project_resource_path, "qss")
 
     @property
     def log_path(self):

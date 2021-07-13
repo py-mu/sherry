@@ -10,8 +10,8 @@ from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QStyle
 
 from sherry.core.badge import T
+from sherry.core.paths import SherryPath
 from sherry.core.qss import Qss
-from sherry.utls.paths import SherryPath
 
 
 class ResourceLoader:
