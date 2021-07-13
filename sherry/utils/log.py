@@ -16,6 +16,9 @@ class ApplicationLogger(logging.Logger):
         self.level = logging.INFO
 
 
+logger = None
+
+
 class LoggerSetter:
     """
     日志设置，设定应用使用的日志类
@@ -47,24 +50,35 @@ class LoggerSetter:
 
     def __init_handler(self):
         """"""
+        file_path = ""
         if self.record2file:
             if not os.path.exists(self.log_path):
                 os.mkdir(self.log_path)
             file_path = os.path.join(self.log_path, "{}.log".format(self.log_name))
 
-            # output log into file. use python default logging module.
-            self.handlers.append(self.LogFileHandler(file_path))
+        try:
+            # noinspection PyPackageRequirements
+            from loguru import logger
 
-        # output to terminal by python default logging module.
-        self.handlers.append(self.TerminalHandler())
+            # use loguru.
+            # More usage see: https://github.com/Delgan/loguru.
+            self.LoguruHandler.logger = logger
+            self.handlers.append(self.LoguruHandler(file_path))
+
+        except ImportError:
+
+            # output log into file. use python default logging module.
+            # 使用默认的logging模块作为日志输出模块
+            if file_path:
+                self.handlers.append(self.LogFileHandler(file_path))
+
+            # output to terminal by python default logging module.
+            # 使用logging输出到终端
+            self.handlers.append(self.TerminalHandler())
 
         # output to terminal by colorlog module.
         # more and see: https://github.com/borntyping/python-colorlog.
         # self.handlers.append(self.TerminalHandler())
-
-        # use loguru.
-        # More usage see: https://github.com/Delgan/loguru.
-        # self.handlers.append(self.LoguruHandler(file_path))
 
     def __add_handler(self):
         for handler in self.handlers:
@@ -106,26 +120,27 @@ class LoggerSetter:
     #         )
     #         self.level = logging.DEBUG
 
-    # class LoguruHandler(logging.Handler):
-    #     """
-    #     使用loguru
-    #
-    #     More usage see: https://github.com/Delgan/loguru.
-    #     """
-    #
-    #     def __init__(self, filename=None):
-    #         super().__init__()
-    #         # 输出到文件
-    #         if filename and LoggerSetter.record2file:
-    #             logger.add(filename, rotation="20 MB", enqueue=True)
-    #
-    #     def emit(self, record):
-    #         try:
-    #             level = logger.level(record.levelname).name
-    #         except ValueError:
-    #             level = record.levelno
-    #         frame, depth = logging.currentframe(), 2
-    #         while frame.f_code.co_name != '<module>':
-    #             frame = frame.f_back
-    #             depth += 1
-    #         logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
+    class LoguruHandler(logging.Handler):
+        """
+        使用loguru
+
+        More usage see: https://github.com/Delgan/loguru.
+        """
+        logger = None
+
+        def __init__(self, filename=None):
+            super().__init__()
+            # 输出到文件
+            if filename and LoggerSetter.record2file:
+                self.logger.add(filename, rotation="20 MB", enqueue=True)
+
+        def emit(self, record):
+            try:
+                level = self.logger.level(record.levelname).name
+            except ValueError:
+                level = record.levelno
+            frame, depth = logging.currentframe(), 2
+            while frame.f_code.co_name != '<module>':
+                frame = frame.f_back
+                depth += 1
+            self.logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())

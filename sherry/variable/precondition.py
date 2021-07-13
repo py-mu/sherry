@@ -21,7 +21,7 @@ app_version = __version__  # Note: 版本 app version.
 app = QApplication.instance() or QApplication(sys.argv)  # QT app
 
 # if debug
-DEBUG = False
+DEBUG = True
 
 # run before
 # 在部分使用badge注入的类，在程序没有扫描到的子类，是不会生效的
