@@ -10,7 +10,13 @@ class Badge(object):
     __instance__ = {}
     _instance_lock = threading.Lock()  # Note: 单例锁(instance lock)
 
-    def __new__(cls, *args, source: Optional[Type[T]] = None, singleton=True, relative=True, return_class=False,
+    def __new__(cls,
+                *args,
+                source: Optional[Type[T]] = None,
+                singleton=True,
+                relative=True,
+                return_class=False,
+                badge_name='',
                 **kwargs) -> Union[Type[T], T]:
         ...
 

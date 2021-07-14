@@ -21,7 +21,14 @@ class Badge(object):
     __instance__ = {}
     _instance_lock = threading.Lock()  # Note: 单例锁(instance lock)
 
-    def __new__(cls, *args, source=None, singleton=True, relative=True, return_class=False, **kwargs):
+    def __new__(cls,
+                *args,
+                source=None,
+                singleton=True,
+                relative=True,
+                return_class=False,
+                badge_name='',
+                **kwargs):
         """
         通过获取组内最远亲的子类，获取其子类的单例返回, 需要通过此类获取实例化的对象，否则会创建一个新的实例。
         只会获取最远亲的子类。当然这也会牺牲init方法初始化参数的问题，只能依托于重构方法时
@@ -35,6 +42,7 @@ class Badge(object):
         :param singleton: 是否从对象列表中获取单例 Whether to get the singleton from the object list, default True
         :param relative: 是否获取其子类 Whether to get its subclass
         :param return_class: 是否其类型
+        :param badge_name: 在畸形分支中获取指定的子类 Get the specified subclass in the malformed branch.
         """
         if not source:
             raise ValueError('badge 需要使用键值对的的形式传入, 否则会引发递归调用')
@@ -43,14 +51,17 @@ class Badge(object):
             target = source
         else:
             for index, ci in enumerate(group_class):
-                if ci.__subclasses__() != group_class[index + 1:]:
+                if not badge_name and ci.__subclasses__() != group_class[index + 1:]:
                     logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
-                                    'please use single chain inheritance as much as possible. detail: source: {}'
-                                    ' target: {}， branch: {}'.format(
-                        source, group_class[-1], ci
-                    ))
-            # Only get the most distant relatives
-            target = group_class[-1]
+                                    'please use single chain inheritance as much as possible.'
+                                    'or set the badge_name what you want to used.'
+                                    ' detail: source: {} target: {}， branch: {}'.format(source, group_class[-1], ci))
+                if badge_name and ci.__name__:
+                    target = group_class[-1]
+                    break
+            else:
+                # Only get the most distant relatives
+                target = group_class[-1]
         if return_class:
             return target
         cls_name = target.__name__

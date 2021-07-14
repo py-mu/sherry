@@ -11,7 +11,7 @@ class ReflexCenter:
     """反射神经中枢，检测所有的反射对象及反射路径，同时记录被反射对象"""
 
     __hook_dict__ = {}
-    hook_log = True
+    hook_log = False
 
     @staticmethod
     def hook(target, path, obj):
