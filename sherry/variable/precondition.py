@@ -26,7 +26,10 @@ DEBUG = True
 # run before
 # 在部分使用badge注入的类，在程序没有扫描到的子类，是不会生效的
 # 此时需要在程序运行伊始手动导入，这样装载子类时才会生效
-import_lib = []
+import_lib_before = []
+
+# 部分需要框架初始化结束后才能进行装载的衍生类
+import_lib_after = []
 
 
 def set_exception_mapping():

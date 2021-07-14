@@ -8,18 +8,19 @@ import logging
 from inspect import isfunction, isclass
 
 from sherry.core.badge import Badge
+from sherry.variable.precondition import *
 
 try:
     from precondition import *
-except ImportError as e:
-    from sherry.variable.precondition import *
+except ImportError:
+    pass
 
 logging.basicConfig(
     filename="{}.log".format(app_name),
     level=logging.DEBUG if DEBUG else logging.INFO
 )
 
-for lib in import_lib:
+for lib in import_lib_before:
     try:
         __import__(lib)
     except ImportError as e:

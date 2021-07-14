@@ -9,4 +9,5 @@ app_version: str or float
 app: Union[QApplication, QCoreApplication]
 TaskDispatcher: Dict[str, Tuple[Optional[Callable, Type, object], Tuple, Dict]]
 DEBUG: bool
-import_lib: List[str]
+import_lib_before: List[str]
+import_lib_after: List[str]

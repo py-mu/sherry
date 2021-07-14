@@ -16,8 +16,12 @@ from sherry.core.badge import Badge
 from sherry.core.handler import AbnormalHookHandler
 from sherry.core.resource import ResourceLoader
 from sherry.variable import app_name, app
+from sherry.variable.rear import retouch
 from sherry.view.activity.activity_dialog import NormalDialogActivity
 from sherry.view.activity.activity_welcome import WelcomeActivity
+
+# 加载修饰类
+retouch()
 
 
 class Application:
@@ -47,17 +51,10 @@ class Application:
         self.activity = activity or self.activity
         self.__init_app()
 
-    def refresh_ex_data(self, file_path):
-        """
-        从文件中读取异常拦截数据
-
-        read default config
-        """
-
     @staticmethod
     def abnormal_dialog(op):
         """异常弹窗"""
-        dialog = NormalDialogActivity(title=op.title, info=op.description)
+        dialog = Badge(source=NormalDialogActivity, title=op.title, info=op.description)
         dialog.setWindowTitle(op.title)
         dialog.exec()
 
