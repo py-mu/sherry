@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QApplication
 app_name: str
 author: str
 app_version: str or float
+log_file: str
 app: Union[QApplication, QCoreApplication]
 TaskDispatcher: Dict[str, Tuple[Optional[Callable, Type, object], Tuple, Dict]]
 DEBUG: bool

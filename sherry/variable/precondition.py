@@ -20,6 +20,8 @@ author = __author__  # Note: 作者 app author.
 app_version = __version__  # Note: 版本 app version.
 app = QApplication.instance() or QApplication(sys.argv)  # QT app
 
+log_file = "log/{}.log".format(app_name)
+
 # if debug
 DEBUG = True
 
@@ -40,7 +42,7 @@ def set_exception_mapping():
 # 执行任务列表
 TaskDispatcher = {
     "project_path": (SherryPath, (), {}),
-    "logger": (LoggerSetter, (app_name, ), {}),
+    "logger": (LoggerSetter, (log_file,), {}),
     "qt_injector": (WidgetInjector, (), {}),
     "abnormal_interceptor": (AbnormalHookHandler, (), {}),
     "set_exception_mapping": (set_exception_mapping, (), {}),

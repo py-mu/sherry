@@ -5,7 +5,6 @@
     project:
 """
 import logging
-import os
 from logging.handlers import RotatingFileHandler
 
 
@@ -15,27 +14,18 @@ class LoggerSetter:
 
     set default logger, more uses see:
     """
-    log_path = 'log'
-    log_name = 'sherry'
     handlers = []
     record2file = True
     use_default_log_module = False
     formatter = '%(asctime)s - %(module)s - %(funcName)s：%(lineno)d  -  %(levelname)s: %(message)s'
     datefmt = '%Y-%m-%d %H:%M:%S %a'
 
-    def __init__(self, name=None):
-        self.log_name = name or self.log_name
-        self.__init_handler()
+    def __init__(self, filepath=None):
+        self.__init_handler(filepath)
         self.__add_handler()
 
-    def __init_handler(self):
+    def __init_handler(self, filepath):
         """"""
-        file_path = ""
-        if self.record2file:
-            if not os.path.exists(self.log_path):
-                os.mkdir(self.log_path)
-            file_path = os.path.join(self.log_path, "{}.log".format(self.log_name))
-
         try:
             # noinspection PyPackageRequirements,PyUnresolvedReferences
             from loguru import logger
@@ -43,7 +33,7 @@ class LoggerSetter:
             # More usage see: https://github.com/Delgan/loguru.
             self.LoguruHandler.logger = logger
             if not self.use_default_log_module:
-                self.handlers.append(self.LoguruHandler(file_path))
+                self.handlers.append(self.LoguruHandler(filepath))
 
         except ImportError:
             self.use_default_log_module = True
@@ -54,14 +44,12 @@ class LoggerSetter:
         if self.use_default_log_module:
             # output log into file. use python default logging module.
             # 使用默认的logging模块作为日志输出模块
-            if file_path:
-                self.handlers.append(self.LogFileHandler(file_path))
+            if filepath:
+                self.handlers.append(self.LogFileHandler(filepath))
 
             # output to terminal by python default logging module.
             # 使用logging输出到终端
             self.handlers.append(self.TerminalHandler())
-
-
 
     def __add_handler(self):
         for handler in self.handlers:
