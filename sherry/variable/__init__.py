@@ -5,6 +5,7 @@
     at 17:11
 """
 import logging
+import os
 from inspect import isfunction, isclass
 
 from sherry.core.badge import Badge
@@ -15,6 +16,8 @@ try:
 except ImportError:
     pass
 
+if os.path.exists(os.path.dirname(log_file)):
+    os.mkdir(os.path.dirname(log_file))
 logging.basicConfig(
     filename=log_file,
     level=logging.DEBUG if DEBUG else logging.INFO
