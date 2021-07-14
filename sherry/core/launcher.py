@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QWidget
 from sherry.core.badge import Badge
 from sherry.core.handler import AbnormalHookHandler
 from sherry.core.resource import ResourceLoader
-from sherry.variable import app_name, app
+from sherry.variable import app_name, app, base_qss
 from sherry.variable.rear import retouch
 from sherry.view.activity.activity_dialog import NormalDialogActivity
 from sherry.view.activity.activity_welcome import WelcomeActivity
@@ -62,7 +62,7 @@ class Application:
     def __init_app(self):
         """初始化Qt Application"""
         resource = ResourceLoader()
-        resource.set_theme(resource.qss("element.css"))
+        resource.set_theme(resource.qss(base_qss))
         app.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
         handler = Badge(source=AbnormalHookHandler)

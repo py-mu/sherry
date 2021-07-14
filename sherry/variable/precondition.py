@@ -20,8 +20,8 @@ author = __author__  # Note: 作者 app author.
 app_version = __version__  # Note: 版本 app version.
 app = QApplication.instance() or QApplication(sys.argv)  # QT app
 
-log_file = "log/{}.log".format(app_name)
-
+log_file = "log/{}.log".format(app_name)  # Note: 日志文件路径 log file path.
+base_qss = "element.css"  # Note: 默认使用的主题 base theme.
 # if debug
 DEBUG = True
 
