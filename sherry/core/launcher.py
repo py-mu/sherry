@@ -44,12 +44,12 @@ class Application:
         self.socket = QLocalSocket()
         self.localServer = QLocalServer()
 
-    def __init__(self, *args, activity_type=None, unique=False, **kwargs):
+    def __init__(self, *args, activity_=None, unique_=False, **kwargs):
         self.args = args
         self.kwargs = kwargs
         self.__init_before__()
-        self.unique = unique
-        self.activity_type = activity_type
+        self.unique = unique_
+        self.activity = activity_
         self.__init_app()
 
     @staticmethod
@@ -76,10 +76,10 @@ class Application:
         show your activity
         """
         logging.info('start {}'.format(app_name))
-        if not self.activity_type:
+        if not self.activity:
             activity = Badge(source=WelcomeActivity)
         else:
-            activity = Badge(*self.args, source=self.activity_type, **self.kwargs)
+            activity = Badge(*self.args, source=self.activity, **self.kwargs)
         if not isinstance(activity, QWidget):
             raise TypeError('The Activity is not valid Activity.')
         if self.unique:

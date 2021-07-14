@@ -16,14 +16,14 @@ from sherry.core.handler import AbnormalMap
 class Application:
     socket: QLocalSocket
     localServer = QLocalServer
-    activity_type: Optional[Type[QWidget]]
-    args =()
+    activity: Optional[Type[QWidget]]
+    args = ()
     kwargs = {}
     unique: bool
 
     def __init_before__(self): ...
 
-    def __init__(self, *args, activity_type: Optional[Type[QWidget]] = None, unique: bool = False, **kwargs): ...
+    def __init__(self, *args, activity_: Optional[Type] = None, unique_: bool = False, **kwargs): ...
 
     def __init_app(self): ...
 
