@@ -31,6 +31,7 @@ class LoggerSetter:
     log_class = ApplicationLogger
     handlers = []
     record2file = True
+    use_default_log_module = False
     formatter = '%(asctime)s - %(module)s - %(funcName)s：%(lineno)d  -  %(levelname)s: %(message)s'
     datefmt = '%Y-%m-%d %H:%M:%S %a'
 
@@ -59,14 +60,19 @@ class LoggerSetter:
         try:
             # noinspection PyPackageRequirements
             from loguru import logger
-
             # use loguru.
             # More usage see: https://github.com/Delgan/loguru.
             self.LoguruHandler.logger = logger
-            self.handlers.append(self.LoguruHandler(file_path))
+            if not self.use_default_log_module:
+                self.handlers.append(self.LoguruHandler(file_path))
 
         except ImportError:
+            pass
+            # output to terminal by colorlog module.
+            # more and see: https://github.com/borntyping/python-colorlog.
+            # self.handlers.append(self.TerminalHandler())
 
+        if self.use_default_log_module:
             # output log into file. use python default logging module.
             # 使用默认的logging模块作为日志输出模块
             if file_path:
@@ -76,9 +82,7 @@ class LoggerSetter:
             # 使用logging输出到终端
             self.handlers.append(self.TerminalHandler())
 
-        # output to terminal by colorlog module.
-        # more and see: https://github.com/borntyping/python-colorlog.
-        # self.handlers.append(self.TerminalHandler())
+
 
     def __add_handler(self):
         for handler in self.handlers:

@@ -12,7 +12,7 @@ from sherry import __name__, __version__, __author__
 from sherry.core.badge import Badge
 from sherry.core.handler import AbnormalHookHandler
 from sherry.core.paths import SherryPath
-from sherry.extends.injector import WidgetInjector
+from sherry.core.injector import WidgetInjector
 from sherry.utils.log import LoggerSetter
 
 app_name = __name__  # Note: 应用名称 app name.

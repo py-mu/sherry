@@ -14,6 +14,8 @@ from PyQt5.QtWidgets import QToolTip, QWidget, QAbstractScrollArea
 __all__ = ('WidgetInjector', 'register')
 __instance_func__ = []
 
+from sherry.core.reflex import ReflexCenter
+
 
 def register(func):
     """注册方法"""
@@ -33,8 +35,9 @@ class WidgetInjector:
         self.__install()
 
     @staticmethod
-    def _register_tooltip(primeval_event_function):
+    def _register_tooltip(obj):
         """替换内置的tooltip样式"""
+        primeval_event_function = getattr(obj, 'event')
 
         def graft(widget, event):
             if event.type() == QEvent.ToolTip and widget.toolTip():
@@ -49,8 +52,8 @@ class WidgetInjector:
     @register
     def install_events():
         """装载 event 颗粒"""
-        setattr(QWidget, 'event', WidgetInjector._register_tooltip(getattr(QWidget, 'event')))
-        setattr(QAbstractScrollArea, 'event', WidgetInjector._register_tooltip(getattr(QAbstractScrollArea, 'event')))
+        ReflexCenter.hook(QWidget, 'event', WidgetInjector._register_tooltip(QWidget))
+        ReflexCenter.hook(QAbstractScrollArea, 'event', WidgetInjector._register_tooltip(QAbstractScrollArea))
 
     @staticmethod
     @register
@@ -59,28 +62,28 @@ class WidgetInjector:
 
         def enterEvent(widget, event):
             if not hasattr(widget, 'raw_cursor'):
-                setattr(widget, 'raw_cursor', Qt.ArrowCursor)
+                ReflexCenter.hook(widget, 'raw_cursor', Qt.ArrowCursor)
             if widget.parent():
-                setattr(widget, 'raw_cursor', widget.parent().cursor())
+                ReflexCenter.hook(widget, 'raw_cursor', widget.parent().cursor())
                 if not widget.isEnabled():
                     widget.parent().setCursor(Qt.ForbiddenCursor)
             return primeval_func(widget, event)
 
-        setattr(QWidget, 'enterEvent', enterEvent)
+        ReflexCenter.hook(QWidget, 'enterEvent', enterEvent)
 
     @staticmethod
     @register
     def install_leave_event():
         primeval_func = getattr(QWidget, "leaveEvent")
 
-        def leaveEvent(self, event) -> None:
-            if not hasattr(self, 'raw_cursor'):
-                setattr(self, 'raw_cursor', Qt.ArrowCursor)
-            if self.parent():
-                self.parent().setCursor(self.raw_cursor)
-            return primeval_func(self, event)
+        def leaveEvent(widget, event) -> None:
+            if not hasattr(widget, 'raw_cursor'):
+                ReflexCenter.hook(widget, 'raw_cursor', Qt.ArrowCursor)
+            if widget.parent():
+                widget.parent().setCursor(widget.raw_cursor)
+            return primeval_func(widget, event)
 
-        setattr(QWidget, 'leaveEvent', leaveEvent)
+        ReflexCenter.hook(QWidget, 'leaveEvent', leaveEvent)
 
     #  设置动态修改属性会重载样式
     @staticmethod
@@ -94,7 +97,7 @@ class WidgetInjector:
             self.style().polish(self)
             return result
 
-        setattr(QWidget, 'setProperty', setProperty)
+        ReflexCenter.hook(QWidget, 'setProperty', setProperty)
 
     @staticmethod
     def __install():

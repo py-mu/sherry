@@ -4,7 +4,7 @@
     on 2021/6/14
     at 2:43
 """
-from typing import List, Callable
+from typing import List, Callable, Type
 
 __all__ = ('WidgetInjector', 'register')
 __instance_func__: List[Callable] = []
@@ -19,7 +19,7 @@ def register(func: Callable): ...
 class WidgetInjector:
 
     @staticmethod
-    def _register_tooltip(primeval_event_function: Callable[[QWidget, QEvent], bool]) -> bool: ...
+    def _register_tooltip(obj: Type[QWidget]) -> Callable[[QWidget, QEvent], bool]: ...
 
     @staticmethod
     @register
