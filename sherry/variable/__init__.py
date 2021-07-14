@@ -16,7 +16,7 @@ except ImportError:
     pass
 
 logging.basicConfig(
-    filename="{}.log".format(app_name),
+    filename="log/{}.log".format(app_name),
     level=logging.DEBUG if DEBUG else logging.INFO
 )
 
