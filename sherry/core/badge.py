@@ -55,7 +55,7 @@ class Badge(object):
                     logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
                                     'please use single chain inheritance as much as possible.'
                                     'or set the badge_name what you want to used.'
-                                    ' detail: source: {} target: {}， branch: {}'.format(source, group_class[-1], ci))
+                                    ' detail: source: {} target: {}， branch: {}.'.format(source, group_class[-1], ci))
                 if badge_name and ci.__name__:
                     target = group_class[-1]
                     break
@@ -67,7 +67,7 @@ class Badge(object):
         cls_name = target.__name__
         caller = traceback.extract_stack()[-2]  # type: traceback.FrameSummary
         logging.debug(
-            '{} in {} -> {} install the most distant subclass {} from {} .'.format(
+            '{} in {} -> {} install subclass <{}> from <{}>.'.format(
                 caller.filename,
                 caller.lineno,
                 caller.name,
@@ -127,7 +127,7 @@ class Badge(object):
                 else:
                     new_bases.append(i)
             if tt:
-                logging.debug('injection class "{}" from "{}", happened at "{}"'.format(tt, ts, mcs.__name__))
+                logging.debug('injection class "{}" from "{}", happened at "{}".'.format(tt, ts, mcs.__name__))
             return type(mcs.__name__, tuple(new_bases), dict(mcs.__dict__))
 
         return _build_

@@ -9,45 +9,24 @@ import os
 from logging.handlers import RotatingFileHandler
 
 
-class ApplicationLogger(logging.Logger):
-
-    def __init__(self, name):
-        super().__init__(name)
-        self.level = logging.INFO
-
-
-logger = None
-
-
 class LoggerSetter:
     """
     日志设置，设定应用使用的日志类
 
     set default logger, more uses see:
     """
-    debug = True
     log_path = 'log'
     log_name = 'sherry'
-    log_class = ApplicationLogger
     handlers = []
     record2file = True
     use_default_log_module = False
     formatter = '%(asctime)s - %(module)s - %(funcName)s：%(lineno)d  -  %(levelname)s: %(message)s'
     datefmt = '%Y-%m-%d %H:%M:%S %a'
 
-    def __init__(self, name=None, debug=True):
-        self.debug = debug
+    def __init__(self, name=None):
         self.log_name = name or self.log_name
-        self.set_root_log()
         self.__init_handler()
         self.__add_handler()
-
-    def set_root_log(self):
-        """设置默认的日志来源"""
-        logging.setLoggerClass(self.log_class)
-        logging.root = self.log_class("{}.log".format(self.log_name))
-        if self.debug:
-            logging.root.setLevel(logging.DEBUG)
 
     def __init_handler(self):
         """"""
@@ -58,7 +37,7 @@ class LoggerSetter:
             file_path = os.path.join(self.log_path, "{}.log".format(self.log_name))
 
         try:
-            # noinspection PyPackageRequirements
+            # noinspection PyPackageRequirements,PyUnresolvedReferences
             from loguru import logger
             # use loguru.
             # More usage see: https://github.com/Delgan/loguru.
@@ -67,7 +46,7 @@ class LoggerSetter:
                 self.handlers.append(self.LoguruHandler(file_path))
 
         except ImportError:
-            pass
+            self.use_default_log_module = True
             # output to terminal by colorlog module.
             # more and see: https://github.com/borntyping/python-colorlog.
             # self.handlers.append(self.TerminalHandler())
@@ -98,7 +77,6 @@ class LoggerSetter:
         def __init__(self):
             super().__init__()
             self.formatter = logging.Formatter(fmt=LoggerSetter.formatter, datefmt=LoggerSetter.datefmt)
-            self.level = logging.DEBUG
 
     class LogFileHandler(RotatingFileHandler):
         """
@@ -110,7 +88,6 @@ class LoggerSetter:
         def __init__(self, filename):
             super().__init__(filename, maxBytes=20 * 1024 * 1024,
                              backupCount=5, encoding='utf-8')
-            self.level = logging.INFO
             self.formatter = logging.Formatter(fmt=LoggerSetter.formatter, datefmt=LoggerSetter.datefmt)
 
     # class ColorlogTerminalHandler(logging.StreamHandler):
@@ -134,7 +111,6 @@ class LoggerSetter:
 
         def __init__(self, filename=None):
             super().__init__()
-            # 输出到文件
             if filename and LoggerSetter.record2file:
                 self.logger.add(filename, rotation="20 MB", enqueue=True)
 

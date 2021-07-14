@@ -36,9 +36,9 @@ def set_exception_mapping():
 
 # 执行任务列表
 TaskDispatcher = {
-    "project_path": (Badge(source=SherryPath, return_class=True), (), {}),
-    "logger": (Badge(source=LoggerSetter, return_class=True), (app_name, DEBUG), {}),
-    "qt_injector": (Badge(source=WidgetInjector, return_class=True), (), {}),
-    "abnormal_interceptor": (Badge(source=AbnormalHookHandler, return_class=True), (), {}),
+    "project_path": (SherryPath, (), {}),
+    "logger": (LoggerSetter, (app_name, ), {}),
+    "qt_injector": (WidgetInjector, (), {}),
+    "abnormal_interceptor": (AbnormalHookHandler, (), {}),
     "set_exception_mapping": (set_exception_mapping, (), {}),
 }

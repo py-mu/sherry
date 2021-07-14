@@ -14,8 +14,10 @@ try:
 except ImportError as e:
     from sherry.variable.precondition import *
 
-if DEBUG:
-    logging.root.setLevel(logging.DEBUG)
+logging.basicConfig(
+    filename="{}.log".format(app_name),
+    level=logging.DEBUG if DEBUG else logging.INFO
+)
 
 for lib in import_lib:
     try:
