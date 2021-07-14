@@ -43,12 +43,13 @@ class Application:
     def __init_before__(self):
         self.socket = QLocalSocket()
         self.localServer = QLocalServer()
-        self.activity = Badge(source=WelcomeActivity)
 
-    def __init__(self, activity=None, unique=False):
+    def __init__(self, *args, activity_type=None, unique=False, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
         self.__init_before__()
         self.unique = unique
-        self.activity = activity or self.activity
+        self.activity_type = activity_type
         self.__init_app()
 
     @staticmethod
@@ -75,14 +76,18 @@ class Application:
         show your activity
         """
         logging.info('start {}'.format(app_name))
-        if not isinstance(self.activity, QWidget):
+        if not self.activity_type:
+            activity = Badge(source=WelcomeActivity)
+        else:
+            activity = Badge(*self.args, source=self.activity_type, **self.kwargs)
+        if not isinstance(activity, QWidget):
             raise TypeError('The Activity is not valid Activity.')
         if self.unique:
             self.socket.connectToServer(app_name)
             if self.socket.waitForConnected(200):
                 raise RuntimeError('重复运行')
             self.localServer.listen(app_name)
-        self.activity.show()
+        activity.show()
         app.exec_()
         self.shutdown()
 
