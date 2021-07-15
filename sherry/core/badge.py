@@ -9,6 +9,74 @@ import threading
 import traceback
 
 
+class BadgeError(ValueError):
+    ...
+
+
+class BadgeNotFoundError(BadgeError):
+    ...
+
+
+def get_subclasses_graph(base, relative, badge_name):
+    """获取子类有向图"""
+
+    def subclass_recursion(cls):
+        subclasses = {}
+        for subclass in cls.__subclasses__():
+            subclasses.update({
+                subclass: subclass_recursion(subclass)
+            })
+        return subclasses
+
+    def format_recursion(graph: dict, format_list, item=None, ):
+        item = item or []
+        for k, v in graph.items():
+            new_item = item + [k]
+            if not v:
+                format_list.append(new_item)
+            else:
+                format_recursion(v, format_list, new_item)
+
+    def check_graph():
+        """返回最长继承链， 如果相等"""
+        result = []
+        format_recursion({base: subclass_recursion(base)}, result)
+        max_list = max(result, key=len)
+        max_size = len(max_list)
+        temp_class = None
+        if len(result) == 1:
+            return max_list[-1]
+
+        for i in filter(lambda x: len(x) == max_size, result):
+            temp_class = temp_class or i[-1]
+            for cls in i:
+                if cls.__name__ == badge_name:
+                    return cls
+
+            if temp_class is i[-1]:
+                continue
+            else:
+                ss = [" - ".join([c.__name__ for c in _]) for _ in result]
+                logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
+                                'please use single chain inheritance as much as possible.'
+                                'or set the badge_name what you want to used.'
+                                ' detail: source: {} target: {}， \n\nbranch: \n\t{}. \n\nuse: \n\t{}\n'.format(
+                    base,
+                    temp_class,
+                    "\n\t".join(ss),
+                    " - ".join([_.__name__ for _ in i]) + "(use)")
+                )
+                temp_class = i[-1]
+                break
+        if temp_class == temp_class.__name__:
+            raise BadgeNotFoundError("can't found a badge {} by name".format(badge_name))
+        return temp_class or base
+
+    if not relative:
+        return base
+    return check_graph()
+
+
 class Badge(object):
     """
     徽章是所有成员联络的基础
@@ -46,22 +114,7 @@ class Badge(object):
         """
         if not source:
             raise ValueError('badge 需要使用键值对的的形式传入, 否则会引发递归调用')
-        group_class = source.__subclasses__()
-        if not group_class or not relative:
-            target = source
-        else:
-            for index, ci in enumerate(group_class):
-                if not badge_name and ci.__subclasses__() != group_class[index + 1:]:
-                    logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
-                                    'please use single chain inheritance as much as possible.'
-                                    'or set the badge_name what you want to used.'
-                                    ' detail: source: {} target: {}， branch: {}.'.format(source, group_class[-1], ci))
-                if badge_name and ci.__name__:
-                    target = group_class[-1]
-                    break
-            else:
-                # Only get the most distant relatives
-                target = group_class[-1]
+        target = get_subclasses_graph(source, relative, badge_name)
         if return_class:
             return target
         cls_name = target.__name__
