@@ -23,5 +23,5 @@
 > 道友路过请留步啊~🧧🧧， 项目虽然还是一个零碎的想法，但是确实是一个在实现的过程，哪怕不用框架，把qss拿走也可以啊。
 
 
-![welcome](https://github.com/py-mu/sherry/blob/main/docs/img/welcome.png?raw=true)
+![welcome](docs/img/welcome.png)
 

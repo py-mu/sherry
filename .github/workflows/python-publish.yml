@@ -1,33 +1,8 @@
-# This workflow will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# action名称
-# This workflows will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
-
-# action的名称
-name: Upload Python Package gotwo
+name: Upload Python Package Sherry
 
 on:
-  # 当master分支有push时，触发action
-  push: 
-   branches:
-     - master
-  
-  # 当一个pr被合并到master时，触发action
-#   pull_request:
-#     branches:
-#       - master
-  
-  # 当发布时，触发action
-  #release:
-  #  types: [created]
-
+  release:
+    types: [published]
 
 jobs:
   deploy:
@@ -36,28 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 此步骤使用 GitHub 的 https://github.com/actions/checkout
     - uses: actions/checkout@v2
-    
+
     # 设置python环境
-    # 此步骤使用 GitHub 的 https://github.com/actions/setup-python
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: '3.7'
-    
+
     # 安装依赖
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
         pip install -r requirements.txt
-    
-    # 构建和发布
-    - name: Build and publish
-      env:
-        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-      run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/*
+
+    # 构建和发布(如果出现打了标签的提交则进行打包)
+    - name: Publish distribution 📦 to PyPI
+        if: startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
