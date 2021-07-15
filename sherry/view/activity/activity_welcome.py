@@ -50,7 +50,6 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
         self.event_flags.event_switch_border_bottom_right = False
         self.event_flags.event_switch_border_bottom = False
         self.event_flags.event_switch_border_right = False
-        self.index_text_show.setToolTip("测试")
 
     def mousePressEvent(self, event):
         """单机图像切换"""
