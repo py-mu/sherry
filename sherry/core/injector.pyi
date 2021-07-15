@@ -7,7 +7,7 @@
 from typing import List, Callable, Type
 
 __all__ = ('WidgetInjector', 'register')
-__instance_func__: List[Callable] = []
+__instance_func__: List[Callable[[], None]] = []
 
 from PyQt5.QtCore import QEvent
 from PyQt5.QtWidgets import QWidget
