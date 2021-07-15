@@ -91,7 +91,19 @@ if __name__ == '__main__':
 
 ## 3.1 前凑引用
 
-光是修改一些基本的参数并不能满足个性化的需求
+光是修改一些基本的参数并不能满足个性化的需求， 所以在框架启动之前需要先行import 一些自定义子类，才能被badge徽章联系上，我管这个过程叫做注册
+就行你想做我的小弟，首先需要在我的组织里面进行登记，所以这里也是如此的，而你要做的仅是把需要导入的模块进行import。
+例如：
+
+```python 
+from sherry.variable.precondition import *
+DEBUG = True
+app_name = "测试"
+import_lib_after += [
+    "activity"
+]
+
+```
 
 ## 3.2 后期润色
 
