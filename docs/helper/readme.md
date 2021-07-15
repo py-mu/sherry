@@ -1,5 +1,5 @@
 
-# 安装
+# 1. 安装
 
 1. pip 安装
 
@@ -22,9 +22,9 @@ python setup.py install
 
 > import sherry 没有出现异常则说明安装成功，可以开启你的开发之旅了。
 
-# 使用
+# 2. 使用
 
-## 启动Sherry
+## 2.1 启动Sherry
 
 ```python
 # encoding=utf-8
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 ![Sherry 主页](../../docs/img/welcome.png)
 
 
-## 建立项目
+## 2.2 建立项目
 
 
 1. 创建一个pyqt项目
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
 ```
 
-## 项目配置
+## 2.3 项目配置
 
 > 如果需要修改项目的一些参数、日志、路径、启动类、装饰类、反射类等，则在项目路径下新建一个名为：precondition.py 的python文件
 > 此时的项目结构为：
@@ -87,10 +87,10 @@ if __name__ == '__main__':
 |TaskDispatcher|dict|调用加载的部分([详细查阅]())|{ }|
 
 
-# 高级
+# 3. 神仙修改
 
-## 前凑引用
+## 3.1 前凑引用
 
-## 后期润色
+## 3.2 后期润色
 
-## TaskDispatcher
+## 3.3 TaskDispatcher
