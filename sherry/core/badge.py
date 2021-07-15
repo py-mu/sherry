@@ -44,18 +44,20 @@ def get_subclasses_graph(base, relative, badge_name):
         max_list = max(result, key=len)
         max_size = len(max_list)
         temp_class = None
-        if len(result) == 1:
-            return max_list[-1]
+        # 如果使用名字索引则对所有的子孙进行匹配
+        # 否则只对最远亲的那一脉进行匹配
+        sub_list = result if badge_name else filter(lambda x: len(x) == max_size, result)
 
-        for i in filter(lambda x: len(x) == max_size, result):
+        for i in sub_list:
             temp_class = temp_class or i[-1]
-            for cls in i:
-                if cls.__name__ == badge_name:
-                    return cls
-
-            if temp_class is i[-1]:
+            if badge_name:
+                badge_list = list(filter(lambda c: c.__name__ == badge_name, i))
+                if badge_list:
+                    temp_class = badge_list[0]
+                    break
                 continue
-            else:
+            if temp_class is not i[-1]:
+                temp_class = i[-1]
                 ss = [" - ".join([c.__name__ for c in _]) for _ in result]
                 logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
                                 'please use single chain inheritance as much as possible.'
@@ -66,9 +68,8 @@ def get_subclasses_graph(base, relative, badge_name):
                     "\n\t".join(ss),
                     " - ".join([_.__name__ for _ in i]) + "(use)")
                 )
-                temp_class = i[-1]
                 break
-        if temp_class == temp_class.__name__:
+        if badge_name and not badge_name == temp_class.__name__:
             raise BadgeNotFoundError("can't found a badge {} by name".format(badge_name))
         return temp_class or base
 

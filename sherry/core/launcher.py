@@ -32,24 +32,35 @@ class Application:
         其主要的方法是对窗口的生命周期管理，同时也会添加一些自动化相关的逻辑，
         可能会比较抽象，但是胜在其能够实现。
 
+            ```
+            需要注意的是，类的启动参数不要与badge与Application的内置参数名一致，
+            否则会被badge与application先行捕获，导致未知的错误出现
+            ```
+
         Launcher configuration class
         Some initialization or process settings for QApplication are set to facilitate startup and detection,
         This is the default entry of the whole framework.
         You can also inherit this class and refactor some of its methods to achieve the functions you need.
         The main method is to manage the life cycle of windows, and at the same time add some automation related logic,
         It may be more abstract, but the advantage is that it can be realized.
+
+            ```
+            It should be noted that the startup parameters of the class should not be consistent with the built-in
+            parameter names of the badge and Application, otherwise it will be captured by the badge and application
+            first, resulting in unknown errors.
+            ```
     """
 
     def __init_before__(self):
         self.socket = QLocalSocket()
         self.localServer = QLocalServer()
 
-    def __init__(self, *args, activity_=None, unique_=False, **kwargs):
+    def __init__(self, *args, activity=None, unique=False, **kwargs):
         self.args = args
         self.kwargs = kwargs
         self.__init_before__()
-        self.unique = unique_
-        self.activity = activity_
+        self.unique = unique
+        self.activity = activity
         self.__init_app()
 
     @staticmethod
