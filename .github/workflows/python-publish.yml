@@ -36,7 +36,7 @@ jobs:
 
     # 构建和发布(如果出现打了标签的提交则进行打包)
     - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
+      uses: pypa/gh-action-pypi-publish@master
+      with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
