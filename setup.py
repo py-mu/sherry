@@ -12,14 +12,19 @@ from sherry import __sherry_info__
 
 # 分类信息
 classifiers = [
-    'Development Status :: 4 - Beta',
-    'Intended Audience :: Developers'
-    'License :: OSI Approved :: Apache Software License',
-    'Natural Language :: Chinese',
-    'Operating System :: OS Independent',
-    'Programming Language :: Python',
-    'Programming Language :: Python :: 3.7',
-    'Topic :: Software Development :: Libraries :: Python Modules',
+    # 发展时期,常见的如下
+    #   3 - Alpha
+    #   4 - Beta
+    #   5 - Production/Stable
+    'Development Status :: 3 - Alpha',
+    # 开发的目标用户
+    'Intended Audience :: Developers',
+    # 属于什么类型
+    'Topic :: Software Development :: Build Tools',
+    # 许可证信息
+    'License :: OSI Approved :: MIT License',
+    # 目标 Python 版本
+    'Programming Language :: Python :: 3',
 ]
 
 setup(
@@ -28,6 +33,6 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=['QtAwesome>=0.7.0', 'PyQt5>=5.12'],
-    python_requires='>=3.6',
+    python_requires='>=3.5',
     **__sherry_info__
 )
