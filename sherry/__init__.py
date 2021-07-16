@@ -17,11 +17,11 @@ __sherry_info__ = {
     },
     'name': __name__,
     'version': __version__,
-    'description': 'Quickly develop a theme-based qt desktop program',
+    'description': '快速开发pyqt应用. Quickly develop a theme-based qt desktop program',
     'author': __author__,
     'author_email': '1540235670@qq.com',
     'url': 'https://github.com/py-mu/sherry',
-    'license': 'Apache',
+    'license': 'MIT',
     'keywords': 'GUI'
 }  # Note: setup打包信息
 

@@ -101,8 +101,8 @@ DEBUG = True
 app_name = "测试"
 
 # 虽然我继承了 WelcomeActivity 但是程序不会主动的读取这个activity模块，所以badge会找不到
-WelcomeActivity 最远的子类（也就是我继承出来的子类）所以需要手动的 import ，至于为什么不启用一个
-扫描器，这个原因存在于更深层次的原因，后面再说。
+# WelcomeActivity 最远的子类（也就是我继承出来的子类）所以需要手动的 import ，至于为什么不启用一个
+# 扫描器，这个原因存在于更深层次的原因，后面再说。
 import_lib_after += [
     "activity"
 ]

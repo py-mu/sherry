@@ -27,7 +27,11 @@ classifiers = [
     'Programming Language :: Python :: 3',
 ]
 
+with open('README.md', 'r') as f:
+    long_description = f.read()
+
 setup(
+    long_description=long_description,
     platforms=['OS-independent'],
     classifiers=classifiers,
     packages=find_packages(),
