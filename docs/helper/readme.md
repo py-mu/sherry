@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
 ```
 
-![Sherry 主页](../../img/welcome.png)
+![Sherry 主页](../img/welcome.png)
 
 
 ## 2.2 建立项目
