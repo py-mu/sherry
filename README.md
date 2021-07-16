@@ -1,5 +1,5 @@
 
-<div style="text-align: center"><img src="img/icon.png" alt="sherry"></div>
+<div style="text-align: center"><img src="docs/img/icon.png" alt="sherry"></div>
 
 <div style="text-align: center;font-size: 14pt; font-weight: bold;">✨👀简单开发你的qt应用，答应我，别再熬夜了，好吗？👀✨</div>
 
