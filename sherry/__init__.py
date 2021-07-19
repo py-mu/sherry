@@ -5,7 +5,7 @@
     at 18:47
 """
 __name__ = 'sherry'
-__version__ = '1.1.0'
+__version__ = '1.1.1'
 __author__ = '黄大胆'
 
 __sherry_info__ = {
