@@ -15,5 +15,5 @@
 - 业务逻辑纯粹，界面布局与业务分离
 - 跨平台
 
-![welcome](docs/img/welcome.png)
+![welcome](https://raw.githubusercontent.com/py-mu/sherry/main/docs/img/welcome.png)
 
