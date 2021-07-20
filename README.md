@@ -1,6 +1,7 @@
 
+<!--suppress HtmlDeprecatedAttribute -->
 <h1 align="center">
-  <img src="docs/img/icon.png" alt="sherry">
+  <img src="https://raw.githubusercontent.com/py-mu/sherry/main/docs/img/icon.png" alt="sherry">
 </h1>
 
 >使用PyQt开发桌面应用往往是非专业从事桌面开发的人员，开发桌面客户端也仅是给自己的程序添加面向用户交互，

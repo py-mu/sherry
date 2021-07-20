@@ -5,13 +5,12 @@
     at 18:47
 """
 __name__ = 'sherry'
-__version__ = '1.1.2'
+__version__ = '1.1.3'
 __author__ = '黄大胆'
 
 __sherry_info__ = {
     'project_urls': {
         'Documentation': 'https://py-mu.github.io/sherry/',
-        'Funding': 'https://donate.pypi.org',
         'Source': 'https://github.com/py-mu/sherry',
         'Tracker': 'https://github.com/py-mu/sherry/issues',
     },
