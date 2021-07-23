@@ -4,16 +4,18 @@
     on 2021/6/14
     at 2:43
 """
-from typing import List, Callable
+from typing import Tuple
 
-__all__ = ('WidgetInjector', 'register')
-instance_func: List[Callable[[], None]] = []
-
-
-def register(func: Callable[[], None]): ...
+__all__ = ('CursorAgent', 'PropertyAgent')
 
 
-class WidgetInjector:
+class BaseAgent:
+    __agent__: Tuple[str, ...]
 
-    @staticmethod
-    def __install(): ...
+
+class CursorAgent(BaseAgent):
+    ...
+
+
+class PropertyAgent(BaseAgent):
+    ...

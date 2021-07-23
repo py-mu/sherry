@@ -11,8 +11,8 @@ from PyQt5.QtWidgets import QApplication
 from sherry import __name__, __version__, __author__
 from sherry.core.badge import Badge
 from sherry.core.handler import AbnormalHookHandler
+from sherry.core.injector import CursorAgent, PropertyAgent
 from sherry.core.paths import SherryPath
-from sherry.core.injector import WidgetInjector
 from sherry.utils.log import LoggerSetter
 
 app_name = __name__  # Note: 应用名称 app name.
@@ -43,7 +43,8 @@ def set_exception_mapping():
 TaskDispatcher = {
     "project_path": (SherryPath, (), {}),
     "logger": (LoggerSetter, (log_file,), {}),
-    "qt_injector": (WidgetInjector, (), {}),
+    "qt_cursor_agent": (CursorAgent, (), {}),
+    "qt_property_agent": (PropertyAgent, (), {}),
     "abnormal_interceptor": (AbnormalHookHandler, (), {}),
     "set_exception_mapping": (set_exception_mapping, (), {}),
 }
