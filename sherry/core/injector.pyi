@@ -6,7 +6,7 @@
 """
 from typing import Tuple
 
-__all__ = ('CursorAgent', 'PropertyAgent')
+__all__ = ('CursorAgent', 'PropertyAgent', 'BaseAgent')
 
 
 class BaseAgent:
