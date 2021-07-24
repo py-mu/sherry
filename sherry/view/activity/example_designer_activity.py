@@ -14,7 +14,7 @@ from sherry.view.ui.example_designer_activity import Ui_Form
 
 
 class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):
-    """ fixme 记得修改类名 """
+    """基本样式类"""
 
     def __init__(self, *args, **kwargs):
         super(DesignerActivity, self).__init__(*args, **kwargs)
@@ -30,7 +30,6 @@ class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):
         # noinspection PyArgumentList
         self.body_layout.addWidget(self.bar, alignment=Qt.AlignTop)
         content = QWidget()
-        # TODO 放置组件区 详细用法，请访问：https://py-mu.github.io/easy-pyqt/#/start/readme
         self.setupUi(content)
 
         self.body_layout.addWidget(content)
