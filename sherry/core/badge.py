@@ -60,7 +60,7 @@ def get_subclasses_graph(base, relative, badge_name):
                 temp_class = i[-1]
                 ss = [" - ".join([c.__name__ for c in _]) for _ in result]
                 logging.warning('The loading class has malformed branches, so there is loading ambiguity, '
-                                'please use single chain inheritance as much as possible.'
+                                'please use single chain inheritance as much as possible. '
                                 'or set the badge_name what you want to used.'
                                 ' detail: source: {} target: {}， \n\nbranch: \n\t{}. \n\nuse: \n\t{}\n'.format(
                     base,
