@@ -7,6 +7,7 @@
 """
 import ctypes
 import logging
+from inspect import isclass
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
@@ -89,8 +90,10 @@ class Application:
         logging.info('start {}'.format(app_name))
         if not self.activity:
             activity = Badge(source=WelcomeActivity)
-        else:
+        elif isclass(self.activity):
             activity = Badge(*self.args, source=self.activity, **self.kwargs)
+        else:
+            activity = self.activity
         if not isinstance(activity, QWidget):
             raise TypeError('The Activity is not valid Activity.')
         if self.unique:

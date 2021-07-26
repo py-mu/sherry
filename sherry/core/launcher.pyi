@@ -5,7 +5,7 @@
     at 17:35
     默认的启动类，其实就是常用的全局设定
 """
-from typing import Optional, Type
+from typing import Type, Union
 
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
@@ -16,14 +16,14 @@ from sherry.core.handler import AbnormalMap
 class Application:
     socket: QLocalSocket
     localServer = QLocalServer
-    activity: Optional[Type[QWidget]]
+    activity: Union[Type[QWidget], None, QWidget]
     args = ()
     kwargs = {}
     unique: bool
 
     def __init_before__(self): ...
 
-    def __init__(self, *args, activity: Optional[Type] = None, unique: bool = False, **kwargs): ...
+    def __init__(self, *args, activity: Union[Type[QWidget], None, QWidget] = None, unique: bool = False, **kwargs): ...
 
     def __init_app(self): ...
 
