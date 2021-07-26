@@ -107,8 +107,8 @@ class LoggerSetter:
                 level = self.logger.level(record.levelname).name
             except ValueError:
                 level = record.levelno
-            frame, depth = logging.currentframe(), 2
-            while frame.f_code.co_name != '<module>':
+            frame, depth = logging.currentframe(), 1
+            while frame and frame.f_code.co_name != '<module>':
                 frame = frame.f_back
                 depth += 1
             self.logger.opt(depth=depth, exception=record.exc_info).log(level, record.getMessage())
