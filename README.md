@@ -9,10 +9,12 @@
     <a href="https://github.com/py-mu/sherry"><img src="https://img.shields.io/github/languages/count/py-mu/sherry" alt="maven-central"></a>
     <img src="https://img.shields.io/pypi/v/sherry" alt="sherry">
     <img src="https://img.shields.io/pypi/pyversions/sherry" alt="python version">
+  <a href="https://www.codacy.com/gh/py-mu/sherry/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=py-mu/sherry&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/53ebcd7351bb42eb96d2c9b093ae5007" alt="Codacy Badge"></a>
     <a href="./LICENSE"><img src="https://img.shields.io/github/license/py-mu/sherry" alt="license MIT"></a>
     <a href="https://github.com/py-mu/sherry"><img src="https://img.shields.io/github/stars/py-mu/sherry?style=social" alt="GitHub stars"></a>
     <a href="https://github.com/py-mu/sherry"><img src="https://img.shields.io/github/forks/py-mu/sherry?style=social" alt="GitHub forks"></a>
 </p>
+
 
 # 📑 简介 | Intro
 
