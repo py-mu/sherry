@@ -74,9 +74,9 @@ class Application:
 
     def __init_app(self):
         """初始化Qt Application"""
+        self.resource.set_style(base_style)
         self.resource.set_theme(self.resource.qss(base_qss))
         self.resource.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)  # 就近原则
-        self.resource.set_style(base_style)
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
         handler = Badge(source=AbnormalHookHandler)
         handler.set_default_callback(self.abnormal_dialog)
