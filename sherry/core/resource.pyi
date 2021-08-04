@@ -4,8 +4,9 @@
     on 2021/5/8
     at 14:35
 """
-from typing import Optional, Union
+from typing import Optional, Union, Type
 
+from PyQt5.QtCore import QTranslator
 from PyQt5.QtGui import QIcon, QFont
 from PyQt5.QtWidgets import QStyle, QApplication
 
@@ -35,7 +36,13 @@ class ResourceLoader:
     def set_theme(theme: str): ...
 
     @staticmethod
+    def set_translate(tran: QTranslator): ...
+
+    @staticmethod
     def setAttribute(key, value): ...
+
+    @staticmethod
+    def translate(base: str, text: str): ...
 
     @staticmethod
     def exec(): ...

@@ -47,9 +47,18 @@ class ResourceLoader:
         app.setStyleSheet(theme)
 
     @staticmethod
+    def set_translate(tran):
+        app.installTranslator(tran)
+
+    @staticmethod
     def setAttribute(key, value):
         """设置q app 属性"""
         app.setAttribute(key, value)
+
+    @staticmethod
+    def translate(base, text):
+        """国际化"""
+        return app.translate(base, text)
 
     @staticmethod
     def exec():

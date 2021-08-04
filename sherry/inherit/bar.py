@@ -16,7 +16,7 @@ class BaseBar(Component):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         if not master:
-            raise ValueError("父类窗体不能为空")
+            raise ValueError(self.resource.translate('Form', '父类窗体不能为空'))
 
     # noinspection PyUnresolvedReferences
     def set_signal(self):
@@ -34,7 +34,10 @@ class BaseBar(Component):
     def configure(self):
         super(BaseBar, self).configure()
         self.set_default_btn_icon()
-        self.bar_normal.setToolTip("最大化")
+        translate = self.resource.translate
+        self.bar_normal.setToolTip(translate('Form', "最大化"))
+        self.bar_mini.setToolTip(translate('Form', "最小化"))
+        self.bar_close.setToolTip(translate('Form', "关闭"))
 
     def set_default_btn_icon(self):
         """设置默认按钮图标"""
@@ -55,7 +58,7 @@ class BaseBar(Component):
         self.master.layout().setContentsMargins(*[0] * 4)
         self.master.showMaximized()  # 先实现窗口最大化
         self.bar_normal.setIcon(self.resource.font_icon("fa.window-restore", color="black"))
-        self.bar_normal.setToolTip("恢复")  # 更改按钮提示
+        self.bar_normal.setToolTip(self.resource.translate('Form', "恢复"))  # 更改按钮提示
         self.bar_normal.disconnect()  # 断开原本的信号槽连接
         self.bar_normal.clicked.connect(self.change_max)  # 重新连接信号和槽
 
@@ -71,7 +74,7 @@ class BaseBar(Component):
         self.master.layout().setContentsMargins(*[self.master.border_width] * 4)
         self.master.showNormal()
         self.bar_normal.setIcon(self.resource.font_icon("fa.window-maximize", color="black"))
-        self.bar_normal.setToolTip("最大化")
+        self.bar_normal.setToolTip(self.resource.translate('Form', "最大化"))
         self.bar_normal.disconnect()  # 关闭信号与原始槽连接
         self.bar_normal.clicked.connect(self.change_normal)
 
