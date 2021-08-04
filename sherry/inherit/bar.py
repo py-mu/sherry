@@ -34,6 +34,7 @@ class BaseBar(Component):
     def configure(self):
         super(BaseBar, self).configure()
         self.set_default_btn_icon()
+        self.bar_normal.setToolTip("最大化")
 
     def set_default_btn_icon(self):
         """设置默认按钮图标"""
