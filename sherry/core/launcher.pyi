@@ -11,9 +11,11 @@ from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 from PyQt5.QtWidgets import QWidget
 
 from sherry.core.handler import AbnormalMap
+from sherry.core.resource import ResourceLoader
 
 
 class Application:
+    resource: ResourceLoader
     socket: QLocalSocket
     localServer = QLocalServer
     activity: Union[Type[QWidget], None, QWidget]

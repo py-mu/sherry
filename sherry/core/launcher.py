@@ -16,7 +16,7 @@ from PyQt5.QtWidgets import QWidget
 from sherry.core.badge import Badge
 from sherry.core.handler import AbnormalHookHandler
 from sherry.core.resource import ResourceLoader
-from sherry.variable import app_name, app, base_qss
+from sherry.variable import app_name, base_qss, base_style
 from sherry.variable.rear import retouch
 from sherry.view.activity.activity_dialog import NormalDialogActivity
 from sherry.view.activity.activity_welcome import WelcomeActivity
@@ -58,6 +58,7 @@ class Application:
 
     def __init__(self, *args, activity=None, unique=False, **kwargs):
         self.args = args
+        self.resource = Badge(source=ResourceLoader)
         self.kwargs = kwargs
         self.__init_before__()
         self.unique = unique
@@ -73,12 +74,11 @@ class Application:
 
     def __init_app(self):
         """初始化Qt Application"""
-        resource = ResourceLoader()
-        resource.set_theme(resource.qss(base_qss))
-        resource.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)  # 就近原则
+        self.resource.set_theme(self.resource.qss(base_qss))
+        self.resource.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)  # 就近原则
+        self.resource.set_style(base_style)
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
         handler = Badge(source=AbnormalHookHandler)
-
         handler.set_default_callback(self.abnormal_dialog)
 
     def run(self):
@@ -102,7 +102,7 @@ class Application:
                 raise RuntimeError('重复运行')
             self.localServer.listen(app_name)
         activity.show()
-        app.exec_()
+        self.resource.exec()
         self.shutdown()
 
     def shutdown(self):
@@ -113,5 +113,5 @@ class Application:
         """
         logging.info('shutdown {}'.format(app_name))
         self.localServer.close()
-        app.quit()
+        self.resource.quit()
         logging.shutdown()
