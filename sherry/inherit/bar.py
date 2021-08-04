@@ -67,7 +67,7 @@ class BaseBar(Component):
             return
         if not hasattr(self.master, "border_width"):
             self.master.border_width = 0
-        self.master.layout().setContentsMargins(*[self.master.border_width for _ in range(4)])
+        self.master.layout().setContentsMargins(*[self.master.border_width] * 4)
         self.master.showNormal()
         self.bar_normal.setIcon(self.resource.font_icon("fa.window-maximize", color="black"))
         self.bar_normal.setToolTip("最大化")
