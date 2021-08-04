@@ -51,7 +51,7 @@ class BaseBar(Component):
         """
         if not self.bar_normal:
             return
-        self.master.layout().setContentsMargins(0, 0, 0, 0)
+        self.master.layout().setContentsMargins(*[0] * 4)
         self.master.showMaximized()  # 先实现窗口最大化
         self.bar_normal.setIcon(self.resource.font_icon("fa.window-restore", color="black"))
         self.bar_normal.setToolTip("恢复")  # 更改按钮提示
