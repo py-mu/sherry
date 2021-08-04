@@ -30,12 +30,26 @@ for lib in import_lib_before:
         logging.exception("can't import module '{}'. ".format(lib))
 
 # 回调
-for call_object, args, kwargs in TaskDispatcher.values():
+for call_object in TaskDispatcher.values():
     if not call_object:
         continue
-    if isclass(call_object):
-        Badge(*args, source=call_object, **kwargs)
-    elif isfunction(call_object):
-        call_object(*args, **kwargs)
+    args = ()
+    kwargs = {}
+    call_cls = None
+    if isinstance(call_object, tuple):
+        call_cls = call_object[0]
+        if len(call_object) > 1:
+            for i in call_object[1:]:
+                if isinstance(i, tuple):
+                    args = i
+                elif isinstance(i, dict):
+                    kwargs = i
+    if not call_cls:
+        continue
+
+    if isclass(call_cls):
+        Badge(*args, source=call_cls, **kwargs)
+    elif isfunction(call_cls):
+        call_cls(*args, **kwargs)
     else:
         logging.warning("未知数据类型 {} ".format(call_object))

@@ -39,10 +39,10 @@ def set_exception_mapping():
 
 # 执行任务列表
 TaskDispatcher = {
-    "project_path": (SherryPath, (), {}),
-    "logger": (LoggerSetter, (log_file,), {}),
-    "qt_cursor_agent": (CursorAgent, (), {}),
-    "qt_property_agent": (PropertyAgent, (), {}),
-    "abnormal_interceptor": (AbnormalHookHandler, (), {}),
-    "set_exception_mapping": (set_exception_mapping, (), {}),
+    "project_path": SherryPath,
+    "logger": (LoggerSetter, (log_file,)),
+    "qt_cursor_agent": CursorAgent,
+    "qt_property_agent": PropertyAgent,
+    "abnormal_interceptor": AbnormalHookHandler,
+    "set_exception_mapping": set_exception_mapping,
 }

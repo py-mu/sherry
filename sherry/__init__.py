@@ -6,7 +6,7 @@
 """
 __name__ = 'sherry'
 # base、alpha、beta 、RC 、 release.
-version = (1, 1, 26)
+version = (1, 1, 27)
 __version__ = '.'.join(map(str, version))
 __author__ = '黄大胆'
 
