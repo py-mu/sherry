@@ -45,7 +45,7 @@ class ResourceLoader:
 
     @staticmethod
     def setAttribute(key, value):
-        app.setAttribute(key, value)  # 就近原则
+        app.setAttribute(key, value)
 
     @staticmethod
     def __render_icon_by_path(path):
