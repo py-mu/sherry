@@ -75,7 +75,7 @@ class Application:
         """初始化Qt Application"""
         resource = ResourceLoader()
         resource.set_theme(resource.qss(base_qss))
-        app.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)
+        resource.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)  # 就近原则
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
         handler = Badge(source=AbnormalHookHandler)
 
