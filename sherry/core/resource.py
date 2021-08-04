@@ -42,6 +42,11 @@ class ResourceLoader:
     def set_theme(theme):
         app.setStyleSheet(theme)
 
+
+    @staticmethod
+    def setAttribute(key, value):
+        app.setAttribute(key, value)  # 就近原则
+
     @staticmethod
     def __render_icon_by_path(path):
         """

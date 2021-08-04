@@ -33,6 +33,9 @@ class ResourceLoader:
     def set_theme(theme: str): ...
 
     @staticmethod
+    def setAttribute(key, value): ...
+
+    @staticmethod
     def __render_icon_by_path(path: str) -> QIcon: ...
 
     @staticmethod
