@@ -398,7 +398,6 @@ QProgressBar::chunk {
   border-radius: 4px;
   background: #5daf34;
 }
-/*日期选择 todo 添加几个日历风格*/
 QCalendarWidget QWidget#qt_calendar_navigationbar {
   background: #f5f5f5;
   max-height: 40px;
@@ -696,6 +695,19 @@ QTableView QHeaderView::down-arrow {
 }
 QTableView QHeaderView::up-arrow {
   border-image: url(./resource/img/up-2.png);
+}
+ToolTip {
+  border: 1px solid #dcdfe6;
+}
+ToolTip TooltipLabel#tooltip_label {
+  border: none;
+  background: #303133;
+  padding: 8px 7px 9px 10px;
+  margin: 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: bold;
+  color: #ffffff;
 }
 #main_window {
   background: transparent;
