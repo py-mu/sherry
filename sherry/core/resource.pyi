@@ -7,11 +7,13 @@
 from typing import Optional, Union
 
 from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QStyle
+from PyQt5.QtWidgets import QStyle, QApplication
 
 from sherry.core.badge import T
 from sherry.core.paths import SherryPath
 from sherry.core.qss import Qss
+
+app: Union[QApplication]
 
 
 class ResourceLoader:
@@ -34,6 +36,12 @@ class ResourceLoader:
 
     @staticmethod
     def setAttribute(key, value): ...
+
+    @staticmethod
+    def exec(): ...
+
+    @staticmethod
+    def quit(): ...
 
     @staticmethod
     def __render_icon_by_path(path: str) -> QIcon: ...

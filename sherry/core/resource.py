@@ -4,16 +4,19 @@
     on 2021/5/8
     at 14:35
 """
+import sys
 
 import qtawesome
 from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
+from PyQt5.QtWidgets import QApplication
 
 from sherry.core.badge import Badge
+from sherry.core.paths import SherryPath
 from sherry.core.qss import Qss
 from sherry.inherit.style import ElementStyle
-from sherry.core.paths import SherryPath
 from sherry.utils.string import format_style_file
-from sherry.variable import app
+
+app = QApplication.instance() or QApplication(sys.argv)  # QT app
 
 
 class ResourceLoader:
@@ -40,12 +43,23 @@ class ResourceLoader:
 
     @staticmethod
     def set_theme(theme):
+        """设置样式表， set stylesheet"""
         app.setStyleSheet(theme)
-
 
     @staticmethod
     def setAttribute(key, value):
+        """设置q app 属性"""
         app.setAttribute(key, value)
+
+    @staticmethod
+    def exec():
+        """qt 事件循环"""
+        app.exec_()
+
+    @staticmethod
+    def quit():
+        """退出程序"""
+        app.quit()
 
     @staticmethod
     def __render_icon_by_path(path):
