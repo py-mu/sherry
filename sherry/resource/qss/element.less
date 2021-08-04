@@ -137,7 +137,11 @@
   font-weight: @font-weight;
   color: @color-text-regular;
 }
-*:focus{outline: none;}
+
+*:focus {
+  outline: none;
+}
+
 *:disabled, *:disabled:hover, *:disabled:pressed {
   color: @color-text-disable;
   background-image: none;
@@ -580,7 +584,6 @@ QProgressBar::chunk {
 }
 
 
-/*日期选择 todo 添加几个日历风格*/
 QCalendarWidget QWidget#qt_calendar_navigationbar {
   background: @color-background-darker;
   max-height: 40px;
@@ -946,6 +949,21 @@ QTableView QHeaderView::down-arrow {
 
 QTableView QHeaderView::up-arrow {
   border-image: @combo_box_primary_on;
+}
+
+ToolTip {
+  border: @border-base;
+}
+
+ToolTip TooltipLabel#tooltip_label {
+  border: none;
+  background: #303133;
+  padding: 8px 7px 9px 10px;
+  margin: 10px;
+  font-size: @font-size-description;
+  line-height: 1.2;
+  font-weight: bold;
+  color: @color-text-white;
 }
 
 #main_window {
