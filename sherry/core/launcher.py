@@ -57,12 +57,9 @@ class Application:
         self.localServer = QLocalServer()
 
     def __init__(self, *args, activity=None, unique=False, **kwargs):
-        self.args = args
+        self.args, self.activity, self.unique, self.kwargs = args, activity, unique, kwargs
         self.resource = Badge(source=ResourceLoader)
-        self.kwargs = kwargs
         self.__init_before__()
-        self.unique = unique
-        self.activity = activity
         self.__init_app()
 
     @staticmethod
