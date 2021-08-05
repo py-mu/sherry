@@ -44,9 +44,10 @@ for call_object in TaskDispatcher.values():
                     args = i
                 elif isinstance(i, dict):
                     kwargs = i
+    else:
+        call_cls = call_object
     if not call_cls:
         continue
-
     if isclass(call_cls):
         Badge(*args, source=call_cls, **kwargs)
     elif isfunction(call_cls):
