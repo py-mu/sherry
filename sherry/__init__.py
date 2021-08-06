@@ -6,7 +6,7 @@
 """
 __name__ = 'sherry'
 # base、alpha、beta 、RC 、 release.
-version = (1, 1, 31)
+version = (1, 1, 32)
 __version__ = '.'.join(map(str, version))
 __author__ = '黄大胆'
 
@@ -26,7 +26,7 @@ __sherry_info__ = {
     'keywords': 'GUI'
 }  # Note: setup打包信息
 
-__you_once_said__ = """
+you_are_right = """
 深海里的鲨鱼，看到海面上、阳光下跳跃的海豚，总会不自觉的害怕。
 我只是觉得无路可逃，不是鲨鱼，对方是一只海豚，没错，海豚是海洋中最受欢迎的哺乳动物。
 如果是从又黑又冷的海底逃出来的鲨鱼根本不能和它相提并论。

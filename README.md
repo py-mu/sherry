@@ -58,13 +58,13 @@
 
 # 🚀 快速上手 | Quick start
 
-1. 安装Sherry
+- 安装Sherry
 
 ```shell
 pip install sherry
 ```
 
-2. 启动
+- 启动
 
 ```python
 from sherry.core.launcher import Application
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     Application().run()
 ```
 
-3. 使用设计原型
+- 使用设计原型
 
 ```
 # 生成设计原型
