@@ -9,12 +9,16 @@
     <a href="https://github.com/py-mu/sherry"><img src="https://img.shields.io/github/languages/count/py-mu/sherry" alt="maven-central"></a>
     <img src="https://img.shields.io/pypi/v/sherry" alt="sherry">
     <img src="https://img.shields.io/pypi/pyversions/sherry" alt="python version">
+  <a href="https://www.codacy.com/gh/py-mu/sherry/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=py-mu/sherry&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/53ebcd7351bb42eb96d2c9b093ae5007" alt="Codacy Badge"></a>
     <a href="./LICENSE"><img src="https://img.shields.io/github/license/py-mu/sherry" alt="license MIT"></a>
     <a href="https://github.com/py-mu/sherry"><img src="https://img.shields.io/github/stars/py-mu/sherry?style=social" alt="GitHub stars"></a>
     <a href="https://github.com/py-mu/sherry"><img src="https://img.shields.io/github/forks/py-mu/sherry?style=social" alt="GitHub forks"></a>
 </p>
 
+
 # 📑 简介 | Intro
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dda0a3cb721f4f92b1c3ba7aac4f5178)](https://app.codacy.com/gh/py-mu/sherry?utm_source=github.com&utm_medium=referral&utm_content=py-mu/sherry&utm_campaign=Badge_Grade_Settings)
 
 使用PyQt开发桌面应用往往是非专业从事桌面开发的人员，开发桌面客户端也仅是给自己的程序添加面向用户交互，
 在不想增加学习成本的前提下，选择哪个哪个开发框架，让人头疼，，如何才能高效的开发出一个符合大众审美的应用程序？那么在原有的Python能力下，结合Sherry的加持，
