@@ -4,6 +4,7 @@
     on 2021/6/6
     at 2:01
 """
+from PyQt5.QtCore import QSize
 
 from sherry.inherit.bar import BaseBar
 from sherry.view.ui.component_base_bar import Ui_bar
@@ -30,3 +31,4 @@ class BarComponent(BaseBar, Ui_bar):
         super(BarComponent, self).configure()
         self.btn_bar_app_name.setText(self.resource.translate("Bar", "默认标题栏一"))
         self.btn_bar_app_logo.setIcon(self.resource.project_png)
+        self.btn_bar_app_logo.setIconSize(QSize(30, 30))
