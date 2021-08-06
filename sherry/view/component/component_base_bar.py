@@ -4,7 +4,6 @@
     on 2021/6/6
     at 2:01
 """
-from PyQt5.QtCore import QSize
 
 from sherry.inherit.bar import BaseBar
 from sherry.view.ui.component_base_bar import Ui_bar
