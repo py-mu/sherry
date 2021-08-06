@@ -16,9 +16,9 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
 
     def __init__(self, info="消息提示", title="提示"):
         """一般弹窗, 继承自无边框窗体"""
-        self.info = info
-        self.title = title
         super(NormalDialogActivity, self).__init__()
+        self.info = self.resource.translate("Alert", info)
+        self.title = self.resource.translate("Alert", title)
 
     def place(self):
         """需要在父类界面渲染之前重构窗体"""
@@ -36,9 +36,9 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         self.btn_bar_app_logo.setIconSize(QSize(30, 30))
         self.btn_bar_title.setText(self.title)
         self.dialog_show_info.setText(self.info)
-        self.btn_dialog_yes.setText("确认")
+        self.btn_dialog_yes.setText(self.resource.translate("Alert", "确认"))
         self.btn_dialog_yes.setProperty(*self.resource.qss_value().btn_primary)
-        self.btn_dialog_no.setText("取消")
+        self.btn_dialog_no.setText(self.resource.translate("Alert", "取消"))
         self.btn_bar_close.setIcon(self.resource.font_icon("fa.close", color="black"))
         self.btn_dialog_no.setHidden(True)
         self.event_flags.event_switch_border_bottom = False
