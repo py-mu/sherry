@@ -52,6 +52,8 @@ class LoggerSetter:
             self.handlers.append(self.TerminalHandler())
 
     def __add_handler(self):
+        # remover logging default handler and use new defined.
+        [logging.root.removeHandler(handler) for handler in logging.root.handlers]
         for handler in self.handlers:
             logging.root.addHandler(handler)
 
