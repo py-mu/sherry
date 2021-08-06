@@ -29,6 +29,5 @@ class BarComponent(BaseBar, Ui_bar):
 
     def configure(self):
         super(BarComponent, self).configure()
-        self.btn_bar_app_name.setText("默认标题栏一")
+        self.btn_bar_app_name.setText(self.resource.translate("Bar", "默认标题栏一"))
         self.btn_bar_app_logo.setIcon(self.resource.project_png)
-        self.btn_bar_app_logo.setIconSize(QSize(30, 30))
