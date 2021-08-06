@@ -244,7 +244,7 @@ QPushButton {
   outline: 0;
   margin: 0;
   font-weight: @font-weight;
-  padding: 3px 5px;
+  padding: 2px 5px;
   font-size: @font-size-default - 1;
   border-radius: @border-radius-primary;
 }
@@ -446,7 +446,7 @@ QToolButton {
   width: 70px;
   height: 50px;
   border: @border-base;
-  padding: 10px;
+  padding: 2px 5px;
   border-radius: @border-radius-primary;
 }
 
@@ -491,14 +491,14 @@ QToolButton QMenu::item:pressed {
 
 [btn_size_small="True"] {
   padding: 2px 4px;
+  height: 25px;
   font-size: @font-size-description - 2;
-  border-radius: 2px
 }
 
 [btn_size_mini="True"] {
-  padding: 2px;
-  font-size: @font-size-description - 3;
-  border-radius: 1px
+  padding: 1px 4px;
+  height: 20px;
+  font-size: @font-size-description - 2;
 }
 
 
@@ -1032,6 +1032,7 @@ ToolTip TooltipLabel#tooltip_label {
   width: 25px;
   height: 25px;
   border: none;
+  padding: 0;
   background: transparent;
 }
 
