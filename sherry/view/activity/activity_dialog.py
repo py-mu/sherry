@@ -9,7 +9,7 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import QHBoxLayout, QWidget
 
 from sherry.inherit.activity import FrameLessWindowHintActivity
-from sherry.view.prototype.activity_dialog import Ui_Form
+from sherry.view.prototype.prototype_activity_dialog import Ui_Form
 
 
 class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):

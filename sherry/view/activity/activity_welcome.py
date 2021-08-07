@@ -13,7 +13,7 @@ import sherry
 from sherry.core.badge import Badge
 from sherry.core.paths import SherryPath
 from sherry.inherit.activity import FrameLessWindowHintActivity
-from sherry.view.prototype.activity_welcome import Ui_index_body
+from sherry.view.prototype.prototype_activity_welcome import Ui_index_body
 
 
 class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
