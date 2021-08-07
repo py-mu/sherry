@@ -5,40 +5,23 @@
     at 2:18
     页面描述
 """
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QAbstractItemView
-from sherry.inherit.activity import FrameLessWindowHintActivity
-from sherry.view.decoration.decoration_base_bar import BarComponent
+from PyQt5.QtWidgets import QAbstractItemView
 
-from sherry.view.prototype.prototype_example_designer_activity import Ui_Form
+from sherry.core.badge import Badge
+from sherry.view.activity.activity_example_designer import DesignerActivity
+from sherry.view.activity.componet_base_bar import BarComponent
 
 
-class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):
+class DesignerDecoration(DesignerActivity):
     """基本样式类"""
 
-    def __init__(self, *args, **kwargs):
-        super(DesignerActivity, self).__init__(*args, **kwargs)
-        self.center()
-
-    def center(self):
-        self.move(340, 0)
-
-    def place(self):
-        """放置组件"""
-        super(DesignerActivity, self).place()
-        self.bar = BarComponent(self)
-        # noinspection PyArgumentList
-        self.body_layout.addWidget(self.bar, alignment=Qt.AlignTop)
-        content = QWidget()
-        self.setupUi(content)
-
-        self.body_layout.addWidget(content)
-        self.body_layout.addStretch()
+    def get_bar(self):
+        return Badge(self, source=BarComponent)
 
     def configure(self):
         """配置页面及控件属性"""
-        super(DesignerActivity, self).configure()
-
+        super(DesignerDecoration, self).configure()
+        self.move(340, 0)
         # 常用按钮
         self.pushButton.setIcon(self.resource.font_icon('fa.frown-o', 'red'))
         self.pushButton_2.setProperty(*self.resource.qss_value().btn_primary)
@@ -91,6 +74,3 @@ class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):
         self.textEdit.setToolTip("测试123213")
         self.plainTextEdit.setToolTip('sssssss')
         self.textEdit_2.setToolTip('1232222')
-
-    def event(self, event) -> bool:
-        return super(DesignerActivity, self).event(event)

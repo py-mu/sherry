@@ -26,7 +26,16 @@ DEBUG = True
 # run before
 # 在部分使用badge注入的类，在程序没有扫描到的子类，是不会生效的
 # 此时需要在程序运行伊始手动导入，这样装载子类时才会生效
-import_lib_before = []
+# todo 希望能添加自动扫描
+import_lib_before = [
+    'sherry.view.decoration.decoration_base_bar',
+    'sherry.view.decoration.decoration_activity_dialog',
+    'sherry.view.decoration.decoration_activity_welcome',
+    'sherry.view.decoration.decoration_activity_example_designer',
+
+    'sherry.view.signal.signal_activity_dialog',
+    'sherry.view.signal.signal_activity_welcome',
+]
 
 # 部分需要框架初始化结束后才能进行装载的衍生类
 import_lib_after = []

@@ -27,7 +27,7 @@ for lib in import_lib_before:
     try:
         __import__(lib)
     except ImportError as e:
-        logging.exception("can't import module '{}'. ".format(lib))
+        print("can't import module '{}'. ".format(lib))
 
 # 回调
 for call_object in TaskDispatcher.values():

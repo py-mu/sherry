@@ -18,8 +18,8 @@ from sherry.core.handler import AbnormalHookHandler
 from sherry.core.resource import ResourceLoader
 from sherry.variable import app_name, base_qss, base_style
 from sherry.variable.rear import retouch
-from sherry.view.decoration.decoration_activity_dialog import NormalDialogActivity
-from sherry.view.decoration.decoration_activity_welcome import WelcomeActivity
+from sherry.view.activity.activity_dialog import NormalDialogActivity
+from sherry.view.activity.activity_welcome import WelcomeActivity
 
 # 加载修饰类
 retouch()
