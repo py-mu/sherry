@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QWidget, QAbstractItemView
 from sherry.inherit.activity import FrameLessWindowHintActivity
 from sherry.view.component.component_base_bar import BarComponent
 
-from sherry.view.ui.example_designer_activity import Ui_Form
+from sherry.view.prototype.example_designer_activity import Ui_Form
 
 
 class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):

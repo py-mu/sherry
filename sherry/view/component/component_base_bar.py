@@ -7,7 +7,7 @@
 from PyQt5.QtCore import QSize
 
 from sherry.inherit.bar import BaseBar
-from sherry.view.ui.component_base_bar import Ui_bar
+from sherry.view.prototype.component_base_bar import Ui_bar
 
 
 class BarComponent(BaseBar, Ui_bar):
