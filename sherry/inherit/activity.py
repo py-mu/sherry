@@ -95,7 +95,6 @@ class FrameLessWindowHintActivity(BaseActivity):
     def __init__(self, master=None, *args, **kwargs):
         super(FrameLessWindowHintActivity, self).__init__(master, *args, **kwargs)
         self.event_flags = self.EventFlags()
-        self.procedure()
 
     def configure(self):
         super(FrameLessWindowHintActivity, self).configure()
@@ -110,8 +109,9 @@ class FrameLessWindowHintActivity(BaseActivity):
         super(FrameLessWindowHintActivity, self).place()
         if not self.body_widget:
             main_layout = QHBoxLayout(self)
-            self.body_widget = QWidget()
+            self.body_widget = QWidget(self)
             self.body_layout = QVBoxLayout(self.body_widget)
+            self.body_layout.setContentsMargins(*[0] * 4)
             main_layout.addWidget(self.body_widget)
 
     def set_default_window_shadow(self):
