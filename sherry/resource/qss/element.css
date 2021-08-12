@@ -560,17 +560,46 @@ QTabWidget QTabBar::tab:selected {
   border-bottom: 3px solid #3a8ee6;
   color: #3a8ee6;
 }
+QToolBox QScrollArea > QWidget > QWidget {
+  margin: 0;
+  padding: 0;
+}
+QToolBoxButton {
+  padding: 2px 5px;
+  min-height: 30px;
+}
+QToolBox::tab {
+  border: none;
+}
+QToolBox::tab:hover {
+  background-color: #d9ecff;
+}
+QToolBox::tab:selected {
+  height: 100px;
+  border-left: 2px solid #409eff;
+  background-color: #f5f5f5;
+  color: #409eff;
+}
 QScrollBar {
   background: #fdfdfd;
   margin: 0;
 }
+QScrollBar:vertical {
+  width: 7px;
+}
+QScrollBar:horizontal {
+  height: 7px;
+}
 QScrollBar::handle {
   background: #f0f0f0;
-  border-radius: 4px;
   border: none;
 }
 QScrollBar::handle:hover {
-  background: #dedede;
+  background: #d9ecff;
+}
+QScrollBar::handle:vertical {
+  width: 50px;
+  border: none;
 }
 QScrollBar::add-line:vertical {
   height: 0;
@@ -781,5 +810,9 @@ ToolTip TooltipLabel#tooltip_label {
   padding: 2px 5px;
   width: 50px;
   height: 27px;
+}
+[label_1='True'] {
+  background-color: #f5f5f5;
+  border-radius: 0;
 }
 /*# sourceMappingURL=element.css.map */
