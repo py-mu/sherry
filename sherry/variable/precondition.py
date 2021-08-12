@@ -31,9 +31,11 @@ import_lib_before = [
     'sherry.view.decoration.decoration_base_bar',
     'sherry.view.decoration.decoration_activity_dialog',
     'sherry.view.decoration.decoration_activity_welcome',
+    'sherry.view.decoration.decoration_activity_simple_theme',
     'sherry.view.decoration.decoration_activity_example_designer',
 
     'sherry.view.signal.signal_activity_dialog',
+    'sherry.view.signal.signal_activity_simple_theme',
     'sherry.view.signal.signal_activity_welcome',
 ]
 
