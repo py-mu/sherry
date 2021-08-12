@@ -17,6 +17,7 @@ class NormalDialogActivity(FrameLessWindowHintActivity, Ui_Form):
         super(NormalDialogActivity, self).__init__()
         self.info = self.resource.translate("Alert", info)
         self.title = self.resource.translate("Alert", title)
+        self.procedure()
 
     def place(self):
         """需要在父类界面渲染之前重构窗体"""

@@ -20,6 +20,7 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
     def __init__(self, *args, **kwargs):
         self.app_path = Badge(source=SherryPath)
         super(WelcomeActivity, self).__init__(*args, **kwargs)
+        self.procedure()
 
     def place(self):
         """放置组件"""

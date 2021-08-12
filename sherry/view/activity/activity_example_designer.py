@@ -15,6 +15,7 @@ from sherry.view.prototype.prototype_example_designer_activity import Ui_Form
 class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):
     def __init__(self, *args, **kwargs):
         super(DesignerActivity, self).__init__(*args, **kwargs)
+        self.procedure()
 
     def place(self):
         """放置组件"""
@@ -24,9 +25,7 @@ class DesignerActivity(FrameLessWindowHintActivity, Ui_Form):
         self.body_layout.addWidget(self.bar, alignment=Qt.AlignTop)
         content = QWidget()
         self.setupUi(content)
-
         self.body_layout.addWidget(content)
-        self.body_layout.addStretch()
 
     def get_bar(self):
         return BarComponent(self)

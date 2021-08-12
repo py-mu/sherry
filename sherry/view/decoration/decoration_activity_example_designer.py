@@ -48,7 +48,7 @@ class DesignerDecoration(DesignerActivity):
 
         self.pushButton_13.setProperty(*self.resource.qss_value().btn_style_simplicity)
         self.pushButton_13.setProperty(*self.resource.qss_value().btn_info)
-        self.pushButton_3.setText(r'\e6ad')
+        # self.pushButton_3.setText(r'\e6ad')
 
         self.pushButton_14.setDisabled(True)
 
