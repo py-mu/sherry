@@ -185,3 +185,13 @@ class SherryPath:
         if not self.path_exists(path):
             path = self.link(self.package_resource_path, file_name)
         return path
+
+    def get_path_in(self, *args, name):
+        """获取路径， 根据顺序依次查找，如果没有则返回None， 如果不指定不定长参数则返回文件名"""
+        if not args:
+            return name
+        for root in args:
+            path = self.link(root, name)
+            if self.path_exists(path):
+                return path
+        return None
