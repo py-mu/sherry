@@ -138,18 +138,16 @@ class ResourceLoader:
         return self.__render_icon_by_path(path)
 
     @staticmethod
-    def font(size, weight=2, family="微软雅黑"):
+    def font(size, weight=2):
         """
         创建一个字体，如此不必重复的
         实例化-设置-调用
 
         :param size: 大小
         :param weight: 权重
-        :param family: 字体族
         """
         font = QFont()
         font.setWeight(weight)
-        font.setFamily(family)
         font.setPointSize(size)
         return font
 
