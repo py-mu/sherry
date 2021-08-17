@@ -9,13 +9,14 @@
 @color-background-white: #ffffff;
 //基础背景色
 @color-background-base: #fdfdfd;
+@color-background-base1: #f8f9fa;
 @color-background-darker: #f5f5f5;
 @color-background-darker1: #f0f0f0;
 @color-background-darker2: #dedede;
 @color-background-darker3: #e3e3e3;
 @color-background-darker4: #d2d2d2;
-@color-background-darker4: #c2c2c2;
-@color-background-darker4: #a1a2a1;
+@color-background-darker5: #c2c2c2;
+@color-background-darker6: #a1a2a1;
 // 黑色背景色
 @color-background-black: #000000;
 
@@ -94,7 +95,7 @@
 @color-border-extra-light: #F2F6FC;
 
 // --------------------Font 字体------------------------------------------
-@font-family: "Microsoft YaHei UI", serif;
+@font-family: "element", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 @font-weight: 450;
 // 默认字体大小
 @font-size-default: 14px;
@@ -208,10 +209,44 @@ QAbstractSpinBox:hover {
   border-color: @color-border-base;
 }
 
-QWidget, QFrame {
+// 层级div，颜色比较浅的会在最底层
+QWidget, QFrame, QWidget[widget_level_0='True'], QFrame[widget_level_0='True'] {
   border-radius: @border-radius-primary;
   background-color: @color-background-base;
 }
+
+QWidget[widget_level_1='True'], QFrame[frame_level_1='True'] {
+  background-color: @color-background-base1;
+}
+
+QWidget[widget_level_2='True'], QFrame[frame_level_2='True'] {
+  background-color: @color-background-darker;
+}
+
+QWidget[widget_level_3='True'], QFrame[frame_level_3='True'] {
+  background-color: @color-background-darker1;
+}
+
+QWidget[widget_level_4='True'], QFrame[frame_level_4='True'] {
+  background-color: @color-background-darker2;
+}
+
+QWidget[widget_level_5='True'], QFrame[frame_level_5='True'] {
+  background-color: @color-background-darker3;
+}
+
+QWidget[widget_level_6='True'], QFrame[frame_level_6='True'] {
+  background-color: @color-background-darker4;
+}
+
+QWidget[widget_level_7='True'], QFrame[frame_level_7='True'] {
+  background-color: @color-background-darker5;
+}
+
+QWidget[widget_level_8='True'], QFrame[frame_level_8='True'] {
+  background-color: @color-background-darker6;
+}
+
 
 QGroupBox {
   border: @border-base;
@@ -444,7 +479,7 @@ QPushButton[btn_success="True"][btn_style_simplicity="True"]:pressed, [btn_succe
 
 QToolButton {
   width: 70px;
-  height: 50px;
+  height: 30px;
   border: @border-base;
   padding: 2px 5px;
   border-radius: @border-radius-primary;
@@ -797,7 +832,6 @@ QToolBox::tab:selected {
 }
 
 QScrollBar {
-  background: @color-background-base;
   margin: 0;
 }
 
@@ -916,6 +950,30 @@ QTreeView QHeaderView::section {
   background-color: @color-primary-lighter1;
 }
 
+QTreeWidget[menu_tree='True'] {
+  show-decoration-selected: 1;
+
+}
+
+
+QTreeView[menu_tree='True']::item::selected,
+QTreeView[menu_tree='True']::item::selected:hover,
+QTreeView[menu_tree='True']::branch::selected,
+QTreeView[menu_tree='True']::branch::selected:hover {
+  border: none;
+  border-right: 2px solid @color-primary;
+  background-color: @color-background-base;
+  color: @color-primary;
+}
+
+QTreeView[menu_tree='True']::item::hover, QTreeView[menu_tree='True']::Branch::hover {
+  background-color: @color-primary-light;
+}
+
+QTreeWidgetItem {
+  background-color: #4ead74;
+
+}
 
 // 表格
 QTableView {
@@ -1081,8 +1139,27 @@ ToolTip TooltipLabel#tooltip_label {
   height: 27px;
 }
 
-// 颜色较暗
-[label_1='True']{
-  background-color: @color-background-darker;
+[content_border='True'] {
   border-radius: 0;
+  border-top: 1px solid @color-background-darker4;
+  border-left: 1px solid @color-background-darker4;
+}
+
+#widget_5 {
+  background-color: @color-background-darker;
+}
+
+[menu_tree='True'] {
+  border: none;
+}
+
+[icon_button='True'] {
+  text-align: left;
+  border: none;
+  background: transparent;
+}
+
+[icon_button='True']:hover {
+  border: none;
+  background: transparent;
 }
