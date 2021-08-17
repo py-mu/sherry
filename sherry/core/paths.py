@@ -93,6 +93,15 @@ class SherryPath:
         return self.link(self.package_resource_path, "img")
 
     @property
+    def package_font_path(self):
+        """
+        返回包内的静态文件font的路径
+
+        Return the Sherry font path in the site-package.
+        """
+        return self.link(self.package_resource_path, 'font')
+
+    @property
     def project_path(self):
         """
         项目路径
@@ -119,6 +128,15 @@ class SherryPath:
         The image path of the project
         """
         return self.link(self.project_resource_path, "img")
+
+    @property
+    def project_font_path(self):
+        """
+        返回包内的静态文件font的路径
+
+        The font path of the project.
+        """
+        return self.link(self.project_resource_path, 'font')
 
     @property
     def project_qss_path(self):
