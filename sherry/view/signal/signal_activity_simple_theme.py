@@ -54,8 +54,12 @@ class SimpleThemeSignal(SimpleThemeDecoration):
             self.pushButton_6.click()
 
     def unfold_menu(self):
-        """展开/收起菜单"""
-        self.tree_menu_action = QPropertyAnimation(self.widget, b'minimumWidth')
+        """
+        展开/收起菜单
+        通过修改左侧widget的最大宽度来实现，展开时设置为180，
+        收起时设置为60，刚好是一个图标左右的宽度
+        """
+        self.tree_menu_action = QPropertyAnimation(self.widget, b'maximumWidth')
         self.tree_menu_action.stop()
         mini_width = 60
         start = self.widget.width()
