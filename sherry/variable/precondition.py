@@ -19,6 +19,7 @@ app_version = __version__  # Note: 版本 app version.
 
 log_file = "log/{}.log".format(app_name)  # Note: 日志文件路径 log file path.
 base_qss = "element.css"  # Note: 默认使用的主题 base theme.
+base_font = 'element.ttf'
 base_style = ElementStyle()  # Note: 默认的style, base style.
 # if debug
 DEBUG = True
@@ -28,6 +29,7 @@ DEBUG = True
 # 此时需要在程序运行伊始手动导入，这样装载子类时才会生效
 # todo 希望能添加自动扫描
 import_lib_before = [
+    'sherry.view.digital.digital_activity_simple_theme',
     'sherry.view.decoration.decoration_base_bar',
     'sherry.view.decoration.decoration_activity_dialog',
     'sherry.view.decoration.decoration_activity_welcome',

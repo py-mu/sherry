@@ -7,6 +7,7 @@ author: str
 app_version: str or float
 log_file: str
 base_qss: str
+base_font: str
 base_style: QStyle
 TaskDispatcher: Dict[str, Union[
     Tuple[Union[Callable, Type, object], Tuple, Dict],
