@@ -4,6 +4,8 @@
     on 2021/5/8
     at 14:35
 """
+import logging
+import os
 import sys
 
 import qtawesome
@@ -109,9 +111,11 @@ class ResourceLoader:
         :param convert: 是否需要灰度转换
         :param name: 文件名
         """
-        path = self.path.link(self.path.project_img_path, name)
-        if not self.path.path_exists(path):
-            path = self.path.link(self.path.package_img_path, name)
+        project_path, package_path = self.path.project_img_path, self.path.package_img_path
+        path = self.path.get_path_in(project_path, package_path, name=name)
+        if not path:
+            logging.warning(
+                "cant't find the image file in path '%s' or '%s' name called %s" % (project_path, package_path, name))
         if convert:
             return self.__render_icon_by_path_convert(path)
         return self.__render_icon_by_path(path)
@@ -156,17 +160,13 @@ class ResourceLoader:
         css_name = css_name or ('element.css',)
         style_str = ""
         for file_name in css_name:
-            root = self.path.project_path
-            path = self.path.link(self.path.project_qss_path, file_name)
-            if not self.path.path_exists(path):
-                path = self.path.link(self.path.package_qss_path, file_name)
-                root = self.path.package_path
-            try:
-                with open(path, encoding="utf-8") as f:
-                    style_str += format_style_file(f.read(), root)
-            except FileNotFoundError:
+            path = self.path.get_path_in(self.path.project_qss_path, self.path.package_qss_path, name=file_name)
+            if not path:
                 path = self.path.link(self.path.project_qss_path, file_name)
                 raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
+            root = os.path.commonpath([self.path.project_path, path, self.path.package_path])
+            with open(path, encoding="utf-8") as f:
+                style_str += format_style_file(f.read(), root)
         return style_str
 
     @staticmethod
