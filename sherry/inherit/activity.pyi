@@ -6,8 +6,8 @@
 """
 from typing import Optional
 
-from PyQt5.QtCore import QEvent
-from PyQt5.QtWidgets import QDialog, QWidget, QLayout
+from qtpy.QtCore import QEvent
+from qtpy.QtWidgets import QDialog, QWidget, QLayout
 
 from sherry.inherit.view import BaseView
 

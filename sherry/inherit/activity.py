@@ -5,8 +5,8 @@
     at 0:11
 """
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
+from qtpy.QtCore import Qt
+from qtpy.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
 from sherry.inherit.view import BaseView
 from sherry.variable import app_name

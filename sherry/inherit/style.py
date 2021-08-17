@@ -5,7 +5,7 @@
     at 17:08
 """
 
-from PyQt5.QtWidgets import (QStyle, QProxyStyle, QStyleOptionProgressBar)
+from qtpy.QtWidgets import (QStyle, QProxyStyle, QStyleOptionProgressBar)
 
 
 class ElementStyle(QProxyStyle):

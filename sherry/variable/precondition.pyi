@@ -1,6 +1,6 @@
 from typing import List, Callable, Dict, Type, Tuple, Union
 
-from PyQt5.QtWidgets import QStyle
+from qtpy.QtWidgets import QStyle
 
 app_name: str
 author: str

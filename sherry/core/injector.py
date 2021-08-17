@@ -8,8 +8,8 @@ from __future__ import print_function
 
 __all__ = ('CursorAgent', 'PropertyAgent', 'BaseAgent')
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget
+from qtpy.QtCore import Qt
+from qtpy.QtWidgets import QWidget
 
 from sherry.core.reflex import ReflexCenter
 

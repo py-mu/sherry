@@ -4,7 +4,7 @@
     on 2021/8/11
     at 11:15
 """
-from PyQt5.QtCore import QSize
+from qtpy.QtCore import QSize
 
 from sherry.view.digital.digital_activity_simple_theme import SimpleThemeDigital
 

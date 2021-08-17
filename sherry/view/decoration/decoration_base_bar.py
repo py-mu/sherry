@@ -4,7 +4,7 @@
     on 2021/6/6
     at 2:01
 """
-from PyQt5.QtCore import QSize
+from qtpy.QtCore import QSize
 
 from sherry.view.activity.componet_base_bar import BarComponent
 

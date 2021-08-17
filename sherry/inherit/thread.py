@@ -7,7 +7,7 @@
 import logging
 import uuid
 
-from PyQt5.QtCore import QThread, pyqtSignal
+from qtpy.QtCore import QThread, pyqtSignal
 
 
 class Response:

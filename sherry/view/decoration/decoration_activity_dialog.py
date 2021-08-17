@@ -5,7 +5,7 @@
     at 11:19
      一般弹窗
 """
-from PyQt5.QtCore import QSize
+from qtpy.QtCore import QSize
 
 from sherry.view.activity.activity_dialog import NormalDialogActivity
 

@@ -1,9 +1,9 @@
 from typing import Optional, Union, Tuple
 
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QEvent
-from PyQt5.QtGui import QColor, QGradient, QMouseEvent
-from PyQt5.QtWidgets import QWidget, QGraphicsDropShadowEffect
+from qtpy import QtGui
+from qtpy.QtCore import Qt, QEvent
+from qtpy.QtGui import QColor, QGradient, QMouseEvent
+from qtpy.QtWidgets import QWidget, QGraphicsDropShadowEffect
 
 from sherry.core.resource import ResourceLoader
 

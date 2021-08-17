@@ -9,9 +9,9 @@ import ctypes
 import logging
 from inspect import isclass
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtNetwork import QLocalServer, QLocalSocket
-from PyQt5.QtWidgets import QWidget
+from qtpy.QtCore import Qt
+from qtpy.QtNetwork import QLocalServer, QLocalSocket
+from qtpy.QtWidgets import QWidget
 
 from sherry.core.badge import Badge
 from sherry.core.handler import AbnormalHookHandler

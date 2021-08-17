@@ -1,8 +1,8 @@
 from typing import Dict, List, TypedDict
 
-from PyQt5.QtCore import QRegExp
-from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat, QTextBlockFormat, QFont
-from PyQt5.QtWidgets import QTextEdit
+from qtpy.QtCore import QRegExp
+from qtpy.QtGui import QSyntaxHighlighter, QTextCharFormat, QTextBlockFormat, QFont
+from qtpy.QtWidgets import QTextEdit
 
 
 class Font(TypedDict):

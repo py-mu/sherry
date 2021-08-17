@@ -6,9 +6,9 @@
 """
 from typing import Optional, Union
 
-from PyQt5.QtCore import QTranslator
-from PyQt5.QtGui import QIcon, QFont
-from PyQt5.QtWidgets import QStyle, QApplication
+from qtpy.QtCore import QTranslator
+from qtpy.QtGui import QIcon, QFont
+from qtpy.QtWidgets import QStyle, QApplication
 
 from sherry.core.badge import T
 from sherry.core.paths import SherryPath

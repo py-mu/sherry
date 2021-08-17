@@ -10,9 +10,9 @@
 """
 import json
 
-from PyQt5.QtCore import Qt, QRegExp
-from PyQt5.QtGui import QSyntaxHighlighter, QTextCharFormat, QColor, QFont, QCursor, QTextBlockFormat, QFontMetrics
-from PyQt5.QtWidgets import QApplication
+from qtpy.QtCore import Qt, QRegExp
+from qtpy.QtGui import QSyntaxHighlighter, QTextCharFormat, QColor, QFont, QCursor, QTextBlockFormat, QFontMetrics
+from qtpy.QtWidgets import QApplication
 
 
 class Prism(QSyntaxHighlighter):

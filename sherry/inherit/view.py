@@ -5,9 +5,9 @@
     at 0:11
 """
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
+from qtpy.QtCore import Qt
+from qtpy.QtGui import QPainter
+from qtpy.QtWidgets import QWidget, QStyleOption, QStyle, QGraphicsDropShadowEffect
 
 from sherry.core.resource import ResourceLoader
 from sherry.core.badge import Badge

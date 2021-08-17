@@ -9,8 +9,9 @@ import os
 import sys
 
 import qtawesome
-from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont, QFontDatabase
-from PyQt5.QtWidgets import QApplication
+from qtpy.QtCore import Qt
+from qtpy.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont, QFontDatabase
+from qtpy.QtWidgets import QApplication
 
 from sherry.core.badge import Badge
 from sherry.core.paths import SherryPath
@@ -49,7 +50,7 @@ class ResourceLoader:
         if not path:
             path = self.path.link(self.path.project_font_path, font_name)
             self.__raise_file_not_found(path)
-        QFontDatabase.addApplicationFont(path)
+        QFontDatabase().addApplicationFont(path)
 
     def __raise_file_not_found(self, path):
         """抛出文件查找不到"""
@@ -119,7 +120,7 @@ class ResourceLoader:
                 color = image.pixel(x, y)
                 gray = qGray(color)
                 image.setPixel(x, y, qRgba(gray, gray, gray, qAlpha(color)))
-        icon.addPixmap(QPixmap.fromImage(image), QIcon.Normal, QIcon.On)
+        icon.addPixmap(QPixmap().fromImage(image, Qt.ImageConversionFlags), QIcon.Normal, QIcon.On)
         return icon
 
     def icon(self, name, convert=False):

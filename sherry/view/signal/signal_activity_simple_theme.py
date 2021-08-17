@@ -4,8 +4,8 @@
     on 2021/8/11
     at 21:02
 """
-from PyQt5.QtCore import QPropertyAnimation, QEasingCurve
-from PyQt5.QtWidgets import QTreeWidgetItem
+from qtpy.QtCore import QPropertyAnimation, QEasingCurve
+from qtpy.QtWidgets import QTreeWidgetItem
 
 from sherry.view.decoration.decoration_activity_simple_theme import SimpleThemeDecoration
 

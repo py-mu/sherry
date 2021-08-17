@@ -6,8 +6,8 @@
 """
 from typing import Optional
 
-from PyQt5 import QtGui, QtCore
-from PyQt5.QtWidgets import (QWidget, QStyle, QStyleOption, QStyleHintReturn, QProxyStyle, QStyleOptionComplex)
+from qtpy import QtGui, QtCore
+from qtpy.QtWidgets import (QWidget, QStyle, QStyleOption, QStyleHintReturn, QProxyStyle, QStyleOptionComplex)
 
 
 class ElementStyle(QProxyStyle):

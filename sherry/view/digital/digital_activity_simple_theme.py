@@ -4,8 +4,8 @@
     on 2021/8/12
     at 20:37
 """
-from PyQt5.QtGui import QColor, QBrush
-from PyQt5.QtWidgets import QTreeWidgetItem
+from qtpy.QtGui import QColor, QBrush
+from qtpy.QtWidgets import QTreeWidgetItem
 
 from sherry.view.activity.activity_simple_theme import SimpleThemeActivity
 

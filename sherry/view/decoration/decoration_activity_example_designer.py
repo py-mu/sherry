@@ -5,7 +5,7 @@
     at 2:18
     页面描述
 """
-from PyQt5.QtWidgets import QAbstractItemView
+from qtpy.QtWidgets import QAbstractItemView
 
 from sherry.core.badge import Badge
 from sherry.view.activity.activity_example_designer import DesignerActivity
