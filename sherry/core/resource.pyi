@@ -4,7 +4,7 @@
     on 2021/5/8
     at 14:35
 """
-from typing import Optional, Union, Type
+from typing import Optional, Union
 
 from PyQt5.QtCore import QTranslator
 from PyQt5.QtGui import QIcon, QFont
@@ -28,6 +28,10 @@ class ResourceLoader:
     project_png: QIcon
 
     def __init__(self): ...
+
+    def add_font(self, font_name: str) -> int: ...
+
+    def __raise_file_not_found(self, path: str): ...
 
     @staticmethod
     def set_style(style: Optional[QStyle]): ...

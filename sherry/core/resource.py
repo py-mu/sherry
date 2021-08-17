@@ -9,7 +9,7 @@ import os
 import sys
 
 import qtawesome
-from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont
+from PyQt5.QtGui import qGray, qRgba, qAlpha, QIcon, QPixmap, QFont, QFontDatabase
 from PyQt5.QtWidgets import QApplication
 
 from sherry.core.badge import Badge
@@ -38,6 +38,23 @@ class ResourceLoader:
 
         self.project_icon = self.icon('icon.ico')
         self.project_png = self.icon('icon.png')
+
+    def add_font(self, font_name):
+        """添加字体"""
+        path = self.path.get_path_in(
+            self.path.project_font_path,
+            self.path.package_font_path,
+            name=font_name
+        )
+        if not path:
+            path = self.path.link(self.path.project_font_path, font_name)
+            self.__raise_file_not_found(path)
+        QFontDatabase.addApplicationFont(path)
+
+    def __raise_file_not_found(self, path):
+        """抛出文件查找不到"""
+        raise FileNotFoundError(
+            "Are you sure that this resource file exists in your project directory? path: {path}".format(path=path), )
 
     @staticmethod
     def set_style(style=None or ElementStyle()):
@@ -163,7 +180,7 @@ class ResourceLoader:
             path = self.path.get_path_in(self.path.project_qss_path, self.path.package_qss_path, name=file_name)
             if not path:
                 path = self.path.link(self.path.project_qss_path, file_name)
-                raise FileNotFoundError(f"您确定您的项目目录下存在这个资源文件吗？{path}", )
+                self.__raise_file_not_found(path)
             root = os.path.commonpath([self.path.project_path, path, self.path.package_path])
             with open(path, encoding="utf-8") as f:
                 style_str += format_style_file(f.read(), root)
