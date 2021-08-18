@@ -53,7 +53,7 @@ def set_exception_mapping():
 # 执行任务列表
 TaskDispatcher = {
     "project_path": SherryPath,
-    "logger": (LoggerSetter, (log_file,)),
+    "logger": (LoggerSetter, (log_file,), {"singleton": True}),
     "qt_cursor_agent": CursorAgent,
     "qt_property_agent": PropertyAgent,
     "abnormal_interceptor": AbnormalHookHandler,
