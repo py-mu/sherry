@@ -58,7 +58,7 @@ class Application:
 
     def __init__(self, *args, activity=None, unique=False, **kwargs):
         self.args, self.activity, self.unique, self.kwargs = args, activity, unique, kwargs
-        self.resource = Badge(source=ResourceLoader)
+        self.resource = Badge(source=ResourceLoader, singleton=True)
         self.__init_before__()
         self.__init_app()
 
@@ -76,7 +76,7 @@ class Application:
         self.resource.set_theme(self.resource.qss(base_qss))
         self.resource.setAttribute(Qt.AA_UseStyleSheetPropagationInWidgetStyles, True)  # 就近原则
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_name)
-        handler = Badge(source=AbnormalHookHandler)
+        handler = Badge(source=AbnormalHookHandler, singleton=True)
         handler.set_default_callback(self.abnormal_dialog)
 
     def run(self):
