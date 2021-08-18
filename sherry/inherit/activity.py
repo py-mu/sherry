@@ -106,16 +106,10 @@ class FrameLessWindowHintActivity(BaseActivity):
             self.set_default_window_shadow()
             self.body_widget.setMouseTracking(True)
 
-    # def show(self):
-    #     self.set_switch_animation(self.show_)
-    #
-    # def show_(self):
-    #     super(FrameLessWindowHintActivity, self).show()
-
     def accept(self):
         self.set_switch_animation(self.accept_)
 
-    def set_switch_animation(self, callback=None, duration=100, start=1, end=0, animation=None):
+    def set_switch_animation(self, callback=None, duration=200, start=1, end=0, animation=None):
         """设置切换效果"""
         self.switch_animation = animation or self.switch_animation or QPropertyAnimation(self, b'windowOpacity')
         self.switch_animation.stop()
@@ -130,6 +124,7 @@ class FrameLessWindowHintActivity(BaseActivity):
         """添加淡出"""
         return super(FrameLessWindowHintActivity, self).accept()
 
+    # noinspection PyArgumentList
     def place(self):
         super(FrameLessWindowHintActivity, self).place()
         if not self.body_widget:
