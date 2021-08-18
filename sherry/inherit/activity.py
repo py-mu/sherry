@@ -5,7 +5,7 @@
     at 0:11
 """
 
-from qtpy.QtCore import Qt
+from qtpy.QtCore import Qt, QPropertyAnimation
 from qtpy.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
 from sherry.inherit.view import BaseView
@@ -56,6 +56,7 @@ class FrameLessWindowHintActivity(BaseActivity):
     body_layout = None
     bar = None  # 顶部标题栏
     border_width = 5  # 窗口拉伸边界
+    switch_animation = None  # 页面切换动画
 
     class EventFlags:
         """
@@ -105,11 +106,35 @@ class FrameLessWindowHintActivity(BaseActivity):
             self.set_default_window_shadow()
             self.body_widget.setMouseTracking(True)
 
+    # def show(self):
+    #     self.set_switch_animation(self.show_)
+    #
+    # def show_(self):
+    #     super(FrameLessWindowHintActivity, self).show()
+
+    def accept(self):
+        self.set_switch_animation(self.accept_)
+
+    def set_switch_animation(self, callback=None, duration=100, start=1, end=0, animation=None):
+        """设置切换效果"""
+        self.switch_animation = animation or self.switch_animation or QPropertyAnimation(self, b'windowOpacity')
+        self.switch_animation.stop()
+        self.switch_animation.setDuration(duration)
+        self.switch_animation.setStartValue(start)
+        self.switch_animation.setEndValue(end)
+        if callback:
+            self.switch_animation.finished.connect(callback)
+        self.switch_animation.start()
+
+    def accept_(self):
+        """添加淡出"""
+        return super(FrameLessWindowHintActivity, self).accept()
+
     def place(self):
         super(FrameLessWindowHintActivity, self).place()
         if not self.body_widget:
             main_layout = QHBoxLayout(self)
-            self.body_widget = QWidget(self)
+            self.body_widget = QWidget(self, flags=Qt.Widget)
             self.body_layout = QVBoxLayout(self.body_widget)
             self.body_layout.setContentsMargins(*[0] * 4)
             main_layout.addWidget(self.body_widget)
