@@ -46,8 +46,8 @@ import_lib_after = []
 
 
 def set_exception_mapping():
-    json_path = Badge(source=SherryPath).file_path('sherry/exception-handler.json')
-    Badge(source=AbnormalHookHandler).update_json(json_path)
+    json_path = Badge(source=SherryPath, singleton=True).file_path('sherry/exception-handler.json')
+    Badge(source=AbnormalHookHandler, singleton=True).update_json(json_path)
 
 
 # 执行任务列表

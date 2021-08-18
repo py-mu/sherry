@@ -13,7 +13,7 @@ class Badge(object):
     def __new__(cls,
                 *args,
                 source: Optional[Type[T]] = None,
-                singleton=True,
+                singleton=False,
                 relative=True,
                 return_class=False,
                 badge_name='',

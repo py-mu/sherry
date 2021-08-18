@@ -21,7 +21,7 @@ class BaseView(QWidget):
     def __init__(self, master=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.resource = Badge(source=ResourceLoader)
+        self.resource = Badge(source=ResourceLoader, singleton=True)
 
     def set_signal(self):
         """
