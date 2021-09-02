@@ -95,7 +95,7 @@
 @color-border-extra-light: #F2F6FC;
 
 // --------------------Font 字体------------------------------------------
-@font-family: "element", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+@font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 @font-weight: 450;
 // 默认字体大小
 @font-size-default: 14px;
@@ -265,6 +265,19 @@ QGroupBox::title {
   padding: 0 3px;
   color: @color-text-primary;
 }
+
+QGroupBox[label_center='True'] {
+  border: none;
+  border-top: @border-base;
+  border-radius: 0;
+}
+
+QGroupBox[label_center='True']::title {
+  margin: 35px 0 0;
+  alignment: center;
+  subcontrol-position: top center;
+}
+
 
 [widget_primary="True"], [frame_primary="True"] {
 
@@ -954,20 +967,22 @@ QTreeWidget[menu_tree='True'] {
   show-decoration-selected: 1;
 
 }
-
+QTreeView[menu_tree='True']::item{
+  //border-radius: @border-radius-primary;
+}
 
 QTreeView[menu_tree='True']::item::selected,
 QTreeView[menu_tree='True']::item::selected:hover,
 QTreeView[menu_tree='True']::branch::selected,
 QTreeView[menu_tree='True']::branch::selected:hover {
   border: none;
-  border-right: 2px solid @color-primary;
-  background-color: @color-background-base;
-  color: @color-primary;
+  border-left: 4px solid @color-primary;
+  background-color: @color-primary-light;
+  color: @color-text-white;
 }
 
 QTreeView[menu_tree='True']::item::hover, QTreeView[menu_tree='True']::Branch::hover {
-  background-color: @color-primary-light;
+  background-color: @color-primary-lighter;
 }
 
 QTreeWidgetItem {
@@ -1050,6 +1065,21 @@ QTableView QHeaderView::up-arrow {
 
 ToolTip {
   border: @border-base;
+  alignment: center;
+}
+
+QLabel{
+  padding: 1px 2px;
+}
+QLabel[label_1='True']{
+  font-size: @font-size-description;
+  color: @color-primary - 1;
+}
+QLabel[label_2='True']{
+  font-size: @font-size-default;
+}
+QLabel[label_3='True']{
+  font-size: @font-size-title;
 }
 
 ToolTip TooltipLabel#tooltip_label {
@@ -1142,11 +1172,9 @@ ToolTip TooltipLabel#tooltip_label {
 [content_border='True'] {
   border-radius: 0;
   border-top: 1px solid @color-background-darker4;
-  border-left: 1px solid @color-background-darker4;
 }
 
-#widget_5 {
-  background-color: @color-background-darker;
+#widget_1 {
 }
 
 [menu_tree='True'] {
@@ -1162,4 +1190,8 @@ ToolTip TooltipLabel#tooltip_label {
 [icon_button='True']:hover {
   border: none;
   background: transparent;
+}
+
+[no_border='True']{
+  border: none;
 }
