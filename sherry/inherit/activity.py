@@ -8,6 +8,7 @@
 from qtpy.QtCore import Qt, QPropertyAnimation
 from qtpy.QtWidgets import QDialog, QWidget, QHBoxLayout, QVBoxLayout
 
+from sherry.core.resource import app
 from sherry.inherit.view import BaseView
 from sherry.variable import app_name
 
@@ -56,7 +57,9 @@ class FrameLessWindowHintActivity(BaseActivity):
     body_layout = None
     bar = None  # 顶部标题栏
     border_width = 5  # 窗口拉伸边界
-    switch_animation = None  # 页面切换动画
+    fade_out_animation = None  # 淡出
+    fade_in_animation = None  # 淡入
+    signals = {}
 
     class EventFlags:
         """
@@ -97,6 +100,12 @@ class FrameLessWindowHintActivity(BaseActivity):
         super(FrameLessWindowHintActivity, self).__init__(master, *args, **kwargs)
         self.event_flags = self.EventFlags()
 
+    def center(self):
+        screen = app.desktop().availableGeometry()
+        size = self.geometry()
+        self.move((screen.width() - size.width()) / 2,
+                  (screen.height() - size.height()) / 2)
+
     def configure(self):
         super(FrameLessWindowHintActivity, self).configure()
         self.setObjectName("main_window")
@@ -111,14 +120,21 @@ class FrameLessWindowHintActivity(BaseActivity):
 
     def set_switch_animation(self, callback=None, duration=200, start=1, end=0, animation=None):
         """设置切换效果"""
-        self.switch_animation = animation or self.switch_animation or QPropertyAnimation(self, b'windowOpacity')
-        self.switch_animation.stop()
-        self.switch_animation.setDuration(duration)
-        self.switch_animation.setStartValue(start)
-        self.switch_animation.setEndValue(end)
+        self.fade_out_animation = animation or self.fade_out_animation or QPropertyAnimation(self, b'windowOpacity')
+        while self.signals:
+            key, slot = self.signals.popitem()
+            try:
+                self.fade_out_animation.finished.disconnect(slot)
+            except TypeError:
+                pass
+        self.fade_out_animation.stop()
+        self.fade_out_animation.setDuration(duration)
+        self.fade_out_animation.setStartValue(start)
+        self.fade_out_animation.setEndValue(end)
         if callback:
-            self.switch_animation.finished.connect(callback)
-        self.switch_animation.start()
+            self.signals.update({id(callback): callback})
+            self.fade_out_animation.finished.connect(callback)
+        self.fade_out_animation.start()
 
     def accept_(self):
         """添加淡出"""

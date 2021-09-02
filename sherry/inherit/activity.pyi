@@ -4,9 +4,9 @@
     on 2021/5/30
     at 0:11
 """
-from typing import Optional, Callable
+from typing import Optional, Callable, Dict
 
-from qtpy.QtCore import QEvent, QAbstractAnimation
+from qtpy.QtCore import QEvent, QAbstractAnimation, QPropertyAnimation
 from qtpy.QtWidgets import QDialog, QWidget, QLayout
 
 from sherry.inherit.view import BaseView
@@ -23,6 +23,9 @@ class FrameLessWindowHintActivity(BaseActivity):
     body_layout: Optional[QLayout]
     bar: Optional[QWidget]
     border_width: int
+    fade_out_animation: QPropertyAnimation
+    fade_in_animation: QPropertyAnimation
+    signals: Dict[int, Callable]
 
     class EventFlags:
         event_flag_bar_move: bool
@@ -45,6 +48,8 @@ class FrameLessWindowHintActivity(BaseActivity):
         event_switch_border_bottom_right: bool
 
         event_position_mouse = None
+
+    def center(self): ...
 
     def set_default_window_shadow(self): ...
 
