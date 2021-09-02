@@ -28,7 +28,7 @@ class Ui_Main(object):
         self.widget.setMaximumSize(QtCore.QSize(180, 16777215))
         self.widget.setObjectName("widget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout_2.setContentsMargins(5, -1, -1, -1)
+        self.verticalLayout_2.setContentsMargins(5, 5, 0, -1)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.widget_4 = QtWidgets.QWidget(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)

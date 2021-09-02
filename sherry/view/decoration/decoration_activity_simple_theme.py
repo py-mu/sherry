@@ -33,18 +33,23 @@ class SimpleThemeDecoration(SimpleThemeDigital):
         self.pushButton_8.setProperty('icon_button', 'True')
 
         self.widget_5.setProperty('content_border', 'True')
+        self.widget_5.setProperty('widget_level_3', 'True')
         self.treeWidget.setProperty('menu_tree', 'True')
         # 子项Item与顶层TopLevelItem顶端对其
         self.treeWidget.setIndentation(0)
-        # 设置其icon的大小
-        self.treeWidget.setIconSize(QSize(30, 30))
+        # 设置树形列表icon的大小
+        self.treeWidget.setIconSize(QSize(20, 20))
+        # 使用阴影时在最大化后会出现边界计算问题
+        # shadow = self.get_effect_shadow()
+        # self.widget.setGraphicsEffect(shadow)
+        # self.widget.setGraphicsEffect(None)
 
     def set_default_btn_icon(self):
         """设置默认按钮图标"""
         self.pushButton.setIcon(self.resource.project_png)
-        self.pushButton_2.setIcon(self.resource.font_icon('fa.question-circle', color="black"))
+        self.pushButton_2.setIcon(self.resource.font_icon('fa.question-circle', color="#333"))
         self.pushButton_8.setIcon(self.resource.font_icon('ei.chevron-left', color="#d2d2d2"))
-        self.pushButton_3.setIcon(self.resource.font_icon('fa.cog', color="black"))
+        self.pushButton_3.setIcon(self.resource.font_icon('fa.cog', color="#333"))
         self.pushButton_6.setIcon(self.resource.font_icon("fa.window-maximize", color="black"))
         self.pushButton_7.setIcon(self.resource.font_icon("fa.window-minimize", color="black"))
         self.pushButton_5.setIcon(self.resource.font_icon("fa.close", color="black"))

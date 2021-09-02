@@ -18,7 +18,7 @@ class WelcomeActivity(FrameLessWindowHintActivity, Ui_index_body):
     """图像来源：https://tieba.baidu.com/p/5273658104?pid=110599529244"""
 
     def __init__(self, *args, **kwargs):
-        self.app_path = Badge(source=SherryPath)
+        self.app_path = Badge(source=SherryPath, singleton=True)
         super(WelcomeActivity, self).__init__(*args, **kwargs)
         self.procedure()
 

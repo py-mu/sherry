@@ -7,6 +7,8 @@
 from qtpy.QtCore import QPropertyAnimation, QEasingCurve
 from qtpy.QtWidgets import QTreeWidgetItem
 
+from sherry.core.badge import Badge
+from sherry.view.activity.activity_about import AboutActivity
 from sherry.view.decoration.decoration_activity_simple_theme import SimpleThemeDecoration
 
 
@@ -14,6 +16,7 @@ class SimpleThemeSignal(SimpleThemeDecoration):
     # 左侧展开的item 索引
     expanded_item = None
     tree_menu_action = None
+    menu_is_close = False
 
     def set_signal(self):
         super(SimpleThemeSignal, self).set_signal()
@@ -23,6 +26,14 @@ class SimpleThemeSignal(SimpleThemeDecoration):
         self.pushButton.clicked.connect(self.unfold_menu)
         self.pushButton_8.clicked.connect(self.unfold_menu)
         self.treeWidget.itemClicked.connect(self.tree_unfold)
+        self.pushButton_2.clicked.connect(self.show_about)
+
+    @staticmethod
+    def show_about():
+        """点击关于"""
+        about = Badge(source=AboutActivity)
+        about.center()
+        about.exec()
 
     def change_normal(self):
         """
@@ -59,16 +70,23 @@ class SimpleThemeSignal(SimpleThemeDecoration):
         通过修改左侧widget的最大宽度来实现，展开时设置为180，
         收起时设置为60，刚好是一个图标左右的宽度
         """
+
         self.tree_menu_action = QPropertyAnimation(self.widget, b'maximumWidth')
         self.tree_menu_action.stop()
-        mini_width = 60
+        mini_width = 50
         start = self.widget.width()
         if self.widget.width() > mini_width:
             icon = self.resource.font_icon('ei.chevron-right', color="#d2d2d2")
             end = mini_width
+            self.menu_is_close = True
+            # 在收缩的时候看看是不是有列表是展开的
+            # 如果有则先对齐收缩再收缩左侧导航栏
+            if self.expanded_item:
+                self.expanded_item.setExpanded(False)
         else:
             icon = self.resource.font_icon('ei.chevron-left', color="#d2d2d2")
             end = 180
+            self.menu_is_close = False
         self.pushButton_8.setIcon(icon)
         self.tree_menu_action.setStartValue(start)
         self.tree_menu_action.setEndValue(end)
@@ -76,30 +94,21 @@ class SimpleThemeSignal(SimpleThemeDecoration):
         self.tree_menu_action.setDuration(500)
         self.tree_menu_action.start()
 
-        # self.widget.setFixedWidth(width)
-
-    def close_all_expand(self):
-        """关闭所有非当前选中的展开"""
-        for i in range(self.treeWidget.topLevelItemCount()):
-            current_item = self.treeWidget.currentItem()
-            current_top_index = self.treeWidget.indexOfTopLevelItem(current_item)
-            top_level_item = self.treeWidget.topLevelItem(i)
-            if current_top_index > -1 and id(current_item) != id(self.expanded_item) and top_level_item.isExpanded():
-                top_level_item.setExpanded(False)
-
     def tree_unfold(self, item: QTreeWidgetItem):
         """
         点击存在子项的父类项，如果其没有展开则展开，
         同时关闭其他已经展开的top item，
         反之，若点击已经展开的item则将其关闭
         """
-        if item.childCount():
+        # 不允许在收缩菜单时对子列表进行展开
+        if not self.menu_is_close and item.childCount():
             item = self.treeWidget.currentItem()
+            self.expanded_item = item
             if item.isExpanded():
                 item.setExpanded(False)
                 return
             item.setExpanded(True)
-            index = self.treeWidget.indexOfTopLevelItem(item)
-            if index > -1:
-                self.expanded_item = item
-        self.close_all_expand()
+        elif item.parent() is self.expanded_item:
+            pass
+        elif self.expanded_item and self.expanded_item.isExpanded():
+            self.expanded_item.setExpanded(False)
