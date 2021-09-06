@@ -123,12 +123,13 @@ QGroupBox::title {
   color: #303133;
 }
 QGroupBox[label_center='True'] {
-  border: none;
+  border-style: none;
   border-top: 1px solid #dcdfe6;
   border-radius: 0;
 }
 QGroupBox[label_center='True']::title {
-  margin: 35px 0 0;
+  margin: 30px 0 0;
+  padding: 0 20px;
   alignment: center;
   subcontrol-position: top center;
 }

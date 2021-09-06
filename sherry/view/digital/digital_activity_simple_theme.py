@@ -25,7 +25,10 @@ class SimpleThemeDigital(SimpleThemeActivity):
                 "disabled": False,
             },
             "UI元素": {
-                "icon": self.resource.font_icon('fa.tachometer', color='#333'),
+                "icon": self.resource.font_icon('fa.tachometer', color='#333',
+                                                # color_active='orange',
+                                                # options=[{'active': 'fa5s.balance-scale'}]
+                                                ),
                 "children": {
                     "按钮": {},
                     "表格": {},
@@ -45,7 +48,7 @@ class SimpleThemeDigital(SimpleThemeActivity):
             "文件浏览器": {
                 "icon": self.resource.font_icon('fa.chrome', color='#333'),
             },
-            "表单": {"indentation": 9},
+            "多媒体": {"indentation": 9},
             "图表": {"indentation": 9},
             "聊天窗口": {"indentation": 9},
         }

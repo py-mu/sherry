@@ -104,7 +104,7 @@ class FrameLessWindowHintActivity(BaseActivity):
         screen = app.desktop().availableGeometry()
         size = self.geometry()
         self.move((screen.width() - size.width()) / 2,
-                  (screen.height() - size.height()) / 2)
+                  (screen.height() - size.height()) / 2 - 100)
 
     def configure(self):
         super(FrameLessWindowHintActivity, self).configure()

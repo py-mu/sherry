@@ -265,15 +265,16 @@ QGroupBox::title {
   padding: 0 3px;
   color: @color-text-primary;
 }
-
+// 标题居中
 QGroupBox[label_center='True'] {
-  border: none;
+  border-style: none;
   border-top: @border-base;
   border-radius: 0;
 }
 
 QGroupBox[label_center='True']::title {
-  margin: 35px 0 0;
+  margin: 30px 0 0;
+  padding: 0 20px;
   alignment: center;
   subcontrol-position: top center;
 }
