@@ -86,7 +86,8 @@ class LoggerSetter:
     #     def __init__(self):
     #         super().__init__()
     #         self.formatter = colorlog.ColoredFormatter(
-    #             fmt='%(log_color)s[%(asctime)s.%(msecs)03d] %(filename)s -> %(funcName)s line:%(lineno)d [%(levelname)s] : %(message)s',
+    #             fmt='%(log_color)s[%(asctime)s.%(msecs)03d] %(filename)s ->\
+    #             %(funcName)s line:%(lineno)d [%(levelname)s] : %(message)s',
     #             datefmt='%Y-%m-%d  %H:%M:%S',
     #         )
     #         self.level = logging.DEBUG

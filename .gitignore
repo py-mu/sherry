@@ -137,3 +137,4 @@ dmypy.json
 pypi
 #docs/
 #example/
+log/

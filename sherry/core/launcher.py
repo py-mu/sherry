@@ -97,7 +97,7 @@ class Application:
         if self.unique:
             self.socket.connectToServer(app_name)
             if self.socket.waitForConnected(200):
-                raise RuntimeError('重复运行')
+                raise RuntimeError('重复运行 Run repeatedly')
             self.localServer.listen(app_name)
         activity.show()
         self.resource.exec()
