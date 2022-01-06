@@ -1,6 +1,6 @@
 <!--suppress HtmlDeprecatedAttribute -->
 <h1 align="center">
-  <img src="https://sherry-docs.vercel.app/img/icon.png" alt="sherry">
+  <img src="https://sherry-docs.vercel.app/resource/image/icon.png" alt="sherry">
 </h1>
 
 <p align="center">
@@ -29,7 +29,7 @@ Easy Qt For Python（Sherry） 致力于样式跟界面布局之上，力达能�
 
 # 📷 演示截图 | Screenshot
 
-![welcome](https://sherry-docs.vercel.app/img/welcome.png)
+![welcome](https://sherry-docs.vercel.app/resource/image/welcome.png)
 
 # 🎄 目录结构 | structure
 
